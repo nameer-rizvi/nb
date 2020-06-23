@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   const authSplit = authorization && authorization.split(" ");
   const isBasic = authSplit && authSplit[0] === "Basic";
   const base64 = authSplit && authSplit[1];
-  function authorizeRequester() {
+  function authorizeUser() {
     const credentials = decode(base64).split(":");
     const user = credentials[0];
     const accounts = { nameer: process.env.PASSWORD };
@@ -22,5 +22,5 @@ module.exports = (req, res, next) => {
       ? ((res.locals.user = user), next())
       : res.sendStatus(403);
   }
-  !isBasic || !base64 ? res.sendStatus(403) : authorizeRequester();
+  !isBasic || !base64 ? res.sendStatus(403) : authorizeUser();
 };
