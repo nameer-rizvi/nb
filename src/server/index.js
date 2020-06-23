@@ -3,7 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { logger } = require("../utils");
 const { rateLimiter, sanitizer, basicAuth } = require("./middleware");
-const { get } = require("./routes");
+const routes = require("./routes");
 
 module.exports = () => {
   const server = express();
@@ -15,6 +15,8 @@ module.exports = () => {
   server.use(express.json());
   server.use(cors(origin));
   server.use(helmet());
-  server.use(rateLimiter(500), sanitizer, basicAuth);
-  server.get("/", get);
+  server.use(rateLimiter(500));
+  server.use(sanitizer);
+  server.use(basicAuth);
+  server.use(routes);
 };
