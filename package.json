@@ -33,7 +33,7 @@
     "helmet": "^3.23.2",
     "nodemon": "^2.0.4",
     "sanitized": "^1.0.5",
-    "simpul": "^0.2.1"
+    "simpul": "^0.2.4"
   },
   "devDependencies": {
     "eslint": "^7.3.1"
