@@ -8,12 +8,20 @@ const { decode } = require("simpul").base64;
 // hackers. This is simply a template for how one
 // might incorporate a simple authorization process
 // within the app.
+//
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication
 
 module.exports = (req, res, next) => {
+  const secure = process.env.NODE_ENV === "production" ? req.secure : null;
+
   const { authorization } = req.headers;
+
   const authSplit = authorization && authorization.split(" ");
+
   const isBasic = authSplit && authSplit[0] === "Basic";
+
   const base64 = authSplit && authSplit[1];
+
   function authorizeUser() {
     const credentials = decode(base64).split(":");
     const user = credentials[0];
@@ -22,5 +30,6 @@ module.exports = (req, res, next) => {
       ? ((res.locals.user = user), next())
       : res.sendStatus(403);
   }
-  !isBasic || !base64 ? res.sendStatus(403) : authorizeUser();
+
+  secure && (!isBasic || !base64) ? res.status(401) : authorizeUser();
 };
