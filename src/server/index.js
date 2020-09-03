@@ -10,7 +10,7 @@ module.exports = () => {
   const port = process.env.PORT || 4000;
   const origin = process.env.ORIGIN ? { origin: process.env.ORIGIN } : null;
   server.listen(port, () =>
-    logger({ s: `Express server listening on port ${port}.` })
+    logger({ s: "Express server listening on port " + port })
   );
   server.use(express.json());
   server.use(cors(origin));

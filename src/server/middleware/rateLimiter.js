@@ -2,6 +2,8 @@ const rateLimit = require("express-rate-limit");
 
 // Protection against brute-force attacks.
 // https://www.npmjs.com/package/express-rate-limit
+//
+// Should be delegated to something like Nginx or Apache.
 
 module.exports = (limit) =>
   rateLimit({
