@@ -12,7 +12,7 @@ const { decode } = require("simpul").base64;
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication
 
 module.exports = (req, res, next) => {
-  const secure = process.env.NODE_ENV === "production" ? req.secure : null;
+  const secure = process.env.NODE_ENV === "production" ? req.secure : true;
 
   const { authorization } = req.headers;
 
