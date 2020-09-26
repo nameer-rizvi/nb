@@ -12,7 +12,10 @@ const { decode } = require("simpul").base64;
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication
 
 module.exports = (req, res, next) => {
-  const secure = process.env.NODE_ENV === "production" ? req.secure : true;
+  const secure =
+    process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === "production"
+      ? req.secure
+      : true;
 
   const { authorization } = req.headers;
 
@@ -22,14 +25,24 @@ module.exports = (req, res, next) => {
 
   const base64 = authSplit && authSplit[1];
 
+  function sendChallenge() {
+    res.set("WWW-Authenticate", `Basic realm="Access to resource."`);
+    res.sendStatus(401);
+  }
+
+  function setUserAndNext(user) {
+    res.user = user;
+    next();
+  }
+
   function authorizeUser() {
     const credentials = decode(base64).split(":");
     const user = credentials[0];
     const accounts = { nameer: process.env.PASSWORD };
     accounts[user] === credentials[1]
-      ? ((res.locals.user = user), next())
+      ? setUserAndNext(user)
       : res.sendStatus(403);
   }
 
-  secure && (!isBasic || !base64) ? res.status(401) : authorizeUser();
+  secure && (!isBasic || !base64) ? sendChallenge() : authorizeUser();
 };

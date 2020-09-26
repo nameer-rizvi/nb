@@ -1,1 +1,1 @@
-module.exports = (req, res) => res.send({ welcome: res.locals.user });
+module.exports = (req, res) => res.send({ welcome: res.user });

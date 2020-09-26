@@ -12,6 +12,8 @@ const server = require("./server");
 // independently (i.e. on their own schedule,
 // through use of a package like CronJob).
 
-const scripts = { default: () => server() };
+const scripts = {
+  default: () => server(),
+};
 
 scripts[script] ? scripts[script]() : scripts.default();
