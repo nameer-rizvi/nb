@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const { logger } = require("simpul");
-const { rateLimiter, sanitizer, basicAuth } = require("./middleware");
+const { sanitizer, errorHandler } = require("./middleware");
 const routes = require("./routes");
 
 module.exports = () => {
@@ -18,9 +18,8 @@ module.exports = () => {
     express.json(),
     cors(origin),
     helmet(),
-    rateLimiter(500),
     sanitizer,
-    basicAuth,
-    routes
+    routes,
+    errorHandler
   );
 };

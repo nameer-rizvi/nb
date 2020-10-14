@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
   }
 
   function setUserAndNext(user) {
-    res.user = user;
+    req.user = user;
     next();
   }
 
@@ -44,5 +44,9 @@ module.exports = (req, res, next) => {
       : res.sendStatus(403);
   }
 
-  secure && (!isBasic || !base64) ? sendChallenge() : authorizeUser();
+  secure
+    ? !isBasic || !base64
+      ? sendChallenge()
+      : authorizeUser()
+    : res.status(400).send("Request is unsecure.");
 };

@@ -13,7 +13,7 @@ const server = require("./server");
 // through use of a package like CronJob).
 
 const scripts = {
-  default: () => server(),
+  default: server,
 };
 
 scripts[script] ? scripts[script]() : scripts.default();

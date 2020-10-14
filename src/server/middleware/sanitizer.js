@@ -1,6 +1,7 @@
 const sanitized = require("sanitized");
 
-// Protection against XSS attacks from user inputs.
+// Protection against XSS attacks.
+//
 // https://www.npmjs.com/package/sanitized
 
 module.exports = (req, res, next) => {

@@ -1,5 +1,5 @@
 const basicAuth = require("./basicAuth");
-const rateLimiter = require("./rateLimiter");
+const errorHandler = require("./errorHandler");
 const sanitizer = require("./sanitizer");
 
-module.exports = { basicAuth, rateLimiter, sanitizer };
+module.exports = { basicAuth, errorHandler, sanitizer };
