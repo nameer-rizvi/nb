@@ -1,6 +1,10 @@
 const jsontxt = require("jsontxt");
 
 module.exports = (req, res, next) => {
-  jsontxt.write({ ...jsontxt.read(), [req.user]: {} });
-  res.sendStatus(200);
+  try {
+    jsontxt.delete();
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
 };
