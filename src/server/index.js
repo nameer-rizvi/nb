@@ -1,7 +1,6 @@
 const express = require("express");
 const { logger } = require("simpul");
 const middlewares = require("./middlewares");
-const routes = require("./routes");
 
 module.exports = () => {
   const server = express();
