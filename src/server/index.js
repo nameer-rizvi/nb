@@ -12,9 +12,5 @@ module.exports = () => {
     logger({ s: "Express server listening on port " + port })
   );
 
-  server.use(middlewares.main);
-
-  server.use(routes);
-
-  server.use(middlewares.errorHandler);
+  server.use(middlewares);
 };
