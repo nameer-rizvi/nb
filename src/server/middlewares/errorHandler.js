@@ -31,7 +31,7 @@ function handleServerError(err, res) {
   for (let i = 0; i < errStackSplit.length; i++) {
     let trace = errStackSplit[i];
     trace &&
-      trace.includes("/nb/src") &&
+      trace.includes("/src") &&
       stack.push(simpulString.space.clean(trace));
   }
 
@@ -53,3 +53,5 @@ module.exports = (err, req, res, next) =>
       ? handleClientError(err, res)
       : handleServerError(err, res)
     : res.sendStatus(500);
+
+// https://expressjs.com/en/guide/error-handling.html
