@@ -1,8 +1,10 @@
 const cors = require("cors");
 const { ORIGIN } = process.env;
 
-module.exports = cors({
+const corsMiddleware = cors({
   origin: ORIGIN ? ORIGIN.split(",") : undefined,
 });
+
+module.exports = corsMiddleware;
 
 // https://www.npmjs.com/package/cors
