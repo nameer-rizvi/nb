@@ -1,10 +1,11 @@
 const middlewares = [
   require("./cors"),
-  require("./errorHandler"),
   require("./expressJSON"),
   require("./helmet"),
-  require("../routes"),
   require("./sanitizer"),
+  require("./requestLogger"),
+  require("../routes"),
+  require("./errorHandler"),
 ];
 
 module.exports = middlewares;

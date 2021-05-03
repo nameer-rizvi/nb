@@ -9,5 +9,4 @@ function sanitizerMiddleware(req, res, next) {
 module.exports = sanitizerMiddleware;
 
 // Protection against XSS attacks.
-//
 // https://www.npmjs.com/package/sanitized

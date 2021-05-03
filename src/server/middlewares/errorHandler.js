@@ -15,7 +15,7 @@ function clientErrorHandler(err, res) {
 }
 
 function handleServerError(err, res) {
-  logger({ e: err.sqlMessage || err.message || err.toString() });
+  logger("💬 " + (err.sqlMessage || err.message || err.toString()));
 
   let stack = [];
 
@@ -24,8 +24,7 @@ function handleServerError(err, res) {
   for (let i = 0; i < errStackSplit.length; i++) {
     let trace = errStackSplit[i];
 
-    if (trace && (trace.includes("/src") || trace.includes(origin)))
-      stack.push(trace.trim());
+    if (trace && trace.includes("/src")) stack.push(trace.trim());
   }
 
   if (stack && stack.length) {
@@ -39,6 +38,8 @@ function handleServerError(err, res) {
 
 // eslint-disable-next-line
 function errorHandlerMiddleware(err, req, res, next) {
+  logger({ e: `${req.method} "${req.url}"` });
+
   if (err && isString(err)) {
     clientErrorHandler(err, res);
   } else if (err) {
