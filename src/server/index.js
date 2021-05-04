@@ -8,7 +8,7 @@ function expressServer() {
   const port = process.env.PORT || 4000;
 
   const logListener = () =>
-    logger(`⚡ Express server listening on port ${port}.`);
+    logger(`📡 Express server listening on port ${port}.`);
 
   server.listen(port, logListener);
 

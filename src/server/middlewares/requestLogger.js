@@ -1,7 +1,8 @@
 const { logger } = require("simpul");
 
 function requestLoggerMiddleware(req, res, next) {
-  logger({ s: `${req.method} "${req.url}"` });
+  logger(`📟 ${req.method} "${req.url}" @ ${req.headers["user-agent"]}`);
+
   next();
 }
 

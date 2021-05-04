@@ -1,4 +1,4 @@
-module.exports = {
+const eslint = {
   env: {
     node: true,
     browser: true,
@@ -11,3 +11,5 @@ module.exports = {
   },
   rules: {},
 };
+
+module.exports = eslint;
