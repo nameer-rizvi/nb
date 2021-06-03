@@ -1,7 +1,7 @@
-const { logger } = require("simpul");
+const { timelog } = require("simpul");
 
 function requestLoggerMiddleware(req, res, next) {
-  logger(`📟 ${req.method} "${req.url}" @ ${req.headers["user-agent"]}`);
+  timelog(`📟 ${req.method} "${req.url}" @ ${req.headers["user-agent"]}`);
 
   next();
 }

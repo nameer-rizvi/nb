@@ -16,4 +16,6 @@ const scripts = {
   default: server,
 };
 
-scripts[script] ? scripts[script]() : scripts.default();
+if (scripts[script]) {
+  scripts[script]();
+} else scripts.default();

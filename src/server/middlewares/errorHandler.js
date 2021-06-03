@@ -1,4 +1,4 @@
-const { isString, isNumber, isStringValid, logger } = require("simpul");
+const { isString, isNumber, isStringValid, timelog } = require("simpul");
 
 function clientErrorHandler(err, res) {
   const errSplit = err.split("::");
@@ -10,8 +10,8 @@ function clientErrorHandler(err, res) {
   } else res.sendStatus(code);
 }
 
-function handleServerError(err, res) {
-  logger("💬 " + (err.sqlMessage || err.message || err.toString()));
+function serverErrorHandler(err, res) {
+  timelog("💬 " + (err.sqlMessage || err.message || err.toString()));
   let stack = [];
   const errStackSplit = err.stack && err.stack.split("at ");
   for (let i = 0; i < errStackSplit.length; i++) {
@@ -20,7 +20,7 @@ function handleServerError(err, res) {
   }
   if (stack && stack.length) {
     for (let i = 0; i < stack.length; i++) {
-      logger("➡️  " + stack[i]);
+      timelog("➡️  " + stack[i]);
     }
   }
   res.sendStatus(500);
@@ -28,11 +28,11 @@ function handleServerError(err, res) {
 
 // eslint-disable-next-line
 function errorHandlerMiddleware(err, req, res, next) {
-  logger({ e: `${req.method} "${req.url}"` });
+  timelog({ e: `${req.method} "${req.url}"` });
   if (err && isString(err)) {
     clientErrorHandler(err, res);
   } else if (err) {
-    handleServerError(err, res);
+    serverErrorHandler(err, res);
   } else res.sendStatus(500);
 }
 
