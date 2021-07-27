@@ -5,7 +5,7 @@ const middlewares = [
   require("./sanitizer"),
   require("./requestLogger"),
   require("../routes"),
-  require("./errorHandler"),
+  require("./error.index"),
 ];
 
 module.exports = middlewares;
