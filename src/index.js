@@ -1,6 +1,6 @@
 require("dotenv").config();
-const script = process.env.npm_lifecycle_event;
-const server = require("./server");
+const scriptName = process.env.npm_lifecycle_event;
+const expressServer = require("./server");
 
 // Script management: Run a process based on
 // the npm lifecycle event. Ex. "npm run
@@ -12,10 +12,10 @@ const server = require("./server");
 // independently (i.e. on their own schedule,
 // through use of a package like CronJob).
 
-const scripts = {
-  default: server,
+const scriptResolver = {
+  default: expressServer,
 };
 
-if (scripts[script]) {
-  scripts[script]();
-} else scripts.default();
+if (scriptResolver[scriptName]) {
+  scriptResolver[scriptName]();
+} else scriptResolver.default();

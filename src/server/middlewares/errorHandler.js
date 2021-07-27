@@ -11,7 +11,7 @@ function clientErrorHandler(err, res) {
 }
 
 function serverErrorHandler(err, res) {
-  timelog("💬 " + (err.sqlMessage || err.message || err.toString()));
+  timelog("⚠️  " + (err.sqlMessage || err.message || err.toString()));
   let stack = [];
   const errStackSplit = err.stack && err.stack.split("at ");
   for (let i = 0; i < errStackSplit.length; i++) {
@@ -28,7 +28,6 @@ function serverErrorHandler(err, res) {
 
 // eslint-disable-next-line
 function errorHandlerMiddleware(err, req, res, next) {
-  timelog({ e: `${req.method} "${req.url}"` });
   if (err && isString(err)) {
     clientErrorHandler(err, res);
   } else if (err) {

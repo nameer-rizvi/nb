@@ -1,9 +1,7 @@
 const cors = require("cors");
 const { ORIGIN } = process.env;
 
-const corsMiddleware = cors({
-  origin: ORIGIN ? ORIGIN.split(",") : undefined,
-});
+const corsMiddleware = cors({ origin: ORIGIN && ORIGIN.split(",") });
 
 module.exports = corsMiddleware;
 

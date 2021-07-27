@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => res.sendStatus(418));
+router.get("*", (req, res) => res.sendStatus(418));
 
 module.exports = router;
