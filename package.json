@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx; exit 0",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "microservice": "node src/microservice/index.js",
+    "server": "node src/server/index.js",
+    "server-watch": "nodemon src/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,16 +26,18 @@
     "url": "https://github.com/nameer-rizvi/nb/issues"
   },
   "homepage": "https://github.com/nameer-rizvi/nb#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "cron": "^1.8.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "helmet": "^4.2.0",
-    "nodemon": "^2.0.6",
-    "sanitized": "^1.1.0",
-    "simpul": "^0.3.9"
-  },
-  "devDependencies": {
-    "eslint": "^7.15.0"
+    "helmet": "^4.6.0",
+    "jsontxt": "^0.0.6",
+    "nodemon": "^2.0.13",
+    "sanitized": "^1.1.5",
+    "simpul": "^0.5.7"
   }
 }

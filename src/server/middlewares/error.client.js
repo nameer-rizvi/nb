@@ -1,17 +1,17 @@
-const { isNumber, isStringValid } = require("simpul");
+const { isNumber } = require("simpul");
 
-function handleClientError(err, res) {
-  const errSplit = err.split("::");
+function clientErrorHandler(err, res) {
+  const errSplit = err.split("::"); // "::" === delimiter used to separate the response code and the error message.
 
-  const hasCode = isNumber(+errSplit[0]);
+  const codeExists = isNumber(+errSplit[0]);
 
-  const code = hasCode ? +errSplit[0] : 500;
+  const code = codeExists ? +errSplit[0] : 500;
 
-  const message = hasCode ? errSplit[1] : errSplit[0];
+  const message = codeExists ? errSplit[1] : errSplit[0];
 
-  if (isStringValid(message)) {
+  if (message) {
     res.status(code).send(message);
   } else res.sendStatus(code);
 }
 
-module.exports = handleClientError;
+module.exports = clientErrorHandler;
