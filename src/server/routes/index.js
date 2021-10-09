@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.use("/", require("./document"));
+router.get("/", require("./root"));
+router.use("/document", require("./document"));
 router.post("/error", require("./error"));
 router.get("/health", require("./health"));
 

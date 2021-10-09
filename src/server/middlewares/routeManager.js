@@ -34,7 +34,9 @@ function routeManagerMiddleware(req, res, next) {
 
     timelog(`🚚 ${req.method} ${req.url}`);
 
-    if (isEnv.live) timelog(`👤 ${req.headers["user-agent"]}`);
+    // Log user agent.
+
+    if (isEnv.live) timelog(`👤 [${req.ip}] ${req.headers["user-agent"]}`);
 
     // Go to next middleware
 

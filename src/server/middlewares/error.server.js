@@ -6,6 +6,7 @@ function serverErrorHandler(err, res, req) {
   const { values = {}, routeConfig = {} } = res.locals;
 
   // Initialize store to consolidate server error properties.
+  // This can be useful if there's a database to store errors.
 
   const serverError = {};
 
