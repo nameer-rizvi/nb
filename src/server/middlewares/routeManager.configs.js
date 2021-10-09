@@ -1,22 +1,35 @@
+// Sample Config:
+//
+// {
+//   route: "/",
+//   method: "GET",
+//   authenticate: true,
+//   requiredValues: ["id"],
+// }
+
 const routeManagerMiddlewareConfigs = [
-  {
-    route: "/",
-    method: "POST",
-    authenticate: true,
-    requiredValues: ["document"],
-  },
   {
     route: "/",
     method: "GET",
   },
   {
-    route: "/",
+    route: "/document",
+    method: "POST",
+    authenticate: true,
+    requiredValues: ["document"],
+  },
+  {
+    route: "/document",
+    method: "GET",
+  },
+  {
+    route: "/document",
     method: "PUT",
     authenticate: true,
     requiredValues: ["document"],
   },
   {
-    route: "/",
+    route: "/document",
     method: "DELETE",
     authenticate: true,
     requiredValues: ["id"],
