@@ -40,6 +40,10 @@ const routeManagerMiddlewareConfigs = [
     requiredValues: ["error"],
   },
   {
+    route: "/favicon.ico",
+    method: "GET",
+  },
+  {
     route: "/health",
     method: "GET",
   },
