@@ -1,4 +1,5 @@
 const util = {
+  jwt: require("./jwt"),
   validate: require("./validate"),
 };
 
