@@ -1,4 +1,4 @@
-const util = require("../../util");
+const { validate } = require("../../util");
 
 function validationMiddleware(req, res, next) {
   try {
@@ -12,7 +12,7 @@ function validationMiddleware(req, res, next) {
     // Validate request values and check if required values exist.
     // If successful, sanitized values are returned and stored as a constant.
 
-    const sanitizedValues = util.validate(values.payload, values.required);
+    const sanitizedValues = validate(values.payload, values.required);
 
     // Assign sanitized values to res.locals.
 

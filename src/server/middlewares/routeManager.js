@@ -1,6 +1,6 @@
 const configs = require("./routeManager.configs");
-const { timelog } = require("simpul");
-const { isEnv } = require("../../constant");
+const { isEnv } = require("simpul");
+const { log } = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
   // Create the route constant by splitting the request url using
@@ -32,11 +32,11 @@ function routeManagerMiddleware(req, res, next) {
 
     // Log request.
 
-    timelog(`🚚 ${req.method} ${req.url}`);
+    log.route(`${req.method} ${req.url}`);
 
     // Log user agent.
 
-    if (isEnv.live) timelog(`👤 [${req.ip}] ${req.headers["user-agent"]}`);
+    if (isEnv.live) log.user(`[${req.ip}] ${req.headers["user-agent"]}`);
 
     // Go to next middleware
 
