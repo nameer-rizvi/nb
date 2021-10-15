@@ -1,5 +1,8 @@
 const util = {
-  jwt: require("./jwt"),
+  jwt: {
+    sign: require("./jwt.sign"),
+    verify: require("./jwt.verify"),
+  },
   log: require("./log"),
   validate: require("./validate"),
 };

@@ -37,6 +37,7 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/error",
     method: "POST",
+    authenticate: true,
     requiredValues: ["error"],
   },
   {

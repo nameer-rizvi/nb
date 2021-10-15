@@ -7,7 +7,7 @@ const dictionary = [
   },
   {
     key: "error",
-    type: "error",
+    type: "object",
   },
   {
     key: "id",
