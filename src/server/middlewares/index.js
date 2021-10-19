@@ -1,4 +1,5 @@
 const middlewares = [
+  require("./status"),
   require("./cors"),
   require("./helmet"),
   require("./expressJSON"),
