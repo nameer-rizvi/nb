@@ -1,8 +1,5 @@
 const { jwt } = require("../../util");
 
-// Sample token, using default constant.secret.jwt:
-// "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2MzM3ODY0MjZ9.1fW41QAF38ifSc_PBnjSpXveJiezQg7pjile76qN1G4"
-
 async function authenticateMiddleware(req, res, next) {
   try {
     // Initialize authorization header with default string type.

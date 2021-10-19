@@ -1,7 +1,7 @@
 const { isNumber } = require("simpul");
 
 function clientErrorHandler(err, res) {
-  const errSplit = err.split("::"); // "::" === delimiter used to separate the response code and the error message.
+  const errSplit = err.split("::");
 
   const codeExists = isNumber(errSplit[0]);
 

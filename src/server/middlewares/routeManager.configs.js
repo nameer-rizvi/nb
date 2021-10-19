@@ -44,10 +44,6 @@ const routeManagerMiddlewareConfigs = [
     route: "/favicon.ico",
     method: "GET",
   },
-  {
-    route: "/health",
-    method: "GET",
-  },
 ];
 
 module.exports = routeManagerMiddlewareConfigs;

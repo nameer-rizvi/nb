@@ -22,9 +22,11 @@ function databaseControllerCreate(newDocument, options = {}) {
 
     newDocument.id = id;
 
-    newDocument.created_at = new Date().getTime();
+    const timestamp = new Date().getTime();
 
-    newDocument.updated_at = new Date().getTime();
+    newDocument.created_at = timestamp;
+
+    newDocument.updated_at = timestamp;
 
     store.push(newDocument);
 

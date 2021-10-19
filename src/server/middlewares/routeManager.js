@@ -2,8 +2,7 @@ const configs = require("./routeManager.configs");
 const { log } = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
-  // Create the route constant by splitting the request url using
-  // the query delimiter and removing the api resource from it.
+  // Create the route constant by splitting the request url using the query delimiter.
 
   const route = req.url.split("?")[0];
 
@@ -36,7 +35,7 @@ function routeManagerMiddleware(req, res, next) {
     // Go to next middleware
 
     next();
-  } else next(new Error(`Missing config for: ${req.method} ${route}.`));
+  } else next(new Error(`Missing config for: ${route} [${req.method}].`));
 }
 
 module.exports = routeManagerMiddleware;

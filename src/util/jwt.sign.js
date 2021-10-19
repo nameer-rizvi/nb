@@ -1,19 +1,13 @@
-const jsonwebtoken = require("jsonwebtoken");
-const constant = require("../constant");
+const jwt = require("jsonwebtoken");
+const log = require("./log");
 
-async function jwtSign(data, expiresIn = "15m") {
-  // Generate token using jsonwebtoken.
-  //   * Because of expiresIn, data must be an object.
+async function jwtSign(data, options) {
+  if (!process.env.JWT_SECRET)
+    throw new Error("Environment variable JWT_SECRET has not been set.");
 
-  const token = await jsonwebtoken.sign(data, constant.secret.jwt, {
-    expiresIn,
-  });
-
-  // If there's no valid token...
+  const token = await jwt.sign(data, process.env.JWT_SECRET, options);
 
   if (!token) throw new Error("Failed to create token.");
-
-  // Return token.
 
   return token;
 }

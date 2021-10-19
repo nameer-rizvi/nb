@@ -1,8 +1,7 @@
 const { log: generateLogger } = require("simpul");
-const constant = require("../constant");
 
 const log = generateLogger(undefined, {
-  ignoreNonCriticalLogs: constant.ignoreNonCriticalLogs,
+  ignoreNonCriticalLogs: process.env.IGNORE_NON_CRITICAL_LOGS === "true",
 });
 
 module.exports = log;

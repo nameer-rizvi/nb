@@ -1,23 +1,15 @@
-const jsonwebtoken = require("jsonwebtoken");
-const constant = require("../constant");
+const jwt = require("jsonwebtoken");
 
 async function jwtVerify(token, validateKey) {
-  // Verify token using jsonwebtoken.
+  if (!process.env.JWT_SECRET)
+    throw new Error("Environment variable JWT_SECRET has not been set.");
 
-  const data = await jsonwebtoken.verify(token, constant.secret.jwt);
-
-  // If there's an expected key to validate and there's no data/data with key...
+  const data = await jwt.verify(token, process.env.JWT_SECRET);
 
   if (validateKey && (!data || !data[validateKey]))
     throw new Error(`Corrupt token detected: "${token}"`);
 
-  // If there's an expected key to validate and data has key or if data exists...
-
-  if (validateKey ? data && data[validateKey] : data) return data;
-
-  // Invalidate verification. * All tokens should contain data *
-
-  throw new Error("No data.");
+  return data;
 }
 
 module.exports = jwtVerify;
