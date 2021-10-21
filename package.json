@@ -41,7 +41,7 @@
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.13",
     "sanitized": "^1.1.5",
-    "simpul": "^0.6.6",
-    "simpul-validate": "^0.0.2"
+    "simpul": "^0.7.0",
+    "simpul-validate": "^0.0.3"
   }
 }

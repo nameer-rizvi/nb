@@ -1,12 +1,3 @@
-// Sample Config:
-//
-// {
-//   route: "/",
-//   method: "GET",
-//   authenticate: true,
-//   requiredValues: ["id"],
-// }
-
 const routeManagerMiddlewareConfigs = [
   {
     route: "/",
@@ -15,7 +6,7 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/document",
     method: "POST",
-    authenticate: true,
+    authenticate: "bearerToken",
     requiredValues: ["document"],
   },
   {
@@ -25,19 +16,19 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/document",
     method: "PUT",
-    authenticate: true,
+    authenticate: "bearerToken",
     requiredValues: ["document"],
   },
   {
     route: "/document",
     method: "DELETE",
-    authenticate: true,
+    authenticate: "bearerToken",
     requiredValues: ["id"],
   },
   {
     route: "/error",
     method: "POST",
-    authenticate: true,
+    authenticate: "bearerToken",
     requiredValues: ["error"],
   },
   {
