@@ -1,5 +1,5 @@
 const configs = require("./routeManager.configs");
-const { base64 } = require("simpul");
+const { base64, isEnv } = require("simpul");
 const { log } = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
@@ -40,7 +40,19 @@ function routeManagerMiddleware(req, res, next) {
     // Go to next middleware
 
     next();
-  } else next(new Error(`Missing route config for: ${route} [${req.method}].`));
+  } else if (!isEnv.live) {
+    // Else if environment is not live...
+
+    // Send error to next middleware.
+
+    next(new Error(`Missing route config for: ${route} [${req.method}].`));
+  } else {
+    // Else...
+
+    // Send client a 404 status code.
+
+    res.sendStatus(404);
+  }
 }
 
 module.exports = routeManagerMiddleware;
