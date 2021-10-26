@@ -8,6 +8,7 @@ const dictionary = [
   {
     key: "error",
     type: "object",
+    whitelistKeys: ["pathname", "message", "stack"],
   },
   {
     key: "id",
