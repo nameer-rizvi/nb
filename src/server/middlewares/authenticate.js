@@ -1,3 +1,5 @@
+// starterKit-flag [review authentication strategy]
+
 const { jwt } = require("../../util");
 
 async function authenticateMiddleware(req, res, next) {

@@ -1,4 +1,4 @@
-const { isObject } = require("simpul");
+const { isObject, clone } = require("simpul");
 const databaseClient = require("./client");
 
 function databaseControllerUpdate(update, options = {}) {
@@ -19,20 +19,23 @@ function databaseControllerUpdate(update, options = {}) {
     if (documentIndex === -1) {
       return handleError(`Document with id ("${update.id}") doesn't exist.`);
     } else {
-      const updatedDocument = {
+      const previous_document = clone(store[documentIndex]);
+
+      const updated_document = {
         ...store[documentIndex],
         ...update,
         updated_at: new Date().getTime(),
       };
 
-      store[documentIndex] = updatedDocument;
+      store[documentIndex] = updated_document;
 
       databaseClient.write(store);
 
       return {
         success: true,
         message: "Updated.",
-        updated_document: updatedDocument,
+        previous_document,
+        updated_document,
       };
     }
   }

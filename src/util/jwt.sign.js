@@ -1,13 +1,19 @@
-const jwt = require("jsonwebtoken");
-const log = require("./log");
+// starterKit-flag [set JWT_SECRET in a ".env" file located in the projects root folder]
 
-async function jwtSign(data, options) {
-  if (!process.env.JWT_SECRET)
-    throw new Error("Environment variable JWT_SECRET has not been set.");
+const jsonwebtoken = require("jsonwebtoken");
+const { JWT_SECRET = "secret123" } = process.env;
 
-  const token = await jwt.sign(data, process.env.JWT_SECRET, options);
+async function jwtSign(data, expiresIn = "15m") {
+  // Generate token using jsonwebtoken.
+  //   * Because of expiresIn, data must be an object.
+
+  const token = await jsonwebtoken.sign(data, JWT_SECRET, { expiresIn });
+
+  // If there's no valid token...
 
   if (!token) throw new Error("Failed to create token.");
+
+  // Return token.
 
   return token;
 }
