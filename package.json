@@ -9,7 +9,9 @@
     "microservice": "node src/microservice/index.js",
     "server": "NODE_ENV=development node src/server/index.js",
     "server-watch": "NODE_ENV=development nodemon src/server/index.js",
-    "start": "NODE_ENV=production node src/server/index.js"
+    "start": "NODE_ENV=production node src/server/index.js",
+    "pm2-start": "pm2 start ecosystem.config.js && pm2 logs",
+    "pm2-restart": "pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "repository": {
     "type": "git",
