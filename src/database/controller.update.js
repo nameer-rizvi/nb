@@ -17,7 +17,7 @@ function databaseControllerUpdate(update, options = {}) {
     const documentIndex = store.findIndex((doc) => doc.id === update.id);
 
     if (documentIndex === -1) {
-      return handleError(`Document with id ("${update.id}") doesn't exist.`);
+      return handleError(`Document with id ("${update.id}") does not exist.`);
     } else {
       const previous_document = clone(store[documentIndex]);
 

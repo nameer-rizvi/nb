@@ -11,9 +11,9 @@ const routeManagerMiddlewareConfigs = [
   },
   {
     route: "/document",
-    method: "POST",
+    method: "DELETE",
     authenticate: "bearerToken",
-    requiredValues: ["document"],
+    requiredValues: ["id"],
   },
   {
     route: "/document",
@@ -22,15 +22,15 @@ const routeManagerMiddlewareConfigs = [
   },
   {
     route: "/document",
-    method: "PUT",
+    method: "POST",
     authenticate: "bearerToken",
     requiredValues: ["document"],
   },
   {
     route: "/document",
-    method: "DELETE",
+    method: "PUT",
     authenticate: "bearerToken",
-    requiredValues: ["id"],
+    requiredValues: ["document"],
   },
   {
     route: "/error",
