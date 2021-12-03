@@ -14,7 +14,15 @@ const port = process.env.PORT || 4000;
 
 // Listen for requests on server port.
 
-server.listen(port, () => log.express(`server listening on port ${port}`));
+server.listen(port.server, () => {
+  // Log listener.
+
+  log.express(`server listening on port ${port.server}`, { flag: "minimal" });
+
+  // Log environment.
+
+  log.environment(`in ${process.env.NODE_ENV}.`, { flag: "minimal" });
+});
 
 // Set "trust proxy" in live environments.
 

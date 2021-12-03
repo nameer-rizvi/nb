@@ -12,6 +12,7 @@ const serverErrorHandler = require("./error.server");
 //   * Disabling eslint for no-unused-vars (re: "next"), because even though
 //     "next" is not used, it's required to access the error param.
 
+// eslint-disable-next-line no-unused-vars
 function errorHandlerMiddleware(error, req, res, next) {
   // Parse error string from error.
 

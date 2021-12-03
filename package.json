@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/nameer-rizvi/nb#readme",
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "eslint": "^8.3.0"
   },
   "dependencies": {
     "bowser": "^2.11.0",
@@ -43,9 +43,9 @@
     "helmet": "^4.6.0",
     "jsontxt": "^0.0.6",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.13",
+    "nodemon": "^2.0.15",
     "sanitized": "^1.1.5",
-    "simpul": "^0.7.5",
-    "simpul-validate": "^0.0.3"
+    "simpul": "^0.8.0",
+    "simpul-validate": "^0.0.4"
   }
 }
