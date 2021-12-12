@@ -1,6 +1,5 @@
 // --starterKit-flag [review authentication strategy]
 
-const parseBearerToken = require("./authenticate.parseBearerToken");
 const { jwt, log } = require("../../util");
 
 async function authenticateMiddleware(req, res, next) {
@@ -28,6 +27,26 @@ async function authenticateMiddleware(req, res, next) {
     // Send client a 401 ("Unauthorized") status.
 
     res.sendStatus(401);
+  }
+}
+
+function parseBearerToken(req) {
+  // Initialize authorization header with default string type.
+
+  const { authorization = "" } = req.headers;
+
+  // Parse "Bearer" token from authorization header.
+
+  const bearerToken = authorization.split("Bearer ")[1];
+
+  if (!bearerToken || bearerToken === "null") {
+    // Throw error if bearer token doesn't exist or is null.
+
+    throw new Error("Request authorization header is invalid.");
+  } else {
+    // Else, return bearer token.
+
+    return bearerToken;
   }
 }
 
