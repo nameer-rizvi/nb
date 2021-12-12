@@ -13,7 +13,7 @@ const routeManagerMiddlewareConfigs = [
     route: "/document",
     method: "DELETE",
     authenticate: "bearerToken",
-    requiredValues: ["id"],
+    requiredParams: ["id"],
   },
   {
     route: "/document",
@@ -24,19 +24,18 @@ const routeManagerMiddlewareConfigs = [
     route: "/document",
     method: "POST",
     authenticate: "bearerToken",
-    requiredValues: ["document"],
+    requiredParams: ["document"],
   },
   {
     route: "/document",
     method: "PUT",
     authenticate: "bearerToken",
-    requiredValues: ["document"],
+    requiredParams: ["document"],
   },
   {
     route: "/error",
     method: "POST",
-    authenticate: "bearerToken",
-    requiredValues: ["error"],
+    requiredParams: ["error"],
   },
   {
     route: "/favicon.ico",

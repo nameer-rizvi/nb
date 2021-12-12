@@ -22,6 +22,8 @@ function databaseControllerCreate(newDocument, options = {}) {
 
     newDocument.id = id;
 
+    newDocument.history = [];
+
     const timestamp = new Date().getTime();
 
     newDocument.created_at = timestamp;

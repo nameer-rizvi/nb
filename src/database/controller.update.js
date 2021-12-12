@@ -1,5 +1,6 @@
 const { isObject, clone } = require("simpul");
 const databaseClient = require("./client");
+const dottpath = require("dottpath");
 
 function databaseControllerUpdate(update, options = {}) {
   function handleError(error) {
@@ -21,22 +22,39 @@ function databaseControllerUpdate(update, options = {}) {
     } else {
       const previous_document = clone(store[documentIndex]);
 
-      const updated_document = {
-        ...store[documentIndex],
-        ...update,
-        updated_at: new Date().getTime(),
-      };
+      const updated_document = { ...store[documentIndex], ...update };
 
-      store[documentIndex] = updated_document;
+      const ignoreKeyDiffs = ["history", "created_at", "updated_at"];
 
-      databaseClient.write(store);
-
-      return {
-        success: true,
-        message: "Updated.",
+      const diffs = dottpath.diffs(
         previous_document,
         updated_document,
-      };
+        ignoreKeyDiffs
+      );
+
+      const updatesExist = diffs.length;
+
+      if (updatesExist) {
+        updated_document.history.push(diffs);
+
+        updated_document.updated_at = new Date().getTime();
+
+        store[documentIndex] = updated_document;
+
+        databaseClient.write(store);
+
+        return {
+          success: true,
+          message: "Updated.",
+          previous_document,
+          updated_document,
+        };
+      } else
+        return {
+          success: true,
+          message: "No updates detected.",
+          document: previous_document,
+        };
     }
   }
 }

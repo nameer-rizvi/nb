@@ -1,4 +1,4 @@
-// Production Protocol:
+// Protocol for conducting maintenance in production environment:
 //   1. Change MAINTENANCE_MODE to "true" in ecosystem.config.js.
 //   2. Run "pm2 restart ecosystem.config.js" from root folder.
 //   3. ...CONDUCT MAINTENANCE...

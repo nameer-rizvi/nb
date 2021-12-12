@@ -14,10 +14,10 @@ const port = process.env.PORT || 4000;
 
 // Listen for requests on server port.
 
-server.listen(port.server, () => {
+server.listen(port, () => {
   // Log listener.
 
-  log.express(`server listening on port ${port.server}`, { flag: "minimal" });
+  log.express(`server listening on port ${port}`, { flag: "minimal" });
 
   // Log environment.
 
