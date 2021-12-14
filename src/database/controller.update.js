@@ -35,7 +35,10 @@ function databaseControllerUpdate(update, options = {}) {
       const updatesExist = diffs.length;
 
       if (updatesExist) {
-        updated_document.history.push(diffs);
+        updated_document.history = [
+          ...(updated_document.history || []),
+          ...diffs,
+        ];
 
         updated_document.updated_at = new Date().getTime();
 

@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { log } = require("../util");
 const { isEnv } = require("simpul");
-const middlewares = require("./middlewares");
+const middlewaresAndRoutes = require("./middlewares");
 
 // Initialize Express server.
 
@@ -28,9 +28,9 @@ server.listen(port, () => {
 
 server.set("trust proxy", isEnv.live);
 
-// Use middlewares for Express application.
+// Use middlewares + routes for Express application.
 
-server.use(middlewares);
+server.use(middlewaresAndRoutes);
 
 // http://expressjs.com/
 // https://www.npmjs.com/package/express
