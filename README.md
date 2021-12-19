@@ -18,7 +18,7 @@ _Recommended for maintaining code quality._
 
 `npm run microservice`
 
-Start microservice cron job.
+Start microservices.
 
 `npm run server`
 
@@ -39,3 +39,5 @@ Start 'forever' processes defined in ecosystem.config.js
 `npm run pm2-restart`
 
 Restart 'forever' processes defined in ecosystem.config.js
+
+_[Click here to see how to configure a pm2 ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)_
