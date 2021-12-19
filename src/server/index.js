@@ -28,7 +28,7 @@ server.listen(port, () => {
 
 server.set("trust proxy", isEnv.live);
 
-// Use middlewares + routes for Express application.
+// Use middlewares + routes for Express server.
 
 server.use(middlewaresAndRoutes);
 

@@ -19,6 +19,8 @@ function routeDocument(req, res, next) {
 
     res.json(response);
   } catch (error) {
+    // Send client a 400 ("Bad Request") status with the controller error.
+
     next("400::" + error.toString());
   }
 }

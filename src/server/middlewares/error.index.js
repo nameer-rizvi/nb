@@ -6,11 +6,11 @@ const serverErrorHandler = require("./error.server");
 // errors get exposed to the client. This is done by passing errors through
 // Express's next() middleware as strings. Any Error instances get handled by
 // the server error handler. Otherwise, an ambiguous 500 status code is sent.
-//   * Must be the last middleware in an express application.
-//   * "::" is the delimiter used to separate the response code and the
-//     error message for client-facing errors.
-//   * Disabling eslint for no-unused-vars (re: "next"), because even though
-//     "next" is not used, it's required to access the error param.
+//  * Must be the last middleware in an express application.
+//  * "::" is the delimiter used to separate the response code and the
+//    error message for client-facing errors.
+//  * Disabling eslint for no-unused-vars (re: "next"), because even though
+//    "next" is not used, it's required to access the error param.
 
 // eslint-disable-next-line no-unused-vars
 function errorHandlerMiddleware(error, req, res, next) {
@@ -37,7 +37,7 @@ function errorHandlerMiddleware(error, req, res, next) {
 
     serverErrorHandler(error, res, req);
   } else {
-    // Otherwise...
+    // Else...
 
     // Send client a 500 ("Internal Server Error") status.
 
@@ -46,3 +46,5 @@ function errorHandlerMiddleware(error, req, res, next) {
 }
 
 module.exports = errorHandlerMiddleware;
+
+// https://expressjs.com/en/guide/error-handling.html
