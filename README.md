@@ -1,6 +1,6 @@
 # nb
 
-Node.js boilerplate. Features an opinionated project structure for hosting database clients & controllers, microservices, an Express server and shared utility functions.
+Node.js boilerplate. Features an opinionated project structure for hosting assets, database clients & controllers, microservices, an Express server and shared utility functions.
 
 ## Getting Started
 
