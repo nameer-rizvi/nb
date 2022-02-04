@@ -1,5 +1,6 @@
 const sanitized = require("sanitized");
-const { validate } = require("../../util");
+const { validate, log } = require("../../util");
+const { isEnv } = require("simpul");
 
 function validationMiddleware(req, res, next) {
   try {
@@ -29,6 +30,10 @@ function validationMiddleware(req, res, next) {
       next(error);
     } else {
       // Else...
+
+      // If environment is not live, log validation error as a warning
+
+      if (!isEnv.live) log.warning(error.toString().replace("Error:", ""));
 
       // Send client a 400 ("Bad Request") status with the validation error.
 
