@@ -1,11 +1,15 @@
 const apicache = require("apicache");
 
+// Route manager config.
+
 // Max cache time limit: "2,147,483,647 milliseconds" || "35,791 minutes" || "596 hours" || "24 days" || "3.5 weeks"
 
 const CACHE = {
   STALE: apicache.middleware("5 minutes"),
   MAX: apicache.middleware("3 weeks"),
 };
+
+// Middleware.
 
 async function apicacheMiddleware(req, res, next) {
   if (res.locals.routeConfig.cache) {
