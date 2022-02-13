@@ -8,7 +8,7 @@ const middlewares = [
   require("./authenticate"),
   require("./validation"),
   require("./compression"),
-  require("./apicache"),
+  require("./apicache").middleware,
   require("../routes"),
   require("./error.index"),
 ];

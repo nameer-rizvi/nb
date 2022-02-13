@@ -1,23 +1,15 @@
-const apicache = require("apicache");
+const { CACHE } = require("./apicache");
 
 // --starterKit-flag [set api route configs here]
 
 // The route manager restricts access to only those api routes that are defined
 // in the configs store here. It can be shaped any way you like, so long as there's
 // a "route" and a "method" value included, and it can be accessed in any proceeding middleware.
-
-// Max apicache time limit: "2,147,483,647 milliseconds" || "35,791 minutes" || "596 hours" || "24 days" || "3.5 weeks"
-
-const CACHE = {
-  STALE: "5 minutes",
-  MAX: "3 weeks",
-};
-
 const routeManagerMiddlewareConfigs = [
   {
     route: "/",
     method: "GET",
-    cache: apicache.middleware(CACHE.MAX),
+    cache: CACHE.MAX,
   },
   {
     route: "/document",
@@ -29,7 +21,7 @@ const routeManagerMiddlewareConfigs = [
     route: "/document",
     method: "GET",
     // ignoreValidation: true,
-    cache: apicache.middleware(CACHE.STALE),
+    cache: CACHE.STALE,
   },
   {
     route: "/document",
@@ -51,7 +43,7 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/favicon.ico",
     method: "GET",
-    cache: apicache.middleware(CACHE.MAX),
+    cache: CACHE.MAX,
   },
 ];
 
