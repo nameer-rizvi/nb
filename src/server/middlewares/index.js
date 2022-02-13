@@ -7,6 +7,8 @@ const middlewares = [
   // require("./rateLimit"), // Proxies (i.e. NGINX) normally handle this...
   require("./authenticate"),
   require("./validation"),
+  require("./compression"),
+  require("./apicache"),
   require("../routes"),
   require("./error.index"),
 ];
