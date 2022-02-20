@@ -22,15 +22,15 @@ Start microservices.
 
 `npm run server`
 
-Start express server in development mode.
+Start Express server in development mode.
 
 `npm run server-watch`
 
-Start express server in development mode with nodemon watching for file changes.
+Start Express server in development mode with nodemon watching for file changes.
 
 `npm run start`
 
-Start express server in production mode.
+Start Express server in production mode.
 
 `npm run pm2-start`
 
@@ -40,4 +40,4 @@ Start 'forever' processes defined in ecosystem.config.js
 
 Restart 'forever' processes defined in ecosystem.config.js
 
-_[Click here to see how to configure a pm2 ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)_
+_[Click here to learn how to configure a PM2 ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)_
