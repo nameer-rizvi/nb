@@ -2,6 +2,7 @@
   "name": "nb",
   "version": "0.0.0",
   "description": "Node.js boilerplate.",
+  "private": true,
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
