@@ -41,3 +41,7 @@ Start 'forever' processes defined in ecosystem.config.js
 Restart 'forever' processes defined in ecosystem.config.js
 
 _[Click here to learn how to configure a PM2 ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)_
+
+## Useful Packages
+
+- To limit size of pm2 logs: https://github.com/keymetrics/pm2-logrotate
