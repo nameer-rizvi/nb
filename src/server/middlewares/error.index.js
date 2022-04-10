@@ -16,9 +16,9 @@ const serverErrorHandler = require("./error.server");
 function errorHandlerMiddleware(error, req, res, next) {
   // Parse error string from error.
 
-  const errorString = error && error.toString();
+  const errorString = error?.toString();
 
-  if (errorString && errorString.includes("::")) {
+  if (errorString?.includes("::")) {
     // If error string exists and it includes the client error delimiter...
 
     // Clean error string, and handle it using the client error handler.

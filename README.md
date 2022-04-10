@@ -10,15 +10,19 @@ As opinionated as the boilerplate code is, a trail of comments have been left to
 
 ## NPM Scripts
 
+`npm run test`
+
+Placeholder script to run tests.
+
 `npm run lint`
 
 Run ESLint on all JavaScript files and return a report on syntax warnings/errors.
 
 _Recommended for maintaining code quality._
 
-`npm run microservice`
+`npm run micro-todo`
 
-Start microservices.
+Manually run the todo microservice.
 
 `npm run server`
 

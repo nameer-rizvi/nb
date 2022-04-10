@@ -1,8 +1,8 @@
-// Protocol for conducting maintenance in a live environment:
+// Protocol for conducting maintenance in a live pm2 environment:
 //   1. Change MAINTENANCE_MODE to "true" in ecosystem.config.js.
 //   2. Run "pm2 restart ecosystem.config.js" from root folder.
 //   3. ...CONDUCT MAINTENANCE...
-//   4. Change MAINTENANCE_MODE to "false" in ecosystem.config.js.
+//   4. Change MAINTENANCE_MODE to "" in ecosystem.config.js.
 //   5. Run "pm2 restart ecosystem.config.js" from root folder.
 
 function statusMiddleware(req, res, next) {
@@ -19,7 +19,7 @@ function statusMiddleware(req, res, next) {
 
     res.sendStatus(503);
   } else if (req.method === "GET" && req.url === "/status") {
-    // If request is for application status...
+    // Else, if request is for application status...
 
     // Send client a 200 ("OK") status.
 

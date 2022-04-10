@@ -6,7 +6,7 @@ function serverErrorHandler(err, res, req) {
   try {
     // Initialize constants from res locals.
 
-    const { values = {}, routeConfig = {}, user = {} } = res.locals;
+    const { values = {}, routeConfig = {} } = res.locals;
 
     // Generate server error object with relevant properties.
 
@@ -19,23 +19,23 @@ function serverErrorHandler(err, res, req) {
       routeConfig.method ||
       req.method;
 
-    serverError.route =
-      (values.error && values.error.pathname) || routeConfig.route || req.url;
+    serverError.route = values.error?.pathname || routeConfig.route || req.url;
 
     serverError.message =
-      (values.error &&
-        values.error.message &&
-        values.error.message.split(":\n")[0].trim()) ||
+      values.error?.message?.split(":")[0].trim() ||
       err.sqlMessage ||
       err.message ||
       err.toString();
 
-    serverError.stack = (values.error && values.error.stack) || err.stack;
+    serverError.stack = values.error?.stack || err.stack;
 
     serverError.user_id =
-      (req.session &&
-        (req.session.id || req.session.uid || req.session.user_id)) ||
-      (user && (user.id || user.uid || user.user_id));
+      req.session?.id ||
+      req.session?.uid ||
+      req.session?.user_id ||
+      res.locals.user?.id ||
+      res.locals.user?.uid ||
+      res.locals.user?.user_id;
 
     serverError.ip = req.ip || "";
 
@@ -75,7 +75,7 @@ function serverErrorHandler(err, res, req) {
 
     // This is where you can save the server error in the database...
 
-    // console.log(serverError);
+    // database.controller.error.create(serverError);
   } catch (error) {
     // Log any middleware errors as error logs.
 

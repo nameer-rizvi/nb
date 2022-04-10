@@ -36,7 +36,7 @@ async function authenticateMiddleware(req, res, next) {
   }
 }
 
-function parseBearerToken(req) {
+function parseBearerToken(req, ignoreError) {
   // Initialize authorization header with default string type.
 
   const { authorization = "" } = req.headers;
@@ -45,7 +45,7 @@ function parseBearerToken(req) {
 
   const bearerToken = authorization.split("Bearer ")[1];
 
-  if (!bearerToken || bearerToken === "null") {
+  if (!ignoreError && (!bearerToken || bearerToken === "null")) {
     // Throw error if bearer token doesn't exist or is null.
 
     throw new Error("Request authorization header is invalid.");

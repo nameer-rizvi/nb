@@ -21,7 +21,7 @@ server.listen(port, () => {
 
   // Log environment.
 
-  log.environment(`in ${process.env.NODE_ENV}.`, { flag: "minimal" });
+  log.environment(`in ${isEnv.name}.`, { flag: "minimal" });
 });
 
 // Set "trust proxy" in live environments.
@@ -32,5 +32,5 @@ server.set("trust proxy", isEnv.live);
 
 server.use(middlewaresAndRoutes);
 
-// http://expressjs.com/
+// https://expressjs.com/
 // https://www.npmjs.com/package/express

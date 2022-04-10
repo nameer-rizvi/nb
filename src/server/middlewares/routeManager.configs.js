@@ -22,7 +22,6 @@ const routeManagerMiddlewareConfigs = [
     route: "/document",
     method: "GET",
     // ignoreValidation: true,
-    cache: CACHE.STALE,
   },
   {
     route: "/document",

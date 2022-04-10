@@ -1,5 +1,5 @@
-function routeAppError(req, res, next) {
-  if (res.locals.values.error.message) {
+function routeErrorPost(req, res, next) {
+  if (res.locals.values.error?.message) {
     // If there's an error message in res locals values...
 
     // Handle error using next error middleware.
@@ -13,4 +13,4 @@ function routeAppError(req, res, next) {
     res.sendStatus(403);
   }
 }
-module.exports = routeAppError;
+module.exports = routeErrorPost;
