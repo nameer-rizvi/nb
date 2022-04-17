@@ -5,10 +5,10 @@ function routeDocument(req, res, next) {
     // Assign database controllers to appropriate request methods.
 
     const methodResolver = {
-      POST: (values) => database.create(values.document),
-      GET: (values) => database.read(values.id),
-      PUT: (values) => database.update(values.document),
-      DELETE: (values) => database.delete(values.id),
+      POST: (values) => database.controller.document.create(values.document),
+      GET: (values) => database.controller.document.read(values.id),
+      PUT: (values) => database.controller.document.update(values.document),
+      DELETE: (values) => database.controller.document.delete(values.id),
     };
 
     // Call database controller with request method and save response.

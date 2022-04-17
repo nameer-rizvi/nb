@@ -2,7 +2,7 @@ const { isObject, clone } = require("simpul");
 const databaseClient = require("./client");
 const dottpath = require("dottpath");
 
-function databaseControllerUpdate(update, options = {}) {
+function databaseControllerDocumentUpdate(update, options = {}) {
   function handleError(error) {
     if (!options.ignoreThrowError) throw new Error(error);
     return { success: false, message: error };
@@ -62,4 +62,4 @@ function databaseControllerUpdate(update, options = {}) {
   }
 }
 
-module.exports = databaseControllerUpdate;
+module.exports = databaseControllerDocumentUpdate;

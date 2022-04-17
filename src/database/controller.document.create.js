@@ -1,7 +1,7 @@
 const { isObject, generateKey } = require("simpul");
 const databaseClient = require("./client");
 
-function databaseControllerCreate(newDocument, options = {}) {
+function databaseControllerDocumentCreate(newDocument, options = {}) {
   if (!isObject(newDocument)) {
     const error = "Document must be an object.";
 
@@ -38,4 +38,4 @@ function databaseControllerCreate(newDocument, options = {}) {
   }
 }
 
-module.exports = databaseControllerCreate;
+module.exports = databaseControllerDocumentCreate;

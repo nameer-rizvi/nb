@@ -1,7 +1,7 @@
 const databaseClient = require("./client");
 const { isString, isArray, isObject, isFunction } = require("simpul");
 
-function databaseControllerRead(find) {
+function databaseControllerDocumentRead(find) {
   const store = databaseClient.read() || [];
 
   if (isString(find)) {
@@ -17,4 +17,4 @@ function databaseControllerRead(find) {
   } else return store;
 }
 
-module.exports = databaseControllerRead;
+module.exports = databaseControllerDocumentRead;
