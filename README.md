@@ -1,6 +1,6 @@
 # nb
 
-Node.js boilerplate. Features an opinionated project structure for hosting assets, database clients & controllers, microservices, an Express server and shared utility functions.
+Node.js boilerplate. Features an opinionated project structure for hosting assets, database clients & controllers, jobs, an Express server and shared utility functions.
 
 ## Getting Started
 
@@ -20,9 +20,9 @@ Run ESLint on all JavaScript files and return a report on syntax warnings/errors
 
 _Recommended for maintaining code quality._
 
-`npm run micro-todo`
+`npm run job-todo`
 
-Manually run the todo microservice.
+Manually run the todo job.
 
 `npm run server`
 

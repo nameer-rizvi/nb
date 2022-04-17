@@ -1,4 +1,4 @@
-// Template for setting up a microservice as a manual job that exits upon completion.
+// Template for setting up a job that exits upon completion.
 
 require("dotenv").config();
 

@@ -1,6 +1,6 @@
 const { log } = require("../../util");
 
-// Mock todo microservice.
+// Mock todo job.
 
 function todo(processExit) {
   setTimeout(() => {

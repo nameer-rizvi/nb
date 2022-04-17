@@ -7,9 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx; exit 0",
-    "micro-todo": "node src/microservice/todo/index.manual.js",
+    "job-todo": "node src/job/todo/index.manual.js",
     "server": "NODE_ENV=development node src/server/index.js",
-    "server-watch": "NODE_ENV=development nodemon --ignore src/microservice src/server/index.js",
+    "server-watch": "NODE_ENV=development nodemon --ignore src/job src/server/index.js",
     "start": "NODE_ENV=production node src/server/index.js",
     "pm2-start": "npm i && pm2 start ecosystem.config.js && pm2 logs",
     "pm2-restart": "npm i && pm2 restart ecosystem.config.js --update-env && pm2 logs"

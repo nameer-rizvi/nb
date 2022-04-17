@@ -1,4 +1,4 @@
-// Template for setting up a microservice as a cronjob.
+// Template for setting up a job as a cronjob.
 //   The schedule would come from the .env or the ecosystem.config.js.
 
 require("dotenv").config();
