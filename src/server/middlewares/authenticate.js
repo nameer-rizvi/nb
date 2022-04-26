@@ -1,6 +1,6 @@
 // --starterKit-flag [review authentication strategy]
 
-const { jwt, log } = require("../../util");
+const util = require("../../util");
 
 async function authenticateMiddleware(req, res, next) {
   try {
@@ -11,24 +11,22 @@ async function authenticateMiddleware(req, res, next) {
 
       const bearerToken = parseBearerToken(req);
 
-      // Verify & fetch token data using "jsonwebtoken".
+      // Verify & fetch token data using jsonwebtoken.
 
-      res.locals.token = await jwt.verify(bearerToken);
+      res.locals.token = await util.jwt.verify(bearerToken);
 
       // If an error isn't thrown by the verification go to next middleware.
 
       next();
     } else {
-      // Else if authentication is not required by route...
-
-      // Go to next middleware.
+      // Else, go to next middleware.
 
       next();
     }
   } catch (error) {
     // Log any failed authentication errors as non-critical logs.
 
-    log.password("Authenticate Middleware: " + error.toString());
+    util.log.password("Authenticate Middleware: " + error.toString());
 
     // Send client a 401 ("Unauthorized") status.
 
@@ -36,7 +34,7 @@ async function authenticateMiddleware(req, res, next) {
   }
 }
 
-function parseBearerToken(req, ignoreError) {
+function parseBearerToken(req) {
   // Initialize authorization header with default string type.
 
   const { authorization = "" } = req.headers;
@@ -45,15 +43,12 @@ function parseBearerToken(req, ignoreError) {
 
   const bearerToken = authorization.split("Bearer ")[1];
 
-  if (!ignoreError && (!bearerToken || bearerToken === "null")) {
-    // Throw error if bearer token doesn't exist or is null.
+  // Throw error if bearer token doesn't exist or is null.
 
+  if (!bearerToken || bearerToken === "null")
     throw new Error("Request authorization header is invalid.");
-  } else {
-    // Else, return bearer token.
 
-    return bearerToken;
-  }
+  return bearerToken;
 }
 
 module.exports = authenticateMiddleware;

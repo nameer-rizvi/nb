@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { log } = require("../util");
+const util = require("../util");
 const { isEnv } = require("simpul");
 const middlewaresAndRoutes = require("./middlewares");
 
@@ -15,13 +15,13 @@ const port = process.env.PORT || 4000;
 // Listen for requests on server port.
 
 server.listen(port, () => {
-  // Log listener.
-
-  log.express(`server listening on port ${port}`, { flag: "minimal" });
-
   // Log environment.
 
-  log.environment(`in ${isEnv.name}.`, { flag: "minimal" });
+  util.log.environment2(`in ${isEnv.name}.`, { flag: "minimal" });
+
+  // Log listener.
+
+  util.log.express(`server listening on port ${port}`, { flag: "minimal" });
 });
 
 // Set "trust proxy" in live environments.

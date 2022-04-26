@@ -8,7 +8,6 @@ const CACHE = {
   MIN: apicache.middleware("30 seconds"),
   STALE: apicache.middleware("5 minutes"),
   HOUR: apicache.middleware("1 hour"),
-  EVENTSCRAPER: apicache.middleware("6 hours"),
   MAX: apicache.middleware("3 weeks"),
 };
 

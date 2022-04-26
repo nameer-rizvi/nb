@@ -1,4 +1,4 @@
-const { CACHE } = require("./apicache");
+const apicacheMiddleware = require("./apicache");
 
 // --starterKit-flag [set api route configs here]
 
@@ -10,7 +10,7 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/",
     method: "GET",
-    cache: CACHE.MAX,
+    cache: apicacheMiddleware.CACHE.MAX,
   },
   {
     route: "/document",
@@ -43,7 +43,7 @@ const routeManagerMiddlewareConfigs = [
   {
     route: "/favicon.ico",
     method: "GET",
-    cache: CACHE.MAX,
+    cache: apicacheMiddleware.CACHE.MAX,
   },
 ];
 

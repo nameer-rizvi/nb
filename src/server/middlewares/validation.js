@@ -1,6 +1,8 @@
 const sanitized = require("sanitized");
-const { validate, log } = require("../../util");
-const { isEnv } = require("simpul");
+const util = require("../../util");
+
+// Sample token for test:
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2MzM3ODY0MjZ9.1fW41QAF38ifSc_PBnjSpXveJiezQg7pjile76qN1G4"
 
 function validationMiddleware(req, res, next) {
   try {
@@ -16,7 +18,7 @@ function validationMiddleware(req, res, next) {
 
     res.locals.values = res.locals.routeConfig.ignoreValidation
       ? sanitized(values.payload)
-      : validate(values.payload, values.required);
+      : util.validate(values.payload, values.required);
 
     // Go to next middleware.
 
@@ -31,9 +33,9 @@ function validationMiddleware(req, res, next) {
     } else {
       // Else...
 
-      // If environment is not live, log validation error as a warning
+      // Log validation error as a warning
 
-      if (!isEnv.live) log.warning(error.toString().replace("Error:", ""));
+      util.log.warning(error.toString().replace("Error:", ""));
 
       // Send client a 400 ("Bad Request") status with the validation error.
 

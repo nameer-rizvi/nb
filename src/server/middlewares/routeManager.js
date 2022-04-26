@@ -1,6 +1,6 @@
 const configs = require("./routeManager.configs");
-const { base64, isEnv } = require("simpul");
-const { log } = require("../../util");
+const { base64 } = require("simpul");
+const util = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
   // Create the route constant by splitting the request url using the query delimiter.
@@ -31,23 +31,21 @@ function routeManagerMiddleware(req, res, next) {
 
     // Log route request.
 
-    log.route(req.method.toLowerCase() + " " + route);
+    util.log.route(req.method.toLowerCase() + " " + route);
 
     // Log request user.
 
-    log.user(`Request by ${res.locals.routeConfig.ip}`);
+    util.log.user(`Request by ${res.locals.routeConfig.ip}`);
 
     // Go to next middleware
 
     next();
-  } else if (!isEnv.live) {
-    // Else if environment is not live...
-
-    // Handle it with next server error middleware.
-
-    next(new Error(`Missing route config for: ${route} [${req.method}].`));
   } else {
     // Else...
+
+    // Log missing route config as warning.
+
+    util.log.warning(`Missing route config for: ${route} [${req.method}].`);
 
     // Send client a 404 ("Not Found") status.
 

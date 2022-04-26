@@ -1,4 +1,4 @@
-const { log } = require("../../util");
+const util = require("../../util");
 const { flatten, isString } = require("simpul");
 const Bowser = require("bowser");
 
@@ -41,7 +41,7 @@ function serverErrorHandler(err, res, req) {
 
     // Log server error message.
 
-    log.error(serverError.message, { flag: "minimal" });
+    util.log.error(serverError.message, { flag: "minimal" });
 
     // Parse flat user agent using bowser.
 
@@ -70,7 +70,7 @@ function serverErrorHandler(err, res, req) {
 
       // If trace is local, log it.
 
-      if (isLocalTrace) log.at(trace.trim(), { flag: "minimal" });
+      if (isLocalTrace) util.log.at(trace.trim(), { flag: "minimal" });
     }
 
     // This is where you can save the server error in the database...
@@ -79,7 +79,7 @@ function serverErrorHandler(err, res, req) {
   } catch (error) {
     // Log any middleware errors as error logs.
 
-    log.error(error, { flag: "minimal" });
+    util.log.error(error, { flag: "minimal" });
   } finally {
     // Send client a 500 ("Internal Server Error") status.
 

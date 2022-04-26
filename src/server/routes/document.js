@@ -13,7 +13,7 @@ function routeDocument(req, res, next) {
 
     // Call database controller with request method and save response.
 
-    const response = methodResolver[req.method](res.locals.values);
+    const response = methodResolver[req.method]?.(res.locals.values);
 
     // Send client a 200 ("OK") status with the database controller response.
 

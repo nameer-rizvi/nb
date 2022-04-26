@@ -25,13 +25,13 @@ function errorHandlerMiddleware(error, req, res, next) {
 
     clientErrorHandler(errorString.replace("Error:", "").trim(), res);
   } else if (error && isString(error)) {
-    // Else if error exists & it's a string...
+    // Else, if error exists & it's a string...
 
     // Handle it using the client error handler.
 
     clientErrorHandler(error, res);
   } else if (error) {
-    // Else if an error exists...
+    // Else, if an error exists...
 
     // Handle it using the server error handler.
 

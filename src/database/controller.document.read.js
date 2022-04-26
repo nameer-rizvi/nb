@@ -1,20 +1,34 @@
 const databaseClient = require("./client");
-const { isString, isArray, isObject, isFunction } = require("simpul");
+const { isValid, isString, isArray, isObject, isFunction } = require("simpul");
 
 function databaseControllerDocumentRead(find) {
   const store = databaseClient.read() || [];
 
-  if (isString(find)) {
-    return store.find((doc) => doc.id === find);
-  } else if (isArray(find)) {
-    return store.filter((doc) => find.includes(doc.id));
-  } else if (isObject(find)) {
-    return store.filter((doc) =>
-      Object.keys(find).every((key) => doc[key] === find[key])
-    );
-  } else if (isFunction(find)) {
-    return store.filter(find);
-  } else return store;
+  const result = !isValid(find)
+    ? store
+    : isString(find)
+    ? store.find((doc) => doc.id === find)
+    : isArray(find)
+    ? store.filter((doc) => find.includes(doc.id))
+    : isObject(find)
+    ? store.filter((doc) =>
+        Object.keys(find).every((key) => doc[key] === find[key])
+      )
+    : isFunction(find)
+    ? store.filter(find)
+    : "invalid";
+
+  return result !== "invalid"
+    ? {
+        success: true,
+        message: "Read.",
+        result,
+      }
+    : {
+        success: false,
+        message: "Invalid read operator.",
+        result: undefined,
+      };
 }
 
 module.exports = databaseControllerDocumentRead;

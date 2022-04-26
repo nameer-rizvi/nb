@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", require("./root"));
-router.use("/document", require("./document"));
+router.all("/document", require("./document"));
 router.post("/error", require("./error"));
 router.get("/favicon.ico", require("./favicon"));
 
