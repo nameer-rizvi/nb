@@ -6,7 +6,7 @@ function serverErrorHandler(err, res, req) {
   try {
     // Initialize constants from res locals.
 
-    const { values = {}, routeConfig = {} } = res.locals;
+    const { routeConfig = {}, values = {} } = res.locals;
 
     // Generate server error object with relevant properties.
 

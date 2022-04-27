@@ -11,18 +11,14 @@ async function authenticateMiddleware(req, res, next) {
 
       const bearerToken = parseBearerToken(req);
 
-      // Verify & fetch token data using jsonwebtoken.
+      // Verify token data using jsonwebtoken and assign it to res locals.
 
       res.locals.token = await util.jwt.verify(bearerToken);
-
-      // If an error isn't thrown by the verification go to next middleware.
-
-      next();
-    } else {
-      // Else, go to next middleware.
-
-      next();
     }
+
+    // If an error isn't thrown by the verification go to next middleware.
+
+    next();
   } catch (error) {
     // Log any failed authentication errors as non-critical logs.
 
@@ -34,7 +30,7 @@ async function authenticateMiddleware(req, res, next) {
   }
 }
 
-function parseBearerToken(req) {
+function parseBearerToken(req, ignoreError) {
   // Initialize authorization header with default string type.
 
   const { authorization = "" } = req.headers;
@@ -45,7 +41,7 @@ function parseBearerToken(req) {
 
   // Throw error if bearer token doesn't exist or is null.
 
-  if (!bearerToken || bearerToken === "null")
+  if (!ignoreError && (!bearerToken || bearerToken === "null"))
     throw new Error("Request authorization header is invalid.");
 
   return bearerToken;

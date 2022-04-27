@@ -26,7 +26,7 @@ function clientErrorHandler(err, res) {
 
     res.status(code).send(message);
   } else {
-    // Otherwise...
+    // Else...
 
     // Send client the response code with standard http protocol message.
 
