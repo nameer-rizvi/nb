@@ -50,6 +50,6 @@
     "nodemon": "^2.0.15",
     "sanitized": "^1.1.6",
     "simpul": "^0.8.6",
-    "simpul-validate": "^0.0.7"
+    "simpul-validate": "^0.0.8"
   }
 }
