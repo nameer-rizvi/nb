@@ -23,7 +23,7 @@ function validationMiddleware(req, res, next) {
   } catch (error) {
     const isUndefined = error
       .toString()
-      .match(/\bDictionary definition with key\b.*\bdoes not exist\b/);
+      .match(/Dictionary definition with key\b.*\bdoes not exist/);
 
     if (isUndefined) {
       // If error is for a missing data dictionary config...
