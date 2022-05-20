@@ -1,6 +1,6 @@
-// --starterKit-flag [define data dictionary configs]
+// --starterKit-flag [define data dictionary definitions]
 
-// The data dictionary store contains configs that define any and all
+// The data dictionary store contains definitions that define any and all
 // values that can be passed to the api routes (unless a routeConfig
 // has explicity set "ignoreValidation" to true).
 

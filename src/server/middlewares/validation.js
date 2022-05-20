@@ -21,7 +21,11 @@ function validationMiddleware(req, res, next) {
 
     next();
   } catch (error) {
-    if (error.toString().includes("Missing data dictionary config")) {
+    const isUndefined = error
+      .toString()
+      .match(/\bDictionary definition with key\b.*\bdoes not exist\b/);
+
+    if (isUndefined) {
       // If error is for a missing data dictionary config...
 
       // Handle it with next server error middleware.
