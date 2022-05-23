@@ -4,44 +4,44 @@ const apicacheMiddleware = require("./apicache");
 
 // The route manager restricts access to only those api routes that are defined
 // in the configs store here. It can be shaped any way you like, so long as there's
-// a "route" and a "method" value included, and it can be accessed in any proceeding middleware.
+// a "path" and a "method" value, and it can be accessed in any proceeding middleware.
 
 const routeManagerMiddlewareConfigs = [
   {
-    route: "/",
+    path: "/",
     method: "GET",
     cache: apicacheMiddleware.CACHE.MAX,
   },
   {
-    route: "/document",
+    path: "/document",
     method: "DELETE",
     authenticate: "bearerToken",
     requiredParams: ["id"],
   },
   {
-    route: "/document",
+    path: "/document",
     method: "GET",
     // ignoreValidation: true,
   },
   {
-    route: "/document",
+    path: "/document",
     method: "POST",
     authenticate: "bearerToken",
     requiredParams: ["document"],
   },
   {
-    route: "/document",
+    path: "/document",
     method: "PUT",
     authenticate: "bearerToken",
     requiredParams: ["document"],
   },
   {
-    route: "/error",
+    path: "/error",
     method: "POST",
     requiredParams: ["error"],
   },
   {
-    route: "/favicon.ico",
+    path: "/favicon.ico",
     method: "GET",
     cache: apicacheMiddleware.CACHE.MAX,
   },

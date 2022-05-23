@@ -3,39 +3,34 @@ const { base64 } = require("simpul");
 const util = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
-  // Create the route constant by splitting the request url using the query delimiter.
-
-  const route = req.url.split("?")[0];
-
-  // Loop through all route configs and use the route constant & request method to find the route config.
+  // Loop through all route configs and use the request path & method to find the route config.
 
   let routeConfig;
 
   for (let config of configs)
-    if (config.route === route && config.method === req.method) {
+    if (config.path === req.path && config.method === req.method) {
       routeConfig = config;
       break;
     }
 
   if (routeConfig) {
-    // If a matching route config exists for the request...
+    // If a route config exists for the request...
 
-    // Store route config in res locals.
+    // Create request user ip as base64 encoded string of the request ip.
 
-    // Store request ip as base64 encoded string in route config.
+    const reqUserIp = base64.encode(req.ip.replace(/\D/g, ""));
 
-    res.locals.routeConfig = {
-      ...routeConfig,
-      ip: base64.encode(req.ip.replace(/\D/g, "")),
-    };
+    // Store route config and request user ip in res locals.
+
+    res.locals.routeConfig = { ...routeConfig, ip: reqUserIp };
 
     // Log route request.
 
-    util.log.route(req.method.toLowerCase() + " " + route);
+    util.log.route(req.method.toLowerCase() + " " + req.path);
 
-    // Log request user.
+    // Log request user ip.
 
-    util.log.user(`Request by ${res.locals.routeConfig.ip}`);
+    util.log.user(`Request by ${reqUserIp}`);
 
     // Go to next middleware
 
@@ -45,7 +40,7 @@ function routeManagerMiddleware(req, res, next) {
 
     // Log missing route config as warning.
 
-    util.log.warning(`Missing route config for: ${route} [${req.method}].`);
+    util.log.warning(`Missing route config for: ${req.path} [${req.method}].`);
 
     // Send client a 404 ("Not Found") status.
 
