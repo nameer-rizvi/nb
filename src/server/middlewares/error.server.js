@@ -12,14 +12,14 @@ function serverErrorHandler(err, res, req) {
 
     const serverError = {};
 
-    serverError.source = routeConfig.route === "/error" ? "client" : "server";
+    serverError.source = routeConfig.path === "/error" ? "client" : "server";
 
     serverError.method =
       (serverError.source === "client" && "APP") ||
       routeConfig.method ||
       req.method;
 
-    serverError.route = values.error?.pathname || routeConfig.route || req.url;
+    serverError.path = values.error?.pathname || routeConfig.path || req.path;
 
     serverError.message =
       values.error?.message?.split(":")[0].trim() ||
@@ -35,7 +35,10 @@ function serverErrorHandler(err, res, req) {
       req.session?.user_id ||
       res.locals.user?.id ||
       res.locals.user?.uid ||
-      res.locals.user?.user_id;
+      res.locals.user?.user_id ||
+      res.locals.token?.id ||
+      res.locals.token?.uid ||
+      res.locals.token?.user_id;
 
     serverError.ip = req.ip || "";
 
@@ -73,7 +76,9 @@ function serverErrorHandler(err, res, req) {
       if (isLocalTrace) util.log.at(trace.trim(), { flag: "minimal" });
     }
 
-    // This is where you can save the server error in the database...
+    // Save server error in the database.
+
+    console.log(serverError);
 
     // database.controller.error.create(serverError);
   } catch (error) {

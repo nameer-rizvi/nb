@@ -4,7 +4,7 @@ const apicacheMiddleware = require("./apicache");
 
 // The route manager restricts access to only those api routes that are defined
 // in the configs store here. It can be shaped any way you like, so long as there's
-// a "path" and a "method" value, and it can be accessed in any proceeding middleware.
+// a "path" and a "method" value, and it can be accessed by any proceeding middleware.
 
 const routeManagerMiddlewareConfigs = [
   {

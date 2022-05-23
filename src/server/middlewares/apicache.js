@@ -15,7 +15,7 @@ const CACHE = {
 
 function apicacheMiddleware(req, res, next) {
   if (res.locals.routeConfig.cache) {
-    // If route has a apicache middleware method available call it.
+    // If route has a apicache middleware method available, call it.
 
     res.locals.routeConfig.cache(req, res, next);
   } else {

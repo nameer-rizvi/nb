@@ -16,7 +16,7 @@ const serverErrorHandler = require("./error.server");
 function errorHandlerMiddleware(error, req, res, next) {
   // Parse error string from error.
 
-  const errorString = error?.toString();
+  const errorString = error.toString();
 
   if (errorString?.includes("::")) {
     // If error string exists and it includes the client error delimiter...
@@ -25,21 +25,15 @@ function errorHandlerMiddleware(error, req, res, next) {
 
     clientErrorHandler(errorString.replace("Error:", "").trim(), res);
   } else if (error && isString(error)) {
-    // Else, if error exists & it's a string...
-
-    // Handle it using the client error handler.
+    // Else, if error exists & it's a string, handle it using the client error handler.
 
     clientErrorHandler(error, res);
   } else if (error) {
-    // Else, if an error exists...
-
-    // Handle it using the server error handler.
+    // Else, if an error exists, handle it using the server error handler.
 
     serverErrorHandler(error, res, req);
   } else {
-    // Else...
-
-    // Send client a 500 ("Internal Server Error") status.
+    // Else, send client a 500 ("Internal Server Error") status.
 
     res.sendStatus(500);
   }
