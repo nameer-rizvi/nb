@@ -13,9 +13,9 @@ function validationMiddleware(req, res, next) {
     // If route ignores validations, then set res locals to sanitized values payload.
     //  Otherwise, validate the values payload/required.
 
-    res.locals.values = res.locals.routeConfig.ignoreValidation
-      ? sanitized(values.payload)
-      : util.validate(values.payload, values.required);
+    if (res.locals.routeConfig.ignoreValidation) {
+      res.locals.values = sanitized(values.payload);
+    } else res.locals.values = util.validate(values.payload, values.required);
 
     // Go to next middleware.
 
