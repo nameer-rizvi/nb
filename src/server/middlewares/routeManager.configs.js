@@ -18,11 +18,11 @@ const routeManagerMiddlewareConfigs = [
     authenticate: "bearerToken",
     requiredParams: ["id"],
   },
-  // {
-  //   path: "/document",
-  //   method: "GET",
-  //   // ignoreValidation: true,
-  // },
+  {
+    path: "/document",
+    method: "GET",
+    // ignoreValidation: true,
+  },
   {
     path: "/document",
     method: "POST",
