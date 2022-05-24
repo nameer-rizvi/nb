@@ -20,9 +20,9 @@ async function authenticateMiddleware(req, res, next) {
 
     next();
   } catch (error) {
-    // Log any failed authentication errors as non-critical logs.
+    // Log failed authentication.
 
-    util.log.password("Authenticate Middleware: " + error.toString());
+    util.log.info("Authenticate Middleware: " + error.toString());
 
     // Send client a 401 ("Unauthorized") status.
 

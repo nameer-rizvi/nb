@@ -84,7 +84,7 @@ function serverErrorHandler(err, res, req) {
   } catch (error) {
     // Log any middleware errors as error logs.
 
-    util.log.error(error, { flag: "minimal" });
+    util.log.error(error);
   } finally {
     // Send client a 500 ("Internal Server Error") status.
 

@@ -26,17 +26,15 @@ function validationMiddleware(req, res, next) {
       .match(/Dictionary definition with key\b.*\bdoes not exist/);
 
     if (isUndefined) {
-      // If error is for a missing data dictionary config...
-
-      // Handle it with next server error middleware.
+      // If error is for a missing data dictionary config, handle it with next server error middleware.
 
       next(error);
     } else {
       // Else...
 
-      // Log validation error as a warning
+      // Log validation error.
 
-      util.log.warning(error.toString().replace("Error:", ""));
+      util.log.info("Validation Middleware: " + error.toString());
 
       // Send client a 400 ("Bad Request") status with the validation error.
 
