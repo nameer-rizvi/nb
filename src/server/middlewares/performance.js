@@ -32,7 +32,7 @@ function performanceMiddleware(req, res, next) {
 
     if (duration > DURATION_LIMIT) {
       const messages = [
-        `Request time took longer than recommended limit ("${ms}").`,
+        `Request time ("${ms}") took longer than recommended limit.`,
         "Consider refactoring to enhance route logic and reduce request time.",
       ];
       util.log.warning(messages.join(" "));
