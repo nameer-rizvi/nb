@@ -42,14 +42,14 @@
     "cors": "^2.8.5",
     "cron": "^2.0.0",
     "dotenv": "^16.0.1",
-    "dottpath": "^0.0.2",
+    "dottpath": "^0.0.4",
     "express": "^4.18.1",
     "helmet": "^5.1.0",
     "jsontxt": "^0.0.7",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.16",
     "sanitized": "^1.1.7",
-    "simpul": "^0.8.7",
-    "simpul-validate": "^0.1.0"
+    "simpul": "^0.9.1",
+    "simpul-validate": "^0.1.2"
   }
 }
