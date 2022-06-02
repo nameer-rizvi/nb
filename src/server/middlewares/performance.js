@@ -32,10 +32,11 @@ function performanceMiddleware(req, res, next) {
     // If request performance was above the recommended limit, log warning.
 
     if (duration > DURATION_LIMIT) {
+      const path = req.originalUrl.split("?")[0];
       const warning = [
-        `Request duration (${ms}) for "${req.path}" [${req.method}] by`,
+        `Request duration (${ms}) for "${path}" [${req.method}] by`,
         base64.encode(req.ip.replace(/\D/g, "")),
-        "was longer than recommended limit.",
+        `was longer than recommended limit (${DURATION_LIMIT.toLocaleString()} ms).`,
         "Consider refactoring to enhance route logic and reduce request time.",
       ].join(" ");
       util.log.warning(warning);
