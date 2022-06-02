@@ -30,7 +30,7 @@ function performanceMiddleware(req, res, next) {
 
     // If request performance was above the recommended limit, log warning.
 
-    if (duration < DURATION_LIMIT) {
+    if (duration > DURATION_LIMIT) {
       const warning = [
         `${req.method.toLowerCase()} ${req.path} (${ms})`,
         "took longer than recommended request time limit.",
