@@ -37,12 +37,15 @@ function parseBearerToken(req, ignoreError) {
 
   // Parse "Bearer" token from authorization header.
 
-  const bearerToken = authorization.split("Bearer ")[1];
+  let bearerToken = authorization.split("Bearer ")[1];
 
-  // Throw error if bearer token doesn't exist or is null.
+  // If null or undefined bearer token is stringified, set bearerToken to null.
 
-  if (!ignoreError && (!bearerToken || bearerToken === "null"))
-    throw new Error("Request authorization header is invalid.");
+  if (bearerToken === "null" || bearerToken === "undefined") bearerToken = null;
+
+  // Throw error if bearer token doesn't exist.
+
+  if (!ignoreError) throw new Error("Request authorization header is invalid.");
 
   return bearerToken;
 }
