@@ -1,5 +1,4 @@
 const configs = require("./routeManager.configs");
-const { base64 } = require("simpul");
 const util = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
@@ -16,21 +15,17 @@ function routeManagerMiddleware(req, res, next) {
   if (routeConfig) {
     // If a route config exists for the request...
 
-    // Create request user ip as base64 encoded string of the request ip.
+    // Store route config in res locals.
 
-    const reqUserIp = base64.encode(req.ip.replace(/\D/g, ""));
-
-    // Store route config and request user ip in res locals.
-
-    res.locals.routeConfig = { ...routeConfig, ip: reqUserIp };
+    res.locals.routeConfig = routeConfig;
 
     // Log route request.
 
     util.log.route(req.method.toLowerCase() + " " + req.path);
 
-    // Log request user ip.
+    // Log request ip.
 
-    util.log.user(`Request by ${reqUserIp}`);
+    util.log.user(`Request by ${req.ip}`);
 
     // Go to next middleware
 

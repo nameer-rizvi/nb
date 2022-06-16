@@ -39,7 +39,7 @@ function parseBearerToken(req, ignoreError) {
 
   let bearerToken = authorization.split("Bearer ")[1];
 
-  // If null or undefined bearer token is stringified, set bearerToken to null.
+  // If bearer token is stringified null or undefined, set bearerToken to null.
 
   if (bearerToken === "null" || bearerToken === "undefined") bearerToken = null;
 

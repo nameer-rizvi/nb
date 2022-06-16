@@ -1,5 +1,4 @@
 const util = require("../../util");
-const { base64 } = require("simpul");
 
 // Set recommended limit for request duration to 500 ms.
 
@@ -34,8 +33,7 @@ function performanceMiddleware(req, res, next) {
     if (duration > DURATION_LIMIT) {
       const path = req.originalUrl.split("?")[0];
       const warning = [
-        `Request duration (${ms}) for "${path}" [${req.method}] by`,
-        base64.encode(req.ip.replace(/\D/g, "")),
+        `Request duration (${ms}) for "${path}" [${req.method}] by ${req.ip}`,
         `was longer than recommended limit (${DURATION_LIMIT.toLocaleString()} ms).`,
         "Consider refactoring to enhance route logic and reduce request time.",
       ].join(" ");
