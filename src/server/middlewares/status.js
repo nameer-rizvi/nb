@@ -1,21 +1,42 @@
-// Protocol for conducting maintenance in a live pm2 environment:
-//   1. Change MAINTENANCE_MODE to "true" in ecosystem.config.js.
-//   2. Run "pm2 restart ecosystem.config.js" from root folder.
-//   3. ...CONDUCT MAINTENANCE...
-//   4. Change MAINTENANCE_MODE to "" in ecosystem.config.js.
-//   5. Run "pm2 restart ecosystem.config.js" from root folder.
+const util = require("../../util");
+
+/*
+  
+  Protocol for conducting maintenance in a live pm2 environment:
+
+  1. Set 'MAINTENANCE_MODE=true' in ecosystem.config.js.
+  2. Run "npm run pm2-restart" || "pm2 restart ecosystem.config.js" from root folder.
+  3. [CONDUCT MAINTENANCE]
+  4. Set 'MAINTENANCE_MODE=' in ecosystem.config.js.
+  5. 2. Run "npm run pm2-restart" || "pm2 restart ecosystem.config.js" from root folder.
+
+*/
 
 function statusMiddleware(req, res, next) {
   if (req.method === "GET" && req.url === "/health") {
-    // If request is for application health, send client a 200 ("OK") status.
+    // If request is for application health...
+
+    // Log request.
+
+    util.log.info("OK health.");
+
+    // Send client a 200 ("OK") status.
 
     res.sendStatus(200);
   } else if (process.env.MAINTENANCE_MODE === "true") {
-    // Else, if application is in maintenance mode, send client a 503 ("Service Unavailable") status.
+    // Else, if application is in maintenance mode...
+
+    // Send client a 503 ("Service Unavailable") status.
 
     res.sendStatus(503);
   } else if (req.method === "GET" && req.url === "/status") {
-    // Else, if request is for application status, send client a 200 ("OK") status.
+    // Else, if request is for application status...
+
+    // Log request.
+
+    util.log.info("OK status.");
+
+    // Send client a 200 ("OK") status.
 
     res.sendStatus(200);
   } else {

@@ -78,9 +78,9 @@ function serverErrorHandler(err, res, req) {
 
     // Save server error in the database.
 
-    console.log(serverError);
-
     // database.controller.error.create(serverError);
+
+    console.log(serverError);
   } catch (error) {
     // Log any middleware errors as error logs.
 

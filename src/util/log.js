@@ -7,8 +7,8 @@ const keyEmojis = [{ key: "performance", emoji: "⏱️ " }];
 const logEnvConfig = isEnv.production
   ? {
       ignoreEnvironment: true,
-      ignoreNonCriticalLogs: true,
-      flags: ["minimal"],
+      // ignoreNonCriticalLogs: true,
+      // flags: ["minimal"],
     }
   : {
       ignoreEnvironment: true,

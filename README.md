@@ -40,6 +40,8 @@ Start Express server in production mode.
 
 Start 'forever' processes defined in ecosystem.config.js
 
+_[Click here for the PM2 installation guide.](https://pm2.io/docs/runtime/guide/installation/)_
+
 `npm run pm2-restart`
 
 Restart 'forever' processes defined in ecosystem.config.js

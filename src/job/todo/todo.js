@@ -1,18 +1,18 @@
-const { log } = require("../../util");
+const util = require("../../util");
 
 // Mock todo job.
 
 function todo(processExit) {
   setTimeout(() => {
-    log.bot("Starting job...");
+    util.log.bot("Starting job...");
   }, 100);
 
   setTimeout(() => {
-    log.bot("Doing job...");
+    util.log.bot("Doing job...");
   }, 250);
 
   setTimeout(() => {
-    log.bot("Finished job.");
+    util.log.bot("Finished job.");
   }, 1000);
 
   setTimeout(() => {

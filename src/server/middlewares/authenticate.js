@@ -4,12 +4,16 @@ const util = require("../../util");
 
 async function authenticateMiddleware(req, res, next) {
   try {
-    if (res.locals.routeConfig.authenticate === "bearerToken") {
+    // Destructure required props from route config.
+
+    const { authenticate, ignoreAuthenticationError } = res.locals.routeConfig;
+
+    if (authenticate === "bearerToken") {
       // If route requires authenticating a bearer token...
 
       // Parse "Bearer" token from authorization header.
 
-      const bearerToken = parseBearerToken(req);
+      const bearerToken = parseBearerToken(req, ignoreAuthenticationError);
 
       // Verify token data using jsonwebtoken and assign it to res locals.
 

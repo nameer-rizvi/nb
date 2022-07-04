@@ -5,22 +5,22 @@ const util = require("../../util");
 const DURATION_LIMIT = 500;
 
 function performanceMiddleware(req, res, next) {
-  // Create constant for request start time.
+  // Constant for request start time.
 
   const start = new Date().getTime();
 
   // On response finish...
 
   res.on("finish", () => {
-    // Create constant for request end time.
+    // Constant for request end time.
 
     const end = new Date().getTime();
 
-    // Create constant for request duration.
+    // Constant for request duration.
 
     const duration = end - start;
 
-    // Create constant for request duration string in ms.
+    // Constant for request duration string in ms.
 
     const ms = `${duration.toLocaleString()} ms`;
 
