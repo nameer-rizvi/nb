@@ -2,13 +2,13 @@
 
 Node.js boilerplate. Features an opinionated project structure for hosting assets, database clients & controllers, jobs, an Express server and shared utility functions.
 
-## Getting Started
+## Getting started
 
 As opinionated as the boilerplate code is, a trail of comments have been left to help make initial configuration settings changes easier so that there isn't a need to go through every single file before getting started.
 
 `Ctrl/Cmd + F` on the "/src" folder for: `// --starterKit-flag`
 
-## NPM Scripts
+## NPM scripts
 
 `npm run test`
 
@@ -40,14 +40,12 @@ Start Express server in production mode.
 
 Start 'forever' processes defined in ecosystem.config.js
 
-_[Click here for the PM2 installation guide.](https://pm2.io/docs/runtime/guide/installation/)_
-
 `npm run pm2-restart`
 
 Restart 'forever' processes defined in ecosystem.config.js
 
-_[Click here to learn how to configure a PM2 ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)_
+## PM2 links
 
-## Useful Packages
-
-- To limit size of pm2 logs: https://github.com/keymetrics/pm2-logrotate
+- [Installation guide.](https://pm2.io/docs/runtime/guide/installation/)
+- [Configuring an ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)
+- [Log rotator.](https://github.com/keymetrics/pm2-logrotate)
