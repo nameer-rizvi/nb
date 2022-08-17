@@ -42,7 +42,7 @@ function statusMiddleware(req, res, next) {
   if (response) {
     // Log it using the info emoji.
 
-    log.info(response.log);
+    util.log.info(response.log);
 
     // Send client the response status.
 
