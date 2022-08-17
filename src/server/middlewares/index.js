@@ -5,7 +5,7 @@ const middlewares = [
   require("./helmet"),
   require("./expressParsers"),
   require("./routeManager"),
-  // require("./rateLimit"), // Proxies (i.e. NGINX) normally handle this...
+  // require("./rateLimit"), // Proxies (i.e. NGINX) should handle this...
   require("./authenticate"),
   require("./validation"),
   require("./compression"),

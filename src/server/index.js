@@ -17,11 +17,11 @@ const port = process.env.PORT || 4000;
 server.listen(port, () => {
   // Log environment.
 
-  util.log.environment2(`in ${isEnv.name}.`, { flag: "minimal" });
+  util.log.environment2(`in ${isEnv.name}.`);
 
   // Log listener.
 
-  util.log.express(`server listening on port ${port}`, { flag: "minimal" });
+  util.log.express(`server listening on port ${port}`);
 });
 
 // Set "trust proxy" in live environments.

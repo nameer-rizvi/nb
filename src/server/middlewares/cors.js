@@ -5,7 +5,7 @@ const cors = require("cors");
 const { ORIGIN = "" } = process.env;
 
 // An api service might want to provide access to multiple origins,
-// as such, we declare them in a comma-separated env string variable.
+// as such, we declare them in a comma-separated env string constant.
 
 const corsMiddleware = cors({ origin: ORIGIN.split(",") });
 
