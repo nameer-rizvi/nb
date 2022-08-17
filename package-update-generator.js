@@ -1,5 +1,7 @@
 const packageJSON = require("./package.json");
 
+const ignorePackages = [""];
+
 const configs = [
   {
     action: "uninstall",
@@ -16,8 +18,6 @@ const configs = [
     save: "--save",
   },
 ];
-
-const ignorePackages = [""];
 
 function mapper(config) {
   const packageNames = [];
