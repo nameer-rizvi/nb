@@ -37,4 +37,4 @@ const commands = configs
   .filter(Boolean)
   .join(" && ");
 
-console.log(commands);
+console.log(`\n${commands}\n`);
