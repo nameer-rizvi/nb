@@ -17,7 +17,7 @@ async function authenticateMiddleware(req, res, next) {
 
       // Verify token data using jsonwebtoken and assign it to res locals.
 
-      res.locals.token = await util.jwt.verify(bearerToken);
+      if (bearerToken) res.locals.token = await util.jwt.verify(bearerToken);
     }
 
     // Go to next middleware.
