@@ -13,7 +13,7 @@ const util = require("../../util");
 */
 
 function statusMiddleware(req, res, next) {
-  // Response configs for handling status requests. Order is important.
+  // Response configs for handling status requests. In order of priority.
 
   const responses = [
     {

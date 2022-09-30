@@ -1,4 +1,9 @@
 const apicache = require("apicache");
+const { isEnv } = require("simpul");
+
+// Reset api cache on server restart.
+
+apicache.clear();
 
 // Route manager config.
 
@@ -8,19 +13,17 @@ const CACHE = {
   MIN: apicache.middleware("30 seconds"),
   STALE: apicache.middleware("5 minutes"),
   HOUR: apicache.middleware("1 hour"),
+  DAY: apicache.middleware("1 day"),
   MAX: apicache.middleware("3 weeks"),
 };
 
 // Middleware.
 
 function apicacheMiddleware(req, res, next) {
-  if (res.locals.routeConfig.cache) {
-    // If route has a apicache middleware method available, call it.
-
+  if (isEnv.live && res.locals.routeConfig.cache) {
+    // If route has an apicache middleware method available, call it.
     res.locals.routeConfig.cache(req, res, next);
   } else {
-    // Else, go to next middleware.
-
     next();
   }
 }

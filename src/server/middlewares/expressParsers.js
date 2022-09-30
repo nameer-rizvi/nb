@@ -2,7 +2,7 @@ const express = require("express");
 
 // Express's parsers are required to parse requests for json values.
 // These json values get validated and sanitized in the validation middleware
-// and stored in res locals for use in route functions.
+// and stored in res locals for use by routes.
 
 const expressJSONParser = express.json({ limit: "1mb" });
 

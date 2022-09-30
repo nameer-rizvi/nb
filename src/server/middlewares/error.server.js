@@ -82,16 +82,13 @@ function serverErrorHandler(err, res, req) {
     //   database.controller.error.create(serverError);
   } catch (error) {
     // Log any middleware errors as error logs.
-
     util.log.error(error);
   } finally {
-    if (serverError.method === "APP") {
-      // If server error is by APP method, send client a 200 ("OK") status.
-
+    if (serverError.source === "client") {
+      // If server error is by a client, send client a 200 ("OK") status.
       res.sendStatus(200);
     } else {
       // Else, send client a 500 ("Internal Server Error")
-
       res.sendStatus(500);
     }
   }

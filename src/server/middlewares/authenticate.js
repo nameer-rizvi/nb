@@ -47,7 +47,7 @@ function parseBearerToken(req, ignoreError) {
 
   if (bearerToken === "null" || bearerToken === "undefined") bearerToken = null;
 
-  // Throw error if bearer token doesn't exist.
+  // Throw error if bearer token doesn't exist and error shouldn't be ignored.
 
   if (!bearerToken && !ignoreError)
     throw new Error("Request authorization header is invalid.");

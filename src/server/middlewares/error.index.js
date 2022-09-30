@@ -22,28 +22,18 @@ const serverErrorHandler = require("./error.server");
 // eslint-disable-next-line no-unused-vars
 function errorHandlerMiddleware(error, req, res, next) {
   // Parse error string from error.
-
-  const errorString = error.toString();
-
+  let errorString = error.toString();
   if (errorString?.includes("::")) {
-    // If error string exists and it includes the client error delimiter...
-
-    // Clean error string, and handle it using the client error handler.
-
-    clientErrorHandler(errorString.replace("Error:", "").trim(), res);
+    // If error string exists and it includes the client error delimiter, clean error string and handle it using the client error handler.
+    errorString = errorString.replace("Error:", "").trim();
+    clientErrorHandler(errorString, res);
   } else if (error && isString(error)) {
     // Else, if error exists & it's a string, handle it using the client error handler.
-
     clientErrorHandler(error, res);
   } else if (error) {
     // Else, if an error exists, handle it using the server error handler.
-
     serverErrorHandler(error, res, req);
-  } else {
-    // Else, send client a 500 ("Internal Server Error") status.
-
-    res.sendStatus(500);
-  }
+  } else res.sendStatus(500); // Else, send client a 500 ("Internal Server Error") status.
 }
 
 module.exports = errorHandlerMiddleware;

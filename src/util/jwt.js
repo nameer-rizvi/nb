@@ -2,6 +2,7 @@
 
 const jsonwebtoken = require("jsonwebtoken");
 const { JWT_SECRET = "secret123" } = process.env;
+const log = require("./log");
 
 exports.sign = async (data = {}, expiresIn = "5m") => {
   // Generate token using jsonwebtoken. Since expiresIn has a default value, data must be an object.
@@ -35,6 +36,8 @@ exports.verify = async (token, validateKey) => {
 
   throw new Error("No data.");
 };
+
+if (!JWT_SECRET) log.warning2("JWT_SECRET is not set.");
 
 // https://jwt.io/
 // https://www.npmjs.com/package/jsonwebtoken
