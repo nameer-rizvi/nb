@@ -9,7 +9,7 @@ function databaseControllerDocumentDelete(id, options = {}) {
 
     return { success: false, message: error };
   } else {
-    const store = databaseClient.read() || [];
+    const store = databaseClient.read();
 
     const documentIndex = store.findIndex((doc) => doc.id === id);
 

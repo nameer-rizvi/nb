@@ -7,7 +7,7 @@ function serverErrorHandler(err, res, req) {
 
   const serverError = {};
 
-  // Initialize constants from res locals.
+  // Destructure constants from res locals.
 
   const { routeConfig = {}, values = {} } = res.locals;
 
@@ -73,9 +73,7 @@ function serverErrorHandler(err, res, req) {
         !trace.includes("node_modules") &&
         (trace.includes("/lib") || trace.includes("/src"));
 
-      // If trace is local, log it.
-
-      if (isLocalTrace) util.log.at(trace.trim());
+      if (isLocalTrace) util.log.at(trace.trim()); // Log trace if it is local.
     }
 
     // Save server error in the database...

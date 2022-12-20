@@ -26,7 +26,7 @@ async function authenticateMiddleware(req, res, next) {
   } catch (error) {
     // Log authentication error.
 
-    util.log.info("Authenticate Middleware: " + error.toString());
+    util.log.warning2(`Authenticate Middleware: ${error.toString()}`);
 
     // Send client a 401 ("Unauthorized") status.
 
@@ -35,22 +35,24 @@ async function authenticateMiddleware(req, res, next) {
 }
 
 function parseBearerToken(req, ignoreError) {
-  // Initialize authorization header with default string type.
+  // Destructure authorization header with default string type.
 
   const { authorization = "" } = req.headers;
 
-  // Parse "Bearer" token from authorization header.
+  // Split bearer token from authorization header.
 
   let bearerToken = authorization.split("Bearer ")[1];
 
-  // If bearer token is stringified null or undefined, set bearerToken to null.
+  // If bearer token is a null or undefined literal string, set it to null.
 
   if (bearerToken === "null" || bearerToken === "undefined") bearerToken = null;
 
-  // Throw error if bearer token doesn't exist and error shouldn't be ignored.
+  // If bearer token doesn't exist and route doesn't require ignoring error, throw error.
 
   if (!bearerToken && !ignoreError)
     throw new Error("Request authorization header is invalid.");
+
+  // Return bearer token.
 
   return bearerToken;
 }

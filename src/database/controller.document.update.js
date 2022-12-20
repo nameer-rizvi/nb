@@ -13,7 +13,7 @@ function databaseControllerDocumentUpdate(update, options = {}) {
   } else if (!update.id) {
     return handleError("Update requires an id.");
   } else {
-    const store = databaseClient.read() || [];
+    const store = databaseClient.read();
 
     const documentIndex = store.findIndex((doc) => doc.id === update.id);
 

@@ -1,44 +1,28 @@
 const util = require("../../util");
 
-// Set recommended limit for request duration to 500 ms.
-
-const DURATION_LIMIT = 500;
-
 function performanceMiddleware(req, res, next) {
   // Constant for request start time.
 
-  const start = new Date().getTime();
+  const start = Date.now();
+
+  // Constant to store path. For some reason it changes on finish...
+
+  const path = req.path;
 
   // On response finish...
 
   res.on("finish", () => {
     // Constant for request end time.
 
-    const end = new Date().getTime();
+    const end = Date.now();
 
     // Constant for request duration.
 
     const duration = end - start;
 
-    // Constant for request duration string in ms.
+    // Log request peformance duration in ms.
 
-    const ms = `${duration.toLocaleString()} ms`;
-
-    // Log request peformance.
-
-    util.log.performance(ms);
-
-    // If request performance was above the recommended limit, log warning.
-
-    if (duration > DURATION_LIMIT) {
-      const path = req.originalUrl.split("?")[0];
-      const warning = [
-        `Request duration (${ms}) for "${path}" [${req.method}] by ${req.ip}`,
-        `was longer than recommended limit (${DURATION_LIMIT.toLocaleString()} ms).`,
-        "Consider refactoring to enhance route logic and reduce request time.",
-      ].join(" ");
-      util.log.warning(warning);
-    }
+    util.log.performance(`${duration.toLocaleString()} ms ("${path}")`);
   });
 
   // Go to next middleware.

@@ -2,7 +2,7 @@ const databaseClient = require("./client");
 const { isValid, isString, isArray, isObject, isFunction } = require("simpul");
 
 function databaseControllerDocumentRead(find) {
-  const store = databaseClient.read() || [];
+  const store = databaseClient.read();
 
   const result = !isValid(find)
     ? store

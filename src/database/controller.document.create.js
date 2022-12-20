@@ -9,7 +9,7 @@ function databaseControllerDocumentCreate(newDocument, options = {}) {
 
     return { success: false, message: error };
   } else {
-    const store = databaseClient.read() || [];
+    const store = databaseClient.read();
 
     let id = generateKey();
 

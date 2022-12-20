@@ -20,9 +20,9 @@ Run ESLint on all JavaScript files and return a report on syntax warnings/errors
 
 _Recommended for maintaining code quality._
 
-`npm run job-todo`
+`JOB=name_of_job npm run job`
 
-Manually run the todo job.
+Manually run a job.
 
 `npm run server`
 
