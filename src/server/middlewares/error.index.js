@@ -1,6 +1,6 @@
-const { isString } = require("simpul");
 const clientErrorHandler = require("./error.client");
 const serverErrorHandler = require("./error.server");
+const simpul = require("simpul");
 
 /* 
 
@@ -27,7 +27,7 @@ function errorHandlerMiddleware(error, req, res, next) {
     // If error string exists and it includes the client error delimiter, clean error string and handle it using the client error handler.
     errorString = errorString.replace("Error:", "").trim();
     clientErrorHandler(errorString, res);
-  } else if (error && isString(error)) {
+  } else if (error && simpul.isString(error)) {
     // Else, if error exists & it's a string, handle it using the client error handler.
     clientErrorHandler(error, res);
   } else if (error) {

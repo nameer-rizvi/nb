@@ -1,10 +1,11 @@
+// --starterKit-flag [set api route configs here]
 const apicacheMiddleware = require("./apicache");
 
-// --starterKit-flag [set api route configs here]
-
-// The route manager restricts access to only those api routes that are defined
-// in the configs store here. It can be shaped any way you like and be accessed
-// by any proceeding middleware, so long as there's a "path" and a "method" value.
+/*
+ * The route manager restricts access to only those api routes that are defined
+ * in the configs store here. It can be shaped any way you like and be accessed
+ * by any proceeding middleware, so long as there's a "path" and a "method" value.
+ */
 
 const routeManagerMiddlewareConfigs = [
   {
@@ -21,7 +22,7 @@ const routeManagerMiddlewareConfigs = [
   {
     path: "/document",
     method: "GET",
-    // ignoreValidation: true,
+    // ignoreValidationMiddleware: true,
   },
   {
     path: "/document",

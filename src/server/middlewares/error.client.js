@@ -1,4 +1,4 @@
-const { isNumber } = require("simpul");
+const simpul = require("simpul");
 
 // Example client error: next("400::Username must be at least 30 characters.")
 
@@ -9,7 +9,7 @@ function clientErrorHandler(err, res) {
 
   // Check if a response code exists.
 
-  const codeExists = isNumber(errSplit[0]);
+  const codeExists = simpul.isNumber(errSplit[0]);
 
   // Based on existing response code, determine response code.
 

@@ -1,8 +1,8 @@
-const { isString } = require("simpul");
 const databaseClient = require("./client");
+const simpul = require("simpul");
 
 function databaseControllerDocumentDelete(id, options = {}) {
-  if (!isString(id)) {
+  if (!simpul.isString(id)) {
     const error = "Document id must be a string.";
 
     if (!options.ignoreThrowError) throw new Error(error);

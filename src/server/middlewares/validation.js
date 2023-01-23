@@ -1,6 +1,6 @@
 const sanitized = require("sanitized");
+const simpul = require("simpul");
 const util = require("../../util");
-const { isObject, isNumber } = require("simpul");
 
 function validationMiddleware(req, res, next) {
   try {
@@ -14,7 +14,7 @@ function validationMiddleware(req, res, next) {
     // If route ignores validations, then set res locals to sanitized values payload.
     //  Else, validate the values payload/required.
 
-    if (res.locals.routeConfig.ignoreValidation) {
+    if (res.locals.routeConfig.ignoreValidationMiddleware) {
       res.locals.values = sanitized(values.payload);
     } else res.locals.values = util.validate(values.payload, values.required);
 
@@ -49,8 +49,8 @@ module.exports = validationMiddleware;
 function parsePayload(payload) {
   for (let [key, value] of Object.entries(payload)) {
     let definition = util.dictionary.find((i) => i.key === key);
-    if (definition?.type === "array" && isObject(value)) {
-      let isArrayObject = Object.keys(value).every(isNumber);
+    if (definition?.type === "array" && simpul.isObject(value)) {
+      let isArrayObject = Object.keys(value).every(simpul.isNumber);
       if (isArrayObject) payload[key] = Object.values(value);
     }
   }

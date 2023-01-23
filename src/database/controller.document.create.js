@@ -1,8 +1,8 @@
-const { isObject, generateKey } = require("simpul");
 const databaseClient = require("./client");
+const simpul = require("simpul");
 
 function databaseControllerDocumentCreate(newDocument, options = {}) {
-  if (!isObject(newDocument)) {
+  if (!simpul.isObject(newDocument)) {
     const error = "Document must be an object.";
 
     if (!options.ignoreThrowError) throw new Error(error);
@@ -11,12 +11,12 @@ function databaseControllerDocumentCreate(newDocument, options = {}) {
   } else {
     const store = databaseClient.read();
 
-    let id = generateKey();
+    let id = simpul.generateKey();
 
     let idIndex = store.findIndex((doc) => doc.id === id);
 
     while (idIndex !== -1) {
-      id = generateKey();
+      id = simpul.generateKey();
       idIndex = store.findIndex((doc) => doc.id === id);
     }
 

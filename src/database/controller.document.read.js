@@ -1,20 +1,20 @@
 const databaseClient = require("./client");
-const { isValid, isString, isArray, isObject, isFunction } = require("simpul");
+const simpul = require("simpul");
 
 function databaseControllerDocumentRead(find) {
   const store = databaseClient.read();
 
-  const result = !isValid(find)
+  const result = !simpul.isValid(find)
     ? store
-    : isString(find)
+    : simpul.isString(find)
     ? store.find((doc) => doc.id === find)
-    : isArray(find)
+    : simpul.isArray(find)
     ? store.filter((doc) => find.includes(doc.id))
-    : isObject(find)
+    : simpul.isObject(find)
     ? store.filter((doc) =>
         Object.keys(find).every((key) => doc[key] === find[key])
       )
-    : isFunction(find)
+    : simpul.isFunction(find)
     ? store.filter(find)
     : "invalid";
 

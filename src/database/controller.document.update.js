@@ -1,6 +1,6 @@
-const { isObject, clone } = require("simpul");
 const databaseClient = require("./client");
 const dottpath = require("dottpath");
+const simpul = require("simpul");
 
 function databaseControllerDocumentUpdate(update, options = {}) {
   function handleError(error) {
@@ -8,7 +8,7 @@ function databaseControllerDocumentUpdate(update, options = {}) {
     return { success: false, message: error };
   }
 
-  if (!isObject(update)) {
+  if (!simpul.isObject(update)) {
     return handleError("Update must be an object.");
   } else if (!update.id) {
     return handleError("Update requires an id.");
@@ -20,7 +20,7 @@ function databaseControllerDocumentUpdate(update, options = {}) {
     if (documentIndex === -1) {
       return handleError(`Document with id ("${update.id}") does not exist.`);
     } else {
-      const previous_document = clone(store[documentIndex]);
+      const previous_document = simpul.clone(store[documentIndex]);
 
       const updated_document = { ...store[documentIndex], ...update };
 

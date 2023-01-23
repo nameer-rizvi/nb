@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const util = require("../util");
-const { isEnv } = require("simpul");
 const middlewaresAndRoutes = require("./middlewares");
+const simpul = require("simpul");
+const util = require("../util");
 
 // Initialize Express server.
 
@@ -17,7 +17,7 @@ const port = process.env.PORT || 4000;
 server.listen(port, () => {
   // Log environment.
 
-  util.log.environment2(`in ${isEnv.name}.`);
+  util.log.environment2(`in ${simpul.isEnv.name}.`);
 
   // Log listener.
 
@@ -26,7 +26,7 @@ server.listen(port, () => {
 
 // Set "trust proxy" in live environments.
 
-server.set("trust proxy", isEnv.live);
+server.set("trust proxy", simpul.isEnv.live);
 
 // Use middlewares + routes for Express server.
 

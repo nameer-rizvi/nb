@@ -1,5 +1,5 @@
-const simpul_validate = require("simpul-validate");
 const dictionary = require("./dictionary");
+const simpul_validate = require("simpul-validate");
 
 const validate = simpul_validate(dictionary);
 

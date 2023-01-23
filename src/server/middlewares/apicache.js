@@ -1,5 +1,5 @@
 const apicache = require("apicache");
-const { isEnv } = require("simpul");
+const simpul = require("simpul");
 
 // Reset api cache on server restart.
 
@@ -20,7 +20,7 @@ const CACHE = {
 // Middleware.
 
 function apicacheMiddleware(req, res, next) {
-  if (isEnv.live && res.locals.routeConfig.cache) {
+  if (simpul.isEnv.live && res.locals.routeConfig.cache) {
     // If route has an apicache middleware method available, call it.
     res.locals.routeConfig.cache(req, res, next);
   } else {

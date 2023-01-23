@@ -1,6 +1,6 @@
-const util = require("../../util");
-const { flatten, isString } = require("simpul");
 const Bowser = require("bowser");
+const simpul = require("simpul");
+const util = require("../../util");
 
 function serverErrorHandler(err, res, req) {
   // Initialize server error constant.
@@ -50,7 +50,9 @@ function serverErrorHandler(err, res, req) {
 
     // Parse flat user agent using bowser.
 
-    const userAgent = flatten(Bowser.parse(req.headers["user-agent"] || " "));
+    const ua = Bowser.parse(req.headers["user-agent"] || " ");
+
+    const userAgent = simpul.flatten(ua);
 
     // Assign user agent to server error.
 
@@ -58,7 +60,7 @@ function serverErrorHandler(err, res, req) {
 
     // Split server error stack with delimiter " at ".
 
-    const serverErrorStackSplits = isString(serverError.stack)
+    const serverErrorStackSplits = simpul.isString(serverError.stack)
       ? serverError.stack.split(" at ")
       : [];
 
