@@ -1,5 +1,7 @@
-// jsontxt is a simple in-memory client that stores json in a .txt file located in the project's root folder.
-//   It's only used here for demonstration purposes.
+/*
+ * jsontxt is a simple in-memory client that stores json in a .txt file located in the project's root folder.
+ *   It's only used here for demonstration purposes.
+ */
 
 const jsontxt = require("jsontxt");
 const util = require("../util");
