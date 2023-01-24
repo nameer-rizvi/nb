@@ -2,11 +2,11 @@ const util = require("../../util");
 
 /*
  * Protocol for conducting maintenance in a live pm2 environment:
- * 1. Set 'MAINTENANCE_MODE=true' in ecosystem.config.js.
- * 2. Run "npm run pm2-restart" || "pm2 restart ecosystem.config.js" from root folder.
- * 3. [CONDUCT MAINTENANCE]
- * 4. Set 'MAINTENANCE_MODE=' in ecosystem.config.js.
- * 5. 2. Run "npm run pm2-restart" || "pm2 restart ecosystem.config.js" from root folder.
+ *  1. Set 'MAINTENANCE_MODE=true' in ecosystem.config.js.
+ *  2. Run "yarn run pm2-restart" from root folder.
+ *  3. [CONDUCT MAINTENANCE]
+ *  4. Set 'MAINTENANCE_MODE=' in ecosystem.config.js.
+ *  5. 2. Run "yarn run pm2-restart" from root folder.
  */
 
 function statusMiddleware(req, res, next) {
