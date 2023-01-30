@@ -3,7 +3,7 @@ const jsonwebtoken = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const log = require("./log");
 
-exports.sign = async (data = {}, expiresIn = "5m") => {
+exports.sign = async function signJWT(data = {}, expiresIn = "5m") {
   // Generate token using jsonwebtoken. Since expiresIn has a default value, data must be an object.
 
   const token = await jsonwebtoken.sign(data, JWT_SECRET, { expiresIn });
@@ -17,7 +17,7 @@ exports.sign = async (data = {}, expiresIn = "5m") => {
   return token;
 };
 
-exports.verify = async (token, validateKey) => {
+exports.verify = async function verifyJWT(token, validateKey) {
   // Verify token using jsonwebtoken.
 
   const data = await jsonwebtoken.verify(token, JWT_SECRET);
