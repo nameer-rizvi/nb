@@ -46,6 +46,6 @@ const routeManagerMiddlewareConfigs = [
     method: "GET",
     cache: apicacheMiddleware.CACHE.MAX,
   },
-];
+].filter(Boolean);
 
 module.exports = routeManagerMiddlewareConfigs;

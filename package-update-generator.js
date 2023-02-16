@@ -4,18 +4,17 @@ const ignorePackages = [""];
 
 const configs = [
   {
-    action: "uninstall",
+    action: "remove",
     keys: ["devDependencies", "dependencies"],
   },
   {
-    action: "install",
+    action: "add",
     keys: ["devDependencies"],
-    save: "--save-dev",
+    save: "--dev",
   },
   {
-    action: "install",
+    action: "add",
     keys: ["dependencies"],
-    save: "--save",
   },
 ];
 
@@ -28,7 +27,7 @@ function mapper(config) {
           packageNames.push(packageName);
   if (packageNames.length) {
     if (config.save) packageNames.push(config.save);
-    return `npm ${config.action} ${packageNames.join(" ")}`;
+    return `yarn ${config.action} ${packageNames.join(" ")}`;
   }
 }
 

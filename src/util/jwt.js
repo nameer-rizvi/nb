@@ -1,6 +1,6 @@
 // --starterKit-flag [set JWT_SECRET in a ".env" file located in the projects root folder]
 const jsonwebtoken = require("jsonwebtoken");
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = process.env.JWT_SECRET;
 const log = require("./log");
 
 exports.sign = async function signJWT(data = {}, expiresIn = "5m") {
