@@ -8,44 +8,46 @@ As opinionated as the boilerplate code is, a trail of comments have been left to
 
 `Ctrl/Cmd + F` on the "/src" folder for: `// --starterKit-flag`
 
-## NPM scripts
+## Yarn scripts
 
-`npm run test`
+`yarn test`
 
 Placeholder script to run tests.
 
-`npm run lint`
+`yarn lint`
 
 Run ESLint on all JavaScript files and return a report on syntax warnings/errors.
 
 _Recommended for maintaining code quality._
 
-`JOB=name_of_job npm run job`
+`JOB=JOB_NAME yarn job`
 
 Manually run a job.
 
-`npm run server`
+`yarn server`
 
 Start Express server in development mode.
 
-`npm run server-watch`
+`yarn server-watch`
 
 Start Express server in development mode with nodemon watching for file changes.
 
-`npm run start`
+`yarn start`
 
 Start Express server in production mode.
 
-`npm run pm2-start`
+`yarn pm2-start`
 
 Start 'forever' processes defined in ecosystem.config.js
 
-`npm run pm2-restart`
+`yarn pm2-restart`
 
 Restart 'forever' processes defined in ecosystem.config.js
 
 ## PM2 links
 
-- [Installation guide.](https://pm2.io/docs/runtime/guide/installation/)
-- [Configuring an ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)
-- [Log rotator.](https://github.com/keymetrics/pm2-logrotate)
+-   [Installation guide.](https://pm2.io/docs/runtime/guide/installation/)
+
+-   [Configuring an ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)
+
+-   [Log rotator.](https://github.com/keymetrics/pm2-logrotate)

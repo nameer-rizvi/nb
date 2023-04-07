@@ -5,8 +5,8 @@ const routes = require("../middlewares/routeManager.configs");
 const routeRoot = (req, res) =>
   res.json({
     name: "Application API",
-    description: "List of routes and route requirements.",
-    routes,
+    description: "List of route addresses.",
+    routes: routes.map((r) => ({ path: r.path, method: r.method })),
   });
 
 module.exports = routeRoot;
