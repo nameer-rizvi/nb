@@ -5,7 +5,7 @@ const eslintrc = {
     es2021: true,
     node: true,
   },
-  extends: "eslint:recommended",
+  extends: ["eslint:recommended", "plugin:import/recommended"],
   parserOptions: {
     ecmaVersion: 12,
   },

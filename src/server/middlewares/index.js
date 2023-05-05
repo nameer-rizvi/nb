@@ -1,4 +1,5 @@
 const middlewares = [
+  require("./robots"),
   require("./performance"),
   require("./status"),
   require("./cors"),
