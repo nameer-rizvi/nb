@@ -1,5 +1,4 @@
 // --starterKit-flag [review authentication strategy]
-const simpul = require("simpul");
 const util = require("../../util");
 
 async function authenticateMiddleware(req, res, next) {
