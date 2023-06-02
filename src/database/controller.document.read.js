@@ -11,9 +11,9 @@ function databaseControllerDocumentRead(find) {
     : simpul.isArray(find)
     ? store.filter((doc) => find.includes(doc.id))
     : simpul.isObject(find)
-    ? store.filter((doc) =>
-        Object.keys(find).every((key) => doc[key] === find[key])
-      )
+    ? store.filter((doc) => {
+        return Object.keys(find).every((key) => doc[key] === find[key]);
+      })
     : simpul.isFunction(find)
     ? store.filter(find)
     : "invalid";

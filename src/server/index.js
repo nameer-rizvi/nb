@@ -17,7 +17,7 @@ const port = process.env.PORT || 4000;
 server.listen(port, () => {
   // Log environment.
 
-  util.log.environment2(`in ${simpul.isEnv.name}.`);
+  util.log.environment(`in ${simpul.isEnv.name}.`);
 
   // Log listener.
 

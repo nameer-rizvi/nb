@@ -11,12 +11,12 @@ function databaseControllerDocumentCreate(newDocument, options = {}) {
   } else {
     const store = databaseClient.read();
 
-    let id = simpul.generateKey();
+    let id = simpul.uid();
 
     let idIndex = store.findIndex((doc) => doc.id === id);
 
     while (idIndex !== -1) {
-      id = simpul.generateKey();
+      id = simpul.uid();
       idIndex = store.findIndex((doc) => doc.id === id);
     }
 

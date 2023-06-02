@@ -35,7 +35,7 @@ function routeManagerMiddleware(req, res, next) {
 
     // Log missing route config.
 
-    util.log.warning2(
+    util.log.warning(
       `Route Manager Middleware: Missing route config ("${req.path}")`
     );
 

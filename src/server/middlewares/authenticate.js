@@ -24,11 +24,13 @@ async function authenticateMiddleware(req, res, next) {
       const authToken = config.getAuthToken(req);
       if (authToken) {
         for (let verifyToken of config.verifyTokens) {
-          await simpul.tryAsync(async function verifyAndAssignAuthToken() {
+          try {
             if (verifyToken === "jwt") {
-              res.locals.token = await util.jwt.verify(authToken);
+              res.locals.token = util.jwt.verify(authToken);
             }
-          });
+          } catch (error) {
+            util.log.warning(`Authenticate Middleware: ${error}`);
+          }
         }
       }
     }
@@ -48,7 +50,7 @@ async function authenticateMiddleware(req, res, next) {
   } catch (error) {
     // Log authentication error.
 
-    util.log.warning2(`Authenticate Middleware: ${error.toString()}`);
+    util.log.warning(`Authenticate Middleware: ${error.toString()}`);
 
     // Send client a 401 ("Unauthorized") status.
 

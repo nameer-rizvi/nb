@@ -5,7 +5,7 @@ function performanceMiddleware(req, res, next) {
 
   const start = Date.now();
 
-  // Constant to store path. For some reason it changes on finish...
+  // Constant for request path.
 
   const path = req.path;
 

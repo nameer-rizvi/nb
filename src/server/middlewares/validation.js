@@ -36,7 +36,7 @@ function validationMiddleware(req, res, next) {
 
       // Log validation error.
 
-      util.log.warning2(`Validation Middleware: ${error.toString()}`);
+      util.log.warning(`Validation Middleware: ${error.toString()}`);
 
       // Send client a 400 ("Bad Request") status with the validation error.
 

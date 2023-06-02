@@ -1,12 +1,12 @@
 // --starterKit-flag [set JWT_SECRET in a ".env" file located in the projects root folder]
 const jsonwebtoken = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "SECRET123";
 const log = require("./log");
 
-exports.sign = async function signJWT(data = {}, expiresIn = "5m") {
+exports.sign = function signJWT(data = {}, expiresIn = "5m") {
   // Generate token using jsonwebtoken. Since expiresIn has a default value, data must be an object.
 
-  const token = await jsonwebtoken.sign(data, JWT_SECRET, { expiresIn });
+  const token = jsonwebtoken.sign(data, JWT_SECRET, { expiresIn });
 
   // If there's no valid token, throw error.
 
@@ -17,10 +17,10 @@ exports.sign = async function signJWT(data = {}, expiresIn = "5m") {
   return token;
 };
 
-exports.verify = async function verifyJWT(token, validateKey) {
+exports.verify = function verifyJWT(token, validateKey) {
   // Verify token using jsonwebtoken.
 
-  const data = await jsonwebtoken.verify(token, JWT_SECRET);
+  const data = jsonwebtoken.verify(token, JWT_SECRET);
 
   // If there's an expected key to validate and there's no data/data-with-key, throw error.
 
@@ -36,7 +36,7 @@ exports.verify = async function verifyJWT(token, validateKey) {
   throw new Error("No data.");
 };
 
-if (!JWT_SECRET) log.warning2("JWT_SECRET is not set.");
+if (!JWT_SECRET) log.warning("JWT_SECRET is not set.");
 
 // https://jwt.io/
 // https://www.npmjs.com/package/jsonwebtoken
