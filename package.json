@@ -3,16 +3,17 @@
   "version": "0.0.0",
   "description": "Node.js boilerplate.",
   "private": true,
-  "main": "src/index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx; exit 0",
     "job": "node src/job/index.manual.js",
-    "server": "NODE_ENV=development node src/server/index.js",
-    "server-watch": "NODE_ENV=development nodemon --ignore 'src/job/*' src/server/index.js",
-    "start": "NODE_ENV=production node src/server/index.js",
-    "pm2-start": "yarn && pm2 start ecosystem.config.js && pm2 logs",
-    "pm2-restart": "yarn && pm2 restart ecosystem.config.js --update-env && pm2 logs"
+    "tw": "npx tailwindcss -i src/server/public/style.css -o src/server/public/tw.css",
+    "tw-watch": "npx tailwindcss -i src/server/public/style.css -o src/server/public/tw.css --watch",
+    "dev": "yarn tw && NODE_ENV=development nodemon --ignore 'src/job/*' src/server/index.js",
+    "start": "yarn tw && NODE_ENV=production node src/server/index.js",
+    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
+    "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,8 @@
   "homepage": "https://github.com/nameer-rizvi/nb#readme",
   "devDependencies": {
     "eslint": "^8.41.0",
-    "eslint-plugin-import": "^2.27.5"
+    "eslint-plugin-import": "^2.27.5",
+    "tailwindcss": "^3.3.2"
   },
   "dependencies": {
     "apicache": "^1.6.3",

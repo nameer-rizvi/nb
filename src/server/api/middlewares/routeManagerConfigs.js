@@ -41,11 +41,6 @@ const routeManagerMiddlewareConfigs = [
     method: "POST",
     requiredParams: ["error"],
   },
-  {
-    path: "/favicon.ico",
-    method: "GET",
-    cache: apicacheMiddleware.CACHE.MAX,
-  },
 ].filter(Boolean);
 
 module.exports = routeManagerMiddlewareConfigs;

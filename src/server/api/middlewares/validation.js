@@ -1,25 +1,19 @@
 const sanitized = require("sanitized");
+const util = require("../../../util");
 const simpul = require("simpul");
-const util = require("../../util");
 
 function validationMiddleware(req, res, next) {
   try {
-    // Initialize values config with parsed payload and required params for route.
-
     const values = {
       payload: parsePayload({ ...req.body, ...req.query, ...req.params }),
       required: res.locals.routeConfig.requiredParams,
     };
 
     if (res.locals.routeConfig.ignoreValidationMiddleware) {
-      // If route ignores validations, then set res locals to sanitized values payload.
       res.locals.values = sanitized(values.payload);
     } else {
-      // Else, validate the values payload/required.
       res.locals.values = util.validate(values.payload, values.required);
     }
-
-    // Go to next middleware.
 
     next();
   } catch (error) {
@@ -27,21 +21,12 @@ function validationMiddleware(req, res, next) {
       .toString()
       .match(/Dictionary definition with key\b.*\bdoes not exist/);
 
-    if (isUndefined) {
-      // If error is for a missing data dictionary config, handle it with next server error middleware.
-
-      next(error);
-    } else {
-      // Else...
-
-      // Log validation error.
-
+    if (!isUndefined) {
+      error.status = 400;
       util.log.warning(`Validation Middleware: ${error.toString()}`);
-
-      // Send client a 400 ("Bad Request") status with the validation error.
-
-      next("400::" + error);
     }
+
+    next(error);
   }
 }
 

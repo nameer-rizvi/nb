@@ -6,10 +6,10 @@ const express = require("express");
  * and stored in res locals for use by routes.
  */
 
-const expressJSONParser = express.json({ limit: "1mb" });
+const jsonParser = express.json({ limit: "1mb" });
 
-const expressURLEncodedParser = express.urlencoded({ extended: true });
+const urlEncodedParser = express.urlencoded({ extended: true });
 
-module.exports = [expressJSONParser, expressURLEncodedParser];
+module.exports = [jsonParser, urlEncodedParser];
 
 // https://expressjs.com/en/api.html

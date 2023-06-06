@@ -1,6 +1,7 @@
-const util = require("../../util");
+const util = require("../../../util");
 
 /*
+ * Send appropriate health response for status check requests.
  * Protocol for conducting maintenance in a live pm2 environment:
  *  1. Set 'MAINTENANCE_MODE=true' in ecosystem.config.js.
  *  2. Run "yarn run pm2-restart" from root folder.
@@ -10,8 +11,6 @@ const util = require("../../util");
  */
 
 function statusMiddleware(req, res, next) {
-  // Response configs for handling status requests. In order of priority.
-
   const responses = [
     {
       condition: req.method === "GET" && req.url === "/health",
@@ -30,19 +29,10 @@ function statusMiddleware(req, res, next) {
     },
   ];
 
-  // Set response to first response config with a truthy condition.
-
   const response = responses.find((r) => r.condition);
 
-  // If a response was found...
-
   if (response) {
-    // Log response info.
-
     util.log.info(response.log);
-
-    // Send client the response status.
-
     res.sendStatus(response.status);
   } else next();
 }
