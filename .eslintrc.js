@@ -7,7 +7,7 @@ const eslintrc = {
   },
   extends: ["eslint:recommended", "plugin:import/recommended"],
   parserOptions: {
-    ecmaVersion: 14,
+    ecmaVersion: "latest",
   },
   rules: {
     "no-inner-declarations": "off",
