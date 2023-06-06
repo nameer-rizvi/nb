@@ -542,8 +542,8 @@ video {
   border-bottom-width: 2px;
 }
 
-.p-20 {
-  padding: 5rem;
+.p-10 {
+  padding: 2.5rem;
 }
 
 .py-10 {
@@ -612,4 +612,10 @@ li::before {
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+@media (min-width: 1024px) {
+  .lg\:p-20 {
+    padding: 5rem;
+  }
 }
