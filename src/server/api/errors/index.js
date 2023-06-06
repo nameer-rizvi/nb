@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 const simpul = require("simpul");
 const util = require("../../../util");
 const Bowser = require("bowser");

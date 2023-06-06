@@ -20,9 +20,9 @@
     "url": "git+https://github.com/nameer-rizvi/nb.git"
   },
   "keywords": [
-    "express",
-    "node",
     "js",
+    "node",
+    "express",
     "server",
     "microservice",
     "boilerplate"

@@ -1,6 +1,6 @@
 # nb
 
-Node.js boilerplate. Features an opinionated project structure for hosting assets, database clients & controllers, cron jobs, an Express server and shared utility functions.
+Node.js boilerplate. Features an opinionated project structure for hosting database clients & controllers, cron jobs, a fully-functioning Express server and shared utility functions.
 
 ## Getting started
 
@@ -24,11 +24,15 @@ _Recommended for maintaining code quality._
 
 Manually run a job.
 
-`yarn server`
+`yarn tw`
 
-Start Express server in development mode.
+Compile css in /src/server/public/style.css into tw.css.
 
-`yarn server-watch`
+`yarn tw-watch`
+
+Watch for file changes and compile css in /src/server/public/style.css into tw.css.
+
+`yarn dev`
 
 Start Express server in development mode with nodemon watching for file changes.
 
