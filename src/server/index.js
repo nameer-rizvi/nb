@@ -7,17 +7,18 @@ const api = require("./api");
 
 const server = express();
 
+server.set("trust proxy", simpul.isEnv.live);
+
+server.use(express.static(path.join(__dirname, "public")));
+
+server.use(api);
+
 const port = process.env.PORT || 4000;
 
 server.listen(port, () => {
   util.log.environment(`in ${simpul.isEnv.name}.`);
   util.log.express(`server listening on port ${port}`);
 });
-
-server.set("trust proxy", simpul.isEnv.live);
-
-server.use(express.static(path.join(__dirname, "public")));
-server.use(api);
 
 // https://expressjs.com/
 // https://www.npmjs.com/package/express
