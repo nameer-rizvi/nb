@@ -21,10 +21,7 @@ function validationMiddleware(req, res, next) {
       .toString()
       .match(/Dictionary definition with key\b.*\bdoes not exist/);
 
-    if (!isUndefined) {
-      error.status = 400;
-      util.log.warning(`Validation Middleware: ${error.toString()}`);
-    }
+    if (!isUndefined) error.status = 400;
 
     next(error);
   }
