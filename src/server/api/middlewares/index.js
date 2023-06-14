@@ -1,5 +1,5 @@
 const middlewares = [
-  require("./performance"),
+  require("./logger"),
   require("./status"),
   require("./cors"),
   require("./helmet"),
