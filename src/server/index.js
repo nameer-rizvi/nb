@@ -1,19 +1,19 @@
 require("dotenv").config();
 const express = require("express");
-const util = require("../util");
-const simpul = require("simpul");
 const path = require("path");
+const simpul = require("simpul");
 const api = require("./api");
+const util = require("../util");
 
 const server = express();
 
-server.set("trust proxy", simpul.isEnv.live);
-
-server.use(express.static(path.join(__dirname, "public")));
-
-server.use(api);
+const public = express.static(path.join(__dirname, "public"));
 
 const port = process.env.PORT || 4000;
+
+server.set("trust proxy", simpul.isEnv.live);
+
+server.use(public, api);
 
 server.listen(port, () => {
   util.log.environment(`in ${simpul.isEnv.name}.`);
