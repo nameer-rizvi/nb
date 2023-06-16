@@ -1,4 +1,4 @@
-const database = require("../../../database");
+const database = require("../../database");
 
 function routeDocument(req, res, next) {
   try {

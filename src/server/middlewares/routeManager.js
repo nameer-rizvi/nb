@@ -1,5 +1,5 @@
 const configs = require("./routeManagerConfigs");
-const util = require("../../../util");
+const util = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
   let routeConfig;

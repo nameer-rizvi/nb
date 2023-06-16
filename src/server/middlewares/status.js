@@ -1,4 +1,4 @@
-const util = require("../../../util");
+const util = require("../../util");
 
 /*
  * Send appropriate health response for status check requests.

@@ -1,6 +1,6 @@
 /* eslint no-unused-vars: 0 */
 const simpul = require("simpul");
-const util = require("../../../util");
+const util = require("../../util");
 const Bowser = require("bowser");
 
 function errorHandler(error, req, res, next) {

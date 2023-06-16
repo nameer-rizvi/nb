@@ -1,5 +1,5 @@
 const sanitized = require("sanitized");
-const util = require("../../../util");
+const util = require("../../util");
 const simpul = require("simpul");
 
 function validationMiddleware(req, res, next) {
