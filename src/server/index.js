@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
 const simpul = require("simpul");
+const path = require("path");
 const middlewares = require("./middlewares");
 const routes = require("./routes");
 const errors = require("./errors");
