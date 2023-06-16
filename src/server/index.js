@@ -9,13 +9,11 @@ const util = require("../util");
 
 const server = express();
 
-const public = express.static(path.join(__dirname, "public"));
-
 const port = process.env.PORT || 4000;
 
 server.set("trust proxy", simpul.isEnv.live);
 
-server.use(public);
+server.use(express.static(path.join(__dirname, "public")));
 
 server.use("/api", middlewares, routes, errors);
 
