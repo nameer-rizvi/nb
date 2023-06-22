@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const simpul = require("simpul");
+const logger = require("./middlewares/logger");
 const path = require("path");
 const middlewares = require("./middlewares");
 const routes = require("./routes");
@@ -12,6 +13,8 @@ const server = express();
 const port = process.env.PORT || 4000;
 
 server.set("trust proxy", simpul.isEnv.live);
+
+server.use(logger);
 
 server.use(express.static(path.join(__dirname, "public")));
 

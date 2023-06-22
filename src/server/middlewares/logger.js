@@ -16,7 +16,7 @@ function loggerMiddleware(req, res, next) {
 
     const log = `${statusCode} ${req.method} ${path} by ${req.ip} took ${duration} ms.`;
 
-    util.log.route(log);
+    util.log.request(log);
   });
 
   next();
