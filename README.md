@@ -55,3 +55,11 @@ Restart 'forever' processes defined in ecosystem.config.js
 -   [Configuring an ecosystem config.](https://pm2.keymetrics.io/docs/usage/application-declaration/)
 
 -   [Log rotator.](https://github.com/keymetrics/pm2-logrotate)
+
+## Nginx links
+
+-   [How to install Nginx in Amazon Linux 2023.](https://awswithatiq.com/how-to-install-nginx-in-amazon-linux-2023/)
+
+## Certbot links
+
+-   [Certbot instructions for Nginx website on Pip.](https://certbot.eff.org/instructions?ws=nginx&os=pip)
