@@ -648,10 +648,6 @@ li::before {
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
-.hover\:underline:hover {
-  text-decoration-line: underline;
-}
-
 @media (min-width: 1024px) {
   .lg\:p-20 {
     padding: 5rem;
