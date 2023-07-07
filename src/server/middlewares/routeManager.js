@@ -1,4 +1,5 @@
 const configs = require("./routeManagerConfigs");
+const simpul = require("simpul");
 const util = require("../../util");
 
 function routeManagerMiddleware(req, res, next) {
@@ -16,9 +17,10 @@ function routeManagerMiddleware(req, res, next) {
 
     next();
   } else {
-    const warning = `Route Manager Middleware: Missing route config ("${req.path}")`;
-
-    util.log.warning(warning);
+    if (!simpul.isEnv.production) {
+      const warning = `Route Manager Middleware: Missing route config ("${req.path}")`;
+      util.log.warning(warning);
+    }
 
     res.sendStatus(404);
   }
