@@ -1,5 +1,3 @@
-const util = require("../../util");
-
 /*
  * Send appropriate health response for status check requests.
  * Protocol for conducting maintenance in a live pm2 environment:
@@ -32,7 +30,6 @@ function statusMiddleware(req, res, next) {
   const response = responses.find((r) => r.condition);
 
   if (response) {
-    util.log.info(response.log);
     res.sendStatus(response.status);
   } else next();
 }
