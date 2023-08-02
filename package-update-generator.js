@@ -20,20 +20,21 @@ const configs = [
 
 function mapper(config) {
   const packageNames = [];
-  for (let key of config.keys)
-    if (packageJSON[key])
-      for (let packageName of Object.keys(packageJSON[key]))
-        if (!ignorePackages.includes(packageName))
+  for (let key of config.keys) {
+    if (packageJSON[key]) {
+      for (let packageName of Object.keys(packageJSON[key])) {
+        if (!ignorePackages.includes(packageName)) {
           packageNames.push(packageName);
+        }
+      }
+    }
+  }
   if (packageNames.length) {
     if (config.save) packageNames.push(config.save);
     return `yarn ${config.action} ${packageNames.join(" ")}`;
   }
 }
 
-const commands = configs
-  .map(mapper)
-  .filter(Boolean)
-  .join(" && ");
+const commands = configs.map(mapper).filter(Boolean).join(" && ");
 
 console.log(`\n${commands}\n`);
