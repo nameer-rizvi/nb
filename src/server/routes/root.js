@@ -5,15 +5,27 @@ function routeRoot(req, res) {
 
   const description = "List of public route addresses.";
 
-  function filter(r) {
-    return !r.authenticate && !r.path.startsWith("/auth") && r.method === "GET";
+  function routesFilter(r) {
+    return (
+      !r.environment &&
+      !r.authenticate &&
+      !r.path.startsWith("/auth") &&
+      r.method === "GET"
+    );
   }
 
-  function map(r) {
-    return { path: `/api${r.path}`, method: r.method };
+  function routesMap(r) {
+    return {
+      path: `/api${r.path}`,
+      method: r.method,
+    };
   }
 
-  const payload = { name, description, routes: routes.filter(filter).map(map) };
+  const payload = {
+    name,
+    description,
+    routes: routes.filter(routesFilter).map(routesMap),
+  };
 
   res.json(payload);
 }

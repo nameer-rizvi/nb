@@ -13,9 +13,11 @@ async function authenticateMiddleware(req, res, next) {
       },
     }[authenticate];
 
-    if (authenticate && !config) {
+    if (config) {
+      authenticator(config, req, res, authenticate);
+    } else if (authenticate && !config) {
       throw new Error(`Missing config: "${authenticate}"`);
-    } else if (config) configAuth(config, req, res, authenticate);
+    }
 
     next();
   } catch (error) {
@@ -32,20 +34,22 @@ function parseBearerToken(req) {
   return bearerToken;
 }
 
-function configAuth(config, req, res, authenticate) {
+function authenticator(config, req, res, authenticate) {
   const authToken = config.getAuthToken(req);
   if (authToken) {
     for (let verifyToken of config.verifyTokens) {
       try {
-        if (verifyToken === "jwt")
+        if (verifyToken === "jwt") {
           res.locals.token = util.jwt.verify(authToken);
+        }
       } catch (error) {
         util.log.warning(`Authenticate Middleware: ${error}`);
       }
     }
   }
-  if (!config.isValidToken(res.locals))
+  if (!config.isValidToken(res.locals)) {
     throw new Error(`Authorization denied ("${authenticate}")`);
+  }
 }
 
 module.exports = authenticateMiddleware;

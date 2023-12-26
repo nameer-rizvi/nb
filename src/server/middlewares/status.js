@@ -31,7 +31,9 @@ function statusMiddleware(req, res, next) {
 
   if (response) {
     res.sendStatus(response.status);
-  } else next();
+  } else {
+    next();
+  }
 }
 
 module.exports = statusMiddleware;

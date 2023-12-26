@@ -4,6 +4,7 @@ const middlewares = [
   require("./helmet"),
   require("./parsers"),
   require("./routeManager"),
+  require("./environment"),
   require("./authenticate"),
   require("./validation"),
   require("./compression"),

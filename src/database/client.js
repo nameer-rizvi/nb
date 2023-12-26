@@ -7,10 +7,10 @@ const databaseClient = require("jsontxt");
 const util = require("../util");
 
 if (!databaseClient.read()) {
-  const INITIAL_STATE = [];
-  databaseClient.write(INITIAL_STATE);
-  util.log.jsontxt("Initialized Jsontxt file with initial state.");
-} else util.log.jsontxt("Initialized Jsontxt");
+  databaseClient.write([]);
+}
+
+util.log.jsontxt("Client initialized.");
 
 module.exports = databaseClient;
 
