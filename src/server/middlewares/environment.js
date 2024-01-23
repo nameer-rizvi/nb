@@ -1,7 +1,9 @@
+const constant = require("../../constant");
+
 function environmentMiddleware(req, res, next) {
   const { environment } = res.locals.routeConfig;
 
-  if (environment && environment !== process.env.NODE_ENV) {
+  if (environment && environment !== constant.node_env) {
     throw new Error(`Invalid environment ("${environment}")`);
   }
 

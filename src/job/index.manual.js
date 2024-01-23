@@ -1,8 +1,8 @@
-require("dotenv").config();
-const job = require("./job")[process.env.JOB];
+const constant = require("../constant");
+const job = require("./job")[constant.process_job];
 
 if (!job) {
-  throw new Error(`Job is undefined ("JOB=${process.env.JOB || ""}").`);
+  throw new Error(`Job is undefined ("JOB=${constant.process_job || ""}").`);
 }
 
 job(() => process.exit());

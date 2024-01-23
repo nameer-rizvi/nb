@@ -1,20 +1,22 @@
 // --starterKit-flag [set JWT_SECRET in a ".env" file located in the projects root folder]
+const constant = require("../constant");
 const jsonwebtoken = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET || "SECRET123";
 const log = require("./log");
 
-exports.sign = function signJWT(data = {}, expiresIn = "5m") {
-  const token = jsonwebtoken.sign(data, JWT_SECRET, { expiresIn });
-
-  if (!token) {
-    throw new Error("Failed to create token.");
+exports.sign = function signJWT(data = {}, expiresIn) {
+  if (!expiresIn && constant.jwt_expiration_default) {
+    expiresIn = constant.jwt_expiration_default;
   }
+
+  const token = jsonwebtoken.sign(data, constant.jwt_secret, { expiresIn });
+
+  if (!token) throw new Error("Failed to create token.");
 
   return token;
 };
 
 exports.verify = function verifyJWT(token, vKey) {
-  const data = jsonwebtoken.verify(token, JWT_SECRET);
+  const data = jsonwebtoken.verify(token, constant.jwt_secret);
 
   if (!data) {
     throw new Error("Invalid token.");
@@ -27,7 +29,9 @@ exports.verify = function verifyJWT(token, vKey) {
   return data;
 };
 
-if (!JWT_SECRET) log.warning("JWT_SECRET is not set.");
+if (!constant.jwt_secret?.length) {
+  log.warning("JWT secret is not set.");
+}
 
 // https://jwt.io/
 // https://www.npmjs.com/package/jsonwebtoken
