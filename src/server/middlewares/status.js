@@ -5,7 +5,7 @@
  *  2. Run "yarn run pm2-restart" from root folder.
  *  3. [CONDUCT MAINTENANCE]
  *  4. Set 'MAINTENANCE_MODE=' in ecosystem.config.js.
- *  5. 2. Run "yarn run pm2-restart" from root folder.
+ *  5. Run "yarn run pm2-restart" from root folder.
  */
 
 function statusMiddleware(req, res, next) {

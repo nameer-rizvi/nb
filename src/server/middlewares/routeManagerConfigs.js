@@ -1,6 +1,5 @@
 // --starterKit-flag [set api route configs here]
-const constant = require("../../constant");
-const apicache = require("./apicache");
+const apicacheMiddleware = require("./apicache");
 
 /*
  * The route manager restricts access to only the api routes that are defined
@@ -12,7 +11,7 @@ const routeManagerMiddlewareConfigs = [
   {
     path: "/",
     method: "GET",
-    cache: apicache.max,
+    cache: apicacheMiddleware.cache.max,
   },
   {
     path: "/document",
