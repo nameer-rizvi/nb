@@ -7,7 +7,7 @@ const databaseClient = require("jsontxt");
 const util = require("../util");
 
 if (!databaseClient.read()) {
-  databaseClient.write([]);
+  databaseClient.write([]); // "[]" is initial state.
 }
 
 util.log.jsontxt("Client initialized.");
