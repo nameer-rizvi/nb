@@ -41,6 +41,6 @@ const routeManagerMiddlewareConfigs = [
     method: "POST",
     requiredParams: ["error"],
   },
-].filter(Boolean);
+];
 
 module.exports = routeManagerMiddlewareConfigs;
