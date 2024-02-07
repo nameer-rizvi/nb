@@ -1,7 +1,7 @@
 const routes = require("../middlewares/routeManagerConfigs");
 
 function routeRoot(req, res) {
-  const name = "Node.js Boilerplate Application API";
+  const name = `${constant.app_name} API`;
 
   const description = "List of public route addresses.";
 
