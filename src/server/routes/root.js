@@ -1,3 +1,4 @@
+const constant = require("../../constant");
 const routes = require("../middlewares/routeManagerConfigs");
 
 function routeRoot(req, res) {

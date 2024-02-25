@@ -9,31 +9,13 @@
  */
 
 function statusMiddleware(req, res, next) {
-  const responses = [
-    {
-      condition: req.method === "GET" && req.url === "/health",
-      log: "OK health",
-      status: 200,
-    },
-    {
-      condition: process.env.MAINTENANCE_MODE === "true",
-      log: "In maintenance mode",
-      status: 503,
-    },
-    {
-      condition: req.method === "GET" && req.url === "/status",
-      log: "OK status",
-      status: 200,
-    },
-  ];
-
-  const response = responses.find((r) => r.condition);
-
-  if (response) {
-    res.sendStatus(response.status);
-  } else {
-    next();
-  }
+  if (req.url === "/health" && req.method === "GET") {
+    res.sendStatus(200);
+  } else if (process.env.MAINTENANCE_MODE === "true") {
+    res.sendStatus(503);
+  } else if (req.url === "/status" && req.method === "GET") {
+    res.sendStatus(200);
+  } else next();
 }
 
 module.exports = statusMiddleware;

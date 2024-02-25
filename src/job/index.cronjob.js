@@ -3,7 +3,7 @@ const constant = require("../constant");
 const cron = require("cron");
 
 for (let key of Object.keys(job)) {
-  const SCHEDULE_KEY = constant.process_schedule(key);
+  const SCHEDULE_KEY = constant.job_schedule(key);
 
   const SCHEDULE = process.env[SCHEDULE_KEY];
 

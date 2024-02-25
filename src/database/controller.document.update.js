@@ -29,7 +29,7 @@ function databaseControllerDocumentUpdate(update, options = {}) {
       const diffs = dottpath.diffs(
         previous_document,
         updated_document,
-        ignoreKeyDiffs
+        ignoreKeyDiffs,
       );
 
       const updatesExist = diffs.length;
@@ -52,12 +52,13 @@ function databaseControllerDocumentUpdate(update, options = {}) {
           previous_document,
           updated_document,
         };
-      } else
-        return {
-          success: true,
-          message: "No updates detected.",
-          document: previous_document,
-        };
+      }
+
+      return {
+        success: true,
+        message: "No updates detected.",
+        document: previous_document,
+      };
     }
   }
 }
