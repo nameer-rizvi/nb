@@ -1,0 +1,13 @@
+# FOLDERS
+node_modules
+
+# HIDDEN FILES
+.DS_Store
+
+# ENV FILES
+.env*
+ecosystem.config.js
+
+# DATA FILES
+*.rdb
+json*.txt
