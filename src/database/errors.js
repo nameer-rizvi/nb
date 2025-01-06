@@ -13,12 +13,10 @@ async function add(...errors) {
       continue;
     }
 
-    if (typeof error === "object") {
-      if (error instanceof Error) {
-        error = Object.getOwnPropertyNames(error).reduce((reducer, key) => {
-          return { ...reducer, [key]: error[key] };
-        }, {});
-      }
+    if (typeof error === "object" && error.message) {
+      error = Object.getOwnPropertyNames(error).reduce((reducer, key) => {
+        return { ...reducer, [key]: error[key] };
+      }, {});
 
       if (typeof error.stack === "string") {
         error.stack = error.stack
@@ -32,6 +30,8 @@ async function add(...errors) {
 
       continue;
     }
+
+    util.log.warning(`Invalid error ("${error}")`);
   }
 
   if (!config.nodeEnvInProduction) await cut();
