@@ -1,4 +1,5 @@
 const config = require("../../config");
+const simpul = require("simpul");
 
 // Pass route config in res.locals for access by proceeding middlewares and route handlers.
 function localsMiddleware(req, res, next) {
