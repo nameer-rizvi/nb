@@ -22,11 +22,6 @@ function authenticateMiddleware(req, res, next) {
       }
     }
 
-    if (res.locals.userAgentCode === true) {
-      const userAgentAttributes = req.ip + req.headers["user-agent"];
-      res.locals.userAgentCode = simpul.base64.encode(userAgentAttributes);
-    }
-
     next();
   } catch (error) {
     error.status = 401;

@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 const Bowser = require("bowser");
 const simpul = require("simpul");
 const database = require("../../database");
@@ -5,7 +6,6 @@ const util = require("../../util");
 const page = require("./page");
 const dottpath = require("dottpath");
 
-/* eslint no-unused-vars: 0 */
 async function handler(error, req, res, next) {
   const payload = {};
 
