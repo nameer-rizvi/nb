@@ -14,17 +14,17 @@ function authenticateMiddleware(req, res, next) {
       res.locals.password = decoded[1];
     }
 
-    if (res.locals.userAgentCode === true) {
-      const userAgentAttributes = req.ip + req.headers["user-agent"];
-      res.locals.userAgentCode = simpul.base64.encode(userAgentAttributes);
-    }
-
     res.locals.apiKey = req.headers.apikey || req.query.apiKey;
 
     for (const strategy of res.locals.strategies || []) {
       if (strategy === "isToken") {
         if (!res.locals.token) throw new Error("Invalid token");
       }
+    }
+
+    if (res.locals.userAgentCode === true) {
+      const userAgentAttributes = req.ip + req.headers["user-agent"];
+      res.locals.userAgentCode = simpul.base64.encode(userAgentAttributes);
     }
 
     next();
