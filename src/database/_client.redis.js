@@ -24,7 +24,7 @@ client.on("error", function onClientError(err) {
 
 function reconnectStrategy(retries) {
   if (retries >= config.redisConnectRetries) {
-    return new Error("Too many retries.");
+    return new RangeError("Too many retries.");
   } else {
     return retries * 500; // incremental delay
   }

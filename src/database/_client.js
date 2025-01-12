@@ -69,7 +69,7 @@ class Database {
   async #addRecord(pipeline, record, createdAt) {
     if (simpul.isObject(record)) {
       if (!simpul.isStringValid(record.collection))
-        throw new Error("Record collection is invalid.");
+        throw new TypeError("Record collection is not a valid string.");
       delete record.id;
       const id = await this.#generateUniqueId();
       const newRecord = { id, ...record, createdAt };
@@ -146,7 +146,7 @@ class Database {
       const exists = await this.connection.hExists(this.storeKey, id);
       if (exists === false) return id;
     }
-    throw new Error("Database store is at maximum capacity.");
+    throw new RangeError("Database store is at maximum capacity.");
   }
 
   async #getById(id) {

@@ -20,7 +20,7 @@ async function cronjob(...cronjobs) {
       }).start();
     } catch (error) {
       util.log.cronjob(`errored ("${name}"): ${error}`, "error");
-      await database.errors.add(error);
+      await database.error.add(error);
     }
   }
 }

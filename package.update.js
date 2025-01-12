@@ -30,7 +30,7 @@ function mapper(instruction) {
   }
   if (names.length) {
     if (instruction.flag) names.push(instruction.flag);
-    return `${manager} ${instruction.action} ${names.join(" ")}`;
+    return [manager, instruction.action, ...names].join(" ");
   }
 }
 

@@ -37,7 +37,7 @@ async function handler(error, req, res, next) {
 
   res.locals.error = simpul.trim(`${payload.message} ${source}`); // This gets logged in the logger middleware.
 
-  await database.errors.add(payload);
+  await database.error.add(payload);
 
   if (util.isRoute.webpage(req)) {
     const message = payload.status < 500 ? payload.message : undefined; // Don't expose internal errors to client.

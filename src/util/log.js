@@ -1,15 +1,9 @@
 const config = require("../config");
 
-/*
- * Sync vs. Async Logging:
- * 1. For synchronous functions, use past tense verbs to indicate successful completion (e.g., "cleaned ...").
- * 2. For asynchronous functions, log both the progress and outcome (e.g., "... starting", "... success", "... finished").
- */
-
-function decorator(emoji, defaultType = "log") {
+function decorator(title, defaultType = "log") {
   return function method(message, type = defaultType) {
     const datetime = new Date().toLocaleString().replace(",", "");
-    console[type](`${datetime} - ${emoji} ${message}.`);
+    console[type](`${datetime} - ${title} ${message}.`);
   };
 }
 

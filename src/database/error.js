@@ -1,5 +1,5 @@
-const config = require("../config");
 const util = require("../util");
+const config = require("../config");
 const client = require("./_client");
 
 const collection = "error";
@@ -19,10 +19,8 @@ async function add(...errors) {
       }, {});
 
       if (typeof error.stack === "string") {
-        error.stack = error.stack
-          .split("\n")
-          .map((i) => i.trim())
-          .filter(Boolean);
+        error.stack = error.stack.split("\n").map((i) => i.trim());
+        error.stack = error.stack.filter(Boolean);
         if (error.stack[0]?.includes("Error")) error.stack.shift();
       }
 

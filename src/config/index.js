@@ -37,11 +37,11 @@ const config = {
 };
 
 if (!config.nodeEnv) {
-  throw new Error("NODE_ENV is undefined.");
+  throw new ReferenceError("NODE_ENV is undefined.");
 }
 
 if (!config.jwtSecret) {
-  throw new Error("JWT_SECRET is undefined.");
+  throw new ReferenceError("JWT_SECRET is undefined.");
 }
 
 config.urlLocalhost += ":" + config.nodePort;

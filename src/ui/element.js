@@ -12,7 +12,7 @@ function element(tagName, props = {}) {
   if (simpul.isArray(tagName)) {
     return tagName.map((config) => element(...config)).join("");
   } else if (!simpul.isStringValid(tagName)) {
-    throw new Error("Element tag name is invalid.");
+    throw new TypeError("Element tag name is not a valid string.");
   } else if (render === false) {
     return "";
   } else if (tagName === "style") {

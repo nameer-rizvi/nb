@@ -117,6 +117,7 @@ function parseError(error = {}) {
   if (simpul.isString(error)) {
     return error;
   } else if (simpul.isObject(error)) {
+    const errors = [];
     for (const key of [
       "error",
       "message",
@@ -127,9 +128,9 @@ function parseError(error = {}) {
       "error_status",
       "error_description",
       "error_detail",
-    ]) {
-      if (error[key]) return error[key];
-    }
+    ])
+      if (error[key]) errors.push(error[key]);
+    return errors.join("; ");
   }
 }
 
