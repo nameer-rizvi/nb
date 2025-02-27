@@ -89,7 +89,9 @@ function transformKey(k = "") {
 }
 
 function transformValue(v = "") {
-  if (simpul.isObject(v)) {
+  if (simpul.isHTTP(v)) {
+    return v;
+  } else if (simpul.isObject(v)) {
     let pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
