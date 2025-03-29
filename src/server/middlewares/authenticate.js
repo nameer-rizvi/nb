@@ -14,7 +14,8 @@ function authenticateMiddleware(req, res, next) {
       res.locals.password = decoded[1];
     }
 
-    res.locals.apiKey = req.headers.apikey || req.query.apiKey;
+    res.locals.apiKey =
+      req.get("x-api-key") || req.headers.apikey || req.query.apiKey;
 
     for (const strategy of res.locals.strategies || []) {
       if (strategy === "isToken") {
