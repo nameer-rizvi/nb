@@ -9,7 +9,7 @@ exports.sign = function signJWT(data = {}, expiresIn = 30) {
 
   const token = jsonwebtoken.sign(data, config.jwtSecret, { expiresIn });
 
-  log.util("jwt signed");
+  log.util(`jwt signed ("${exports.iss}")`);
 
   return token;
 };
@@ -19,7 +19,7 @@ exports.verify = function verifyJWT(token) {
 
   if (!data || data.iss !== exports.iss) throw new Error("Invalid token.");
 
-  log.util("jwt verified");
+  log.util(`jwt verified ("${exports.iss}")`);
 
   return data;
 };
