@@ -33,7 +33,7 @@ async function fetcher(url, option = {}) {
   const response = {};
 
   while (attempt <= retry) {
-    if (rateLimit.length) {
+    if (rateLimit.length === 2) {
       const lastRequestTime = rateLimitMap.get(url.hostname) || 0;
 
       const timeSinceLastRequest = Date.now() - lastRequestTime;

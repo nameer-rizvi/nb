@@ -2,7 +2,7 @@ const config = require("../config");
 const log = require("./log");
 const jsonwebtoken = require("jsonwebtoken");
 
-exports.iss = config.jwtIss;
+exports.iss = config.jwtIss || config.appName;
 
 exports.sign = function signJWT(data = {}, expiresIn = 30) {
   data.iss = exports.iss;

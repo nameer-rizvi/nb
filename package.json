@@ -17,7 +17,7 @@
     "worker": "node src/worker/index.js",
     "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
     "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
-    "pm2-start": "yarn && yarn redis && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
+    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
     "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "repository": {

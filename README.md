@@ -124,6 +124,8 @@ yarn pm2-restart
 
 - [Installation Guide](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
 
+- [Installing in an AWS EC2 instance.](https://stackoverflow.com/a/78246670)
+
 - [Node.js and Redis](https://redis.io/learn/develop/node)
 
 - ["Error: ECONNREFUSED"](https://stackoverflow.com/questions/8754304/redis-connection-to-127-0-0-16379-failed-connect-econnrefused)
