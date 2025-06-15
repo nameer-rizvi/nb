@@ -1,3 +1,3 @@
-const errorHandler = [require("./handler"), require("./handler404")];
+const errorHandler = [require("./handler404"), require("./handler")];
 
 module.exports = errorHandler;
