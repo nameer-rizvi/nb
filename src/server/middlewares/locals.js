@@ -5,7 +5,9 @@ const simpul = require("simpul");
 function localsMiddleware(req, res, next) {
   const url = new URL(req.originalUrl, `${req.protocol}://${req.headers.host}`);
 
-  res.locals = { url, ...config.route(req.method, url.pathname) };
+  const routeConfig = config.route(req.method, url.pathname);
+
+  res.locals = { url, ...res.locals, ...routeConfig };
 
   if (res.locals.userAgentCode === true) {
     const userAgentAttributes = req.ip + req.headers["user-agent"];

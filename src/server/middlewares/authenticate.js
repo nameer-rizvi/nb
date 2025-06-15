@@ -1,12 +1,13 @@
-const util = require("../../util");
 const simpul = require("simpul");
+const util = require("../../util");
+const config = require("../../config");
 
 // Develop and use strategies to authenticate requests.
 function authenticateMiddleware(req, res, next) {
   try {
     const authorization = (req.headers.authorization || "").split(" ");
 
-    if (authorization[0] === "Bearer") {
+    if (authorization[0] === "Bearer" && authorization[1] !== "undefined") {
       res.locals.token = util.jwt.verify(authorization[1]);
     } else if (authorization[0] === "Basic") {
       const decoded = simpul.base64.decode(authorization[1]).split(":");
@@ -18,8 +19,10 @@ function authenticateMiddleware(req, res, next) {
       req.get("x-api-key") || req.headers.apikey || req.query.apiKey;
 
     for (const strategy of res.locals.strategies || []) {
-      if (strategy === "isToken") {
-        if (!res.locals.token) throw new Error("Invalid token");
+      if (strategy === "jwt" && !res.locals.token) {
+        throw new Error("Invalid token");
+      } else if (strategy === "apiKey" && res.locals.apiKey !== config.apiKey) {
+        throw new Error("Invalid api key");
       }
     }
 

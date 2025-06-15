@@ -1,22 +1,21 @@
-const simpul_validate = require("simpul-validate");
-const config = require("../../config");
 const sanitized = require("sanitized");
+const config = require("../../config");
+const validate = require("simpul-validate")(config.dictionary);
+const util = require("../../util");
 const simpul = require("simpul");
-
-const validate = simpul_validate(config.dictionary);
 
 function validationMiddleware(req, res, next) {
   try {
-    res.locals.values = parsePayload({
-      ...req.query,
-      ...req.params,
-      ...req.body,
-    });
+    res.locals.values = parsePayload({ ...req.query, ...req.body }); // req.params is only accessible in the route handler.
 
     if (res.locals.ignoreValidation === true) {
       sanitized(res.locals.values);
     } else {
       validate(res.locals.values, res.locals.requiredKeys);
+    }
+
+    if (res.locals.values.token) {
+      res.locals.values.token = util.jwt.verify(res.locals.values.token);
     }
 
     next();

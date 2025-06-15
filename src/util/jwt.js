@@ -1,8 +1,8 @@
-const jsonwebtoken = require("jsonwebtoken");
 const config = require("../config");
 const log = require("./log");
+const jsonwebtoken = require("jsonwebtoken");
 
-exports.iss = new URL(config.urlWebsite || config.urlLocalhost).hostname;
+exports.iss = config.jwtIss;
 
 exports.sign = function signJWT(data = {}, expiresIn = 30) {
   data.iss = exports.iss;

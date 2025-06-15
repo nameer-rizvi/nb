@@ -4,7 +4,7 @@ const middlewares = require("./middlewares");
 const routerStatic = require("./router.static");
 const routerApi = require("./router.api");
 const routerPublic = require("./router.public");
-const error = require("./error");
+const errorHandler = require("./error");
 const util = require("../util");
 
 const server = express();
@@ -15,7 +15,7 @@ if (middlewares.app.length) server.use(middlewares.app); // Application middlewa
 
 server.use(routerStatic, routerApi, routerPublic); // Route handlers.
 
-server.use(error.handler404, error.handler); // Error handlers.
+server.use(errorHandler); // Error handler.
 
 server.listen(config.nodePort, function listener() {
   util.log.server(`listening on port ${config.nodePort}`);
