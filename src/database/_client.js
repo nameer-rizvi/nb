@@ -19,6 +19,7 @@ class Database {
     const memorySplit = memory.split("\n");
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
     const bytes = parseFloat(memoryUsed.split(":")[1]);
+    const kb = simpul.math.num(bytes / 1000);
     const mb = simpul.math.num(bytes / 1000000);
     const storeSize = await this.connection.hLen(this.storeKey);
     const storeSizeMax = this.storeSizeMax;
@@ -28,6 +29,7 @@ class Database {
     util.log.database(`size ("${mb}mb")`);
     return {
       bytes,
+      kb,
       mb,
       storeSize,
       storeSizeMax,
@@ -144,7 +146,7 @@ class Database {
       }
       this.ids.push(id);
       const exists = await this.connection.hExists(this.storeKey, id);
-      if (exists === false) return id;
+      if (!exists) return id;
     }
     throw new RangeError("Database store is at maximum capacity.");
   }
