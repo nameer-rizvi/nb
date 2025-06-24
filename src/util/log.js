@@ -21,11 +21,7 @@ const log = {
   warning: decorator("⚠️  Warning:", "warn"),
 };
 
-if (config.nodeEnv?.length) {
-  log.env(`in ${config.nodeEnv}`);
-} else {
-  log.warning("NODE_ENV is undefined");
-}
+if (config.nodeEnv?.length) log.env(`in ${config.nodeEnv}`); // Error will throw if node environment is not defined.
 
 module.exports = log;
 

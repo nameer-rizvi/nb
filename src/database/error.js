@@ -1,15 +1,14 @@
+const collection = require("./_collection");
 const util = require("../util");
 const config = require("../config");
 const client = require("./_client");
-
-const collection = "error";
 
 async function add(...errors) {
   const records = [];
 
   for (let error of errors) {
     if (typeof error === "string") {
-      records.push({ collection, message: error });
+      records.push({ collection: collection.error, message: error });
       continue;
     }
 
@@ -24,7 +23,7 @@ async function add(...errors) {
         if (error.stack[0]?.includes("Error")) error.stack.shift();
       }
 
-      records.push({ collection, ...error });
+      records.push({ collection: collection.error, ...error });
 
       continue;
     }
