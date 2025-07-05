@@ -50,7 +50,7 @@ async function fetcher(url, option = {}) {
     const controller = new AbortController();
 
     const timeout = setTimeout(function onTimeout() {
-      log.fetch(`request aborted ("${url.hostname}")`);
+      log.fetch(`request aborted ("${url.hostname}")`, "warn");
       controller.abort();
     }, timeoutLimit);
 

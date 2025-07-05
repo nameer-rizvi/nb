@@ -1,9 +1,10 @@
 const collection = require("./_collection");
 const util = require("../util");
 const config = require("../config");
+const errorCut = require("./error.cut");
 const client = require("./_client");
 
-async function add(...errors) {
+async function errorAdd(...errors) {
   const records = [];
 
   for (let error of errors) {
@@ -28,19 +29,14 @@ async function add(...errors) {
       continue;
     }
 
-    util.log.warning(`Invalid error ("${error}")`);
+    util.log.database(`invalid error ("${error}")`, "warn");
   }
 
-  if (!config.nodeEnvInProduction) await cut();
+  if (!config.nodeEnvInProduction) await errorCut();
 
-  util.log.database(`add errors ("${records.length}")`);
+  util.log.database(`add error ("${records.length}")`);
 
   return client.add(...records);
 }
 
-async function cut() {
-  util.log.database('cut errors ("ALL")');
-  return client.cut({ collection });
-}
-
-module.exports = { add, cut };
+module.exports = errorAdd;

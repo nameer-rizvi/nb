@@ -22,12 +22,10 @@ const configs = [
   {
     method: "get",
     pathname: "/sitemap.xml",
-    collection: "sitemap",
   },
   {
     method: "get",
     pathname: "/sitemap-:page.xml",
-    collection: "sitemap",
   },
 ];
 

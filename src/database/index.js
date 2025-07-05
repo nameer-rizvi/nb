@@ -1,6 +1,9 @@
 const database = {
   client: require("./_client"),
-  error: require("./error"),
+  error: {
+    add: require("./error.add"),
+    cut: require("./error.cut"),
+  },
 };
 
 module.exports = database;
