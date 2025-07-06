@@ -4,7 +4,7 @@ const ui = require("../../ui");
 async function getSitemapXml(req, res, next) {
   try {
     const sitemap = await database.client.get({
-      collection: res.locals.collection,
+      collection: database.collection.sitemap,
     });
 
     if (!sitemap[0]?.pagesCount) {

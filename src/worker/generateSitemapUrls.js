@@ -1,7 +1,7 @@
 const config = require("../config");
 const util = require("../util");
-const simpul = require("simpul");
 const database = require("../database");
+const simpul = require("simpul");
 
 const MAXIMUM_URLS = 50000; // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines
 
@@ -22,7 +22,7 @@ async function generateSitemapUrls() {
     }
   }
 
-  const collection = config.route("get", "/sitemap.xml").collection;
+  const collection = database.collection.sitemap;
 
   const pages = simpul.batchify(urls, MAXIMUM_URLS);
 

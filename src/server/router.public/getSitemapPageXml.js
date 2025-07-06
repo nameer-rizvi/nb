@@ -9,7 +9,7 @@ async function getSitemapPageXml(req, res, next) {
     if (!simpul.isNumber(page)) throw new TypeError("Page is not a number.");
 
     const sitemap = await database.client.get({
-      collection: res.locals.collection,
+      collection: database.collection.sitemap,
     });
 
     if (!sitemap[0]?.pages?.[page - 1]) {
