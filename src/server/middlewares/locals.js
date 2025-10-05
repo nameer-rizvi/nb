@@ -15,6 +15,10 @@ function localsMiddleware(req, res, next) {
     res.locals.userAgentCode = simpul.base64.encode(userAgentAttributes);
   }
 
+  if (res.locals.cacheMaxAge) {
+    res.set("Cache-Control", `max-age=${res.locals.cacheMaxAge}`); // Age is in seconds, not milliseconds.
+  }
+
   next();
 }
 

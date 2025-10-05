@@ -5,12 +5,12 @@ const config = require("../../config");
 // Develop and use strategies to authenticate requests.
 function authenticateMiddleware(req, res, next) {
   try {
-    const authorization = (req.headers.authorization || "").split(" ");
+    const [scheme, token] = (req.headers.authorization || "").split(" ");
 
-    if (authorization[0] === "Bearer" && authorization[1] !== "undefined") {
-      res.locals.token = util.jwt.verify(authorization[1]);
-    } else if (authorization[0] === "Basic") {
-      const decoded = simpul.base64.decode(authorization[1]).split(":");
+    if (scheme === "Bearer" && token !== "undefined") {
+      res.locals.token = util.jwt.verify(token);
+    } else if (scheme === "Basic") {
+      const decoded = simpul.base64.decode(token).split(":");
       res.locals.username = decoded[0];
       res.locals.password = decoded[1];
     }

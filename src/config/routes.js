@@ -10,22 +10,27 @@ const configs = [
     method: "get",
     pathname: "/favicon.ico",
     redirect: "/static/img/favicon.ico",
+    cacheMaxAge: 60 * 60 * 24 * 7,
   },
   {
     method: "get",
     pathname: "/manifest.json",
+    cacheMaxAge: 60 * 60 * 24 * 7,
   },
   {
     method: "get",
     pathname: "/robots.txt",
+    cacheMaxAge: 60 * 60 * 24 * 7,
   },
   {
     method: "get",
     pathname: "/sitemap.xml",
+    cacheMaxAge: 60 * 60 * 24 * 7,
   },
   {
     method: "get",
     pathname: "/sitemap-:page.xml",
+    cacheMaxAge: 60 * 60 * 24 * 7,
   },
 ];
 
