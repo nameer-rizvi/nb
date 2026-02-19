@@ -19,6 +19,8 @@ async function generateSitemapUrls() {
   for (const route of config.routes) {
     if (util.isRoute.webpage(route) && util.isRoute.dynamic(route)) {
       // TODO: Handle complex dynamic routes, like "/:collection/:id-:created_at/error-:created_at"
+      // - add  "paramsMap" property to routes that map route params to database collections using dottpath ({ ":id": "error.id" })
+      // - needs to be able to reference previous route param ({ ":id": "{{collection}}.id", ":created_at": "{{collection}}.createdAt" })
     }
   }
 

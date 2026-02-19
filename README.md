@@ -8,7 +8,7 @@
 
 Update all dependencies in `package.json` that are specified with a version range (e.g., `^` or `~`).
 
-```console
+```bash
 yarn update
 ```
 
@@ -16,7 +16,7 @@ yarn update
 
 Run ESLint on the `/src` directory to check for syntax warnings and errors.
 
-```console
+```bash
 yarn lint
 ```
 
@@ -24,7 +24,7 @@ yarn lint
 
 Execute the test suite. Customize this command to match your project's testing framework and configuration (e.g., Jest, Mocha).
 
-```console
+```bash
 yarn test
 ```
 
@@ -32,7 +32,7 @@ yarn test
 
 Run tests for the database client class, verifying the functionality of all database-related methods.
 
-```console
+```bash
 yarn test-db
 ```
 
@@ -40,7 +40,7 @@ yarn test-db
 
 Start the Redis server. Ensure Redis is installed and configured on your system.
 
-```console
+```bash
 yarn redis
 ```
 
@@ -48,7 +48,7 @@ yarn redis
 
 Execute custom scripts by specifying the script names as a comma-separated environment variable.
 
-```console
+```bash
 SCRIPT=<script-names> yarn script
 ```
 
@@ -56,7 +56,7 @@ SCRIPT=<script-names> yarn script
 
 Compile the Tailwind CSS stylesheet and output it to `/server/router.static/css`. This command generates the CSS file based on the project's Tailwind configuration.
 
-```console
+```bash
 yarn tw
 ```
 
@@ -64,7 +64,7 @@ yarn tw
 
 Run the Tailwind CSS server in watch mode to automatically compile changes to the stylesheet in `/server/router.static/css` as you edit styles.
 
-```console
+```bash
 yarn tw-dev
 ```
 
@@ -72,7 +72,7 @@ yarn tw-dev
 
 Start the Express server.
 
-```console
+```bash
 yarn server
 ```
 
@@ -80,7 +80,7 @@ yarn server
 
 Start the Express server in `development` mode with `nodemon` watching for file changes.
 
-```console
+```bash
 yarn server-dev
 ```
 
@@ -88,7 +88,7 @@ yarn server-dev
 
 Run workers defined in `/server/workers.js` or specified as comma-separated environment variables.
 
-```console
+```bash
 CRONJOB=<cronjob-names> JOB=<job-names> yarn worker
 ```
 
@@ -96,7 +96,7 @@ CRONJOB=<cronjob-names> JOB=<job-names> yarn worker
 
 Run workers defined in `/server/workers.js` or specified as comma-separated environment variables in `development` mode with `nodemon` watching for file changes.
 
-```console
+```bash
 yarn worker-dev
 ```
 
@@ -106,13 +106,13 @@ Start or restart 'forever' processes defined in ecosystem.config.js.
 
 - Start processes:
 
-```console
+```bash
 yarn pm2-start
 ```
 
 - Restart processes:
 
-```console
+```bash
 yarn pm2-restart
 ```
 

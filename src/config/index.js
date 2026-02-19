@@ -30,6 +30,7 @@ const config = {
   route: routes.find,
   routes: routes.configs,
   routesDisallowed: routes.disallow,
+  timezone: process.env.TZ,
   urlLocalhost: "http://127.0.0.1",
   urlWebsite: process.env.WEBSITE,
   worker: workers.find,
