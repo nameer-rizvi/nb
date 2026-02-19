@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "lint": "npx eslint; exit 0",
-    "test": "echo \"Error: no test specified\"; exit 0",
     "test-db": "node src/database/_client.test.js",
     "redis": "redis-server",
     "script": "node src/script/index.js",
