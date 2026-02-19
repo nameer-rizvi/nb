@@ -1,0 +1,27 @@
+{
+  "name": "nb",
+  "version": "1.0.0",
+  "description": "Node.js boilerplate - an opinionated project structure with batteries included.",
+  "keywords": [
+    "boilerplate",
+    "nodejs",
+    "server",
+    "worker"
+  ],
+  "main": "src/index.js",
+  "scripts": {
+    "update": "yarn && node package.update.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nameer-rizvi/nb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nameer-rizvi/nb/issues"
+  },
+  "homepage": "https://github.com/nameer-rizvi/nb#readme",
+  "author": "Nameer Rizvi (https://github.com/nameer-rizvi)",
+  "license": "MIT",
+  "private": true
+}

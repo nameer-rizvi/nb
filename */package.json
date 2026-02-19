@@ -1,10 +1,5 @@
 {
-  "name": "nb",
-  "version": "1.0.0",
-  "description": "Node.js boilerplate - an opinionated project structure with batteries included.",
-  "main": "src/index.js",
   "scripts": {
-    "update": "yarn && node package.update.js",
     "lint": "npx eslint; exit 0",
     "test": "echo \"Error: no test specified\"; exit 0",
     "test-db": "node src/database/_client.test.js",
@@ -20,23 +15,6 @@
     "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
     "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nameer-rizvi/nb.git"
-  },
-  "keywords": [
-    "boilerplate",
-    "server",
-    "worker",
-    "nodejs"
-  ],
-  "author": "Nameer Rizvi (https://github.com/nameer-rizvi)",
-  "license": "MIT",
-  "private": true,
-  "bugs": {
-    "url": "https://github.com/nameer-rizvi/nb/issues"
-  },
-  "homepage": "https://github.com/nameer-rizvi/nb#readme",
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "concurrently": "^9.1.2",
