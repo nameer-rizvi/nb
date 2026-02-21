@@ -2,7 +2,7 @@ const util = require("../util");
 const client = require("./client");
 const collection = require("./collection.json").test;
 
-async function databaseTest() {
+async function databaseClientTest() {
   // TEST 1 --> .add()
 
   util.log.database('client test started ("1")');
@@ -89,6 +89,7 @@ async function databaseTest() {
 
   if (process.env.NANOID_SIZE === "1") {
     let count = 0;
+
     try {
       while (true) {
         await client.add({ collection });
@@ -97,9 +98,13 @@ async function databaseTest() {
     } catch {
       util.log.database(`client test nanoid size ("${count}")`);
     }
+
+    await client.cut({ collection });
+
+    await client.size();
   }
 
   process.exit();
 }
 
-databaseTest();
+databaseClientTest();

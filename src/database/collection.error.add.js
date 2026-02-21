@@ -1,15 +1,15 @@
-const collection = require("./_collection");
+const collection = require("./collection.json").error;
 const util = require("../util");
 const config = require("../config");
-const errorCut = require("./error.cut");
-const client = require("./_client");
+const errorCut = require("./collection.error.cut");
+const client = require("./client");
 
-async function errorAdd(...errors) {
+async function databaseCollectionErrorAdd(...errors) {
   const records = [];
 
   for (let error of errors) {
     if (typeof error === "string") {
-      records.push({ collection: collection.error, message: error });
+      records.push({ collection, message: error });
       continue;
     }
 
@@ -24,7 +24,7 @@ async function errorAdd(...errors) {
         if (error.stack[0]?.includes("Error")) error.stack.shift();
       }
 
-      records.push({ collection: collection.error, ...error });
+      records.push({ collection, ...error });
 
       continue;
     }
@@ -39,4 +39,4 @@ async function errorAdd(...errors) {
   return client.add(...records);
 }
 
-module.exports = errorAdd;
+module.exports = databaseCollectionErrorAdd;

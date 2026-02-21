@@ -4,7 +4,7 @@ const redis = require("./client.redis");
 const simpul = require("simpul");
 const util = require("../util");
 
-class Database {
+class DatabaseClient {
   constructor() {
     this.connection = null;
     this.storeKey = `${config.redisKey}:store`;
@@ -14,7 +14,7 @@ class Database {
   }
 
   async size() {
-    if (!this.connection) this.connection = await redis.connect();
+    if (this.connection === null) this.connection = await redis.connect();
     const memory = await this.connection.info("memory");
     const memorySplit = memory.split("\n");
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
@@ -56,7 +56,7 @@ class Database {
 
   async #batch(handler, ...inputs) {
     if (!inputs.length) return [];
-    if (!this.connection) this.connection = await redis.connect();
+    if (this.connection === null) this.connection = await redis.connect();
     const pipeline = this.connection.multi();
     const timestamp = Date.now();
     const results = [];
@@ -171,7 +171,7 @@ class Database {
   }
 }
 
-module.exports = new Database();
+module.exports = new DatabaseClient();
 
 // https://redis.io/nosql/document-databases/
 // https://redis.io/docs/latest/develop/get-started/document-database/

@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "script": "node src/script/index.js",
     "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
     "tw-dev": "yarn tw --watch",
     "server": "node src/server/index.js",

@@ -10,6 +10,7 @@ const config = {
   redisConnectTimeout: +process.env.REDIS_CONNECT_TIMEOUT || 10000,
   redisKey: "nb:db",
   redisUrl: process.env.REDIS_URL,
+  script: (process.env.SCRIPT || "").split(","),
 };
 
 module.exports = config;

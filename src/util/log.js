@@ -15,13 +15,13 @@ const log = Object.freeze({
   // job: decorator("👷🏽‍♂️ Job"),
   // mailer: decorator("📧 Mailer"),
   // request: decorator("🛰️ "),
-  // script: decorator("▶️  Script"),
+  script: decorator("▶️  Script"),
   // server: decorator("📡 Server"),
   // util: decorator("🔧 Util"),
   // warning: decorator("⚠️  Warning:", "warn"),
 });
 
-if (config.nodeEnv) log.env(`in ${config.nodeEnv}`); // Error will throw if node environment is not defined.
+log.env(`in ${config.nodeEnv}`); // Error will throw if node environment is not defined.
 
 module.exports = log;
 
