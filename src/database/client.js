@@ -1,6 +1,6 @@
 const config = require("../config");
 const nanoid = require("nanoid");
-const redis = require("./_client.redis");
+const redis = require("./client.redis");
 const simpul = require("simpul");
 const util = require("../util");
 
@@ -20,41 +20,41 @@ class Database {
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
     const bytes = parseFloat(memoryUsed.split(":")[1]);
     const kb = simpul.math.num(bytes / 1000);
-    const mb = simpul.math.num(bytes / 1000000);
+    const mb = simpul.math.num(bytes / 1_000_000);
     const storeSize = await this.connection.hLen(this.storeKey);
     const storeSizeMax = this.storeSizeMax;
-    const storeSizeCapacity = simpul.math.percent(storeSize, storeSizeMax);
+    const storeSizeUsed = simpul.math.percent(storeSize, storeSizeMax);
     const collectionKeys = await this.connection.keys(this.collectionKey + "*");
     const collections = collectionKeys.length;
-    util.log.database(`size ("${mb}mb")`);
+    util.log.database(`size ("${mb}mb,${storeSizeUsed}%")`);
     return {
       bytes,
       kb,
       mb,
       storeSize,
       storeSizeMax,
-      storeSizeCapacity,
+      storeSizeUsed,
       collections,
     };
   }
 
   async add(...records) {
-    return this.#decorator(this.#addRecord, ...records);
+    return this.#batch(this.#addRecord, ...records);
   }
 
   async get(...queries) {
-    return this.#decorator(this.#getRecord, ...queries);
+    return this.#batch(this.#getRecord, ...queries);
   }
 
   async mod(...records) {
-    return this.#decorator(this.#modRecord, ...records);
+    return this.#batch(this.#modRecord, ...records);
   }
 
   async cut(...queries) {
-    return this.#decorator(this.#cutRecord, ...queries);
+    return this.#batch(this.#cutRecord, ...queries);
   }
 
-  async #decorator(handler, ...inputs) {
+  async #batch(handler, ...inputs) {
     if (!inputs.length) return [];
     if (!this.connection) this.connection = await redis.connect();
     const pipeline = this.connection.multi();
@@ -70,7 +70,7 @@ class Database {
 
   async #addRecord(pipeline, record, createdAt) {
     if (simpul.isObject(record)) {
-      if (!simpul.isStringValid(record.collection))
+      if (!simpul.isStringNonEmpty(record.collection))
         throw new TypeError("Record collection is not a valid string.");
       delete record.id;
       const id = await this.#generateUniqueId();
@@ -154,7 +154,7 @@ class Database {
   async #getById(id) {
     if (simpul.isString(id)) {
       const record = await this.connection.hGet(this.storeKey, id);
-      return simpul.parsejson(record);
+      return simpul.parseJson(record);
     }
   }
 
@@ -165,7 +165,7 @@ class Database {
       const ids = await this.connection.lRange(collectionKey, 0, -1);
       if (!ids.length) return jsons;
       const records = await this.connection.hmGet(this.storeKey, ids);
-      for (const record of records) jsons.push(simpul.parsejson(record));
+      for (const record of records) jsons.push(simpul.parseJson(record));
       return jsons;
     }
   }
@@ -173,5 +173,6 @@ class Database {
 
 module.exports = new Database();
 
+// https://redis.io/nosql/document-databases/
 // https://redis.io/docs/latest/develop/get-started/document-database/
 // https://zelark.github.io/nano-id-cc/

@@ -6,7 +6,9 @@
   "scripts": {
     "update": "yarn && node package.update.js",
     "lint": "npx eslint; exit 0",
-    "test": "echo \"Error: no test specified\"; exit 0"
+    "test": "echo \"Error: no test specified\"; exit 0",
+    "test-db": "node src/database/client.test.js",
+    "redis": "redis-server"
   },
   "keywords": [
     "boilerplate",
@@ -29,5 +31,11 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.0",
     "globals": "^17.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "nanoid": "^5.1.6",
+    "redis": "^5.11.0",
+    "simpul": "^1.2.7"
   }
 }

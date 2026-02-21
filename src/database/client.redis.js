@@ -32,4 +32,4 @@ function reconnectStrategy(retries) {
 
 module.exports = client;
 
-// https://redis.io/docs/latest/develop/connect/clients/nodejs/
+// https://redis.io/docs/latest/develop/clients/nodejs/

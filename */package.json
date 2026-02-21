@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "test-db": "node src/database/_client.test.js",
-    "redis": "redis-server",
     "script": "node src/script/index.js",
     "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
     "tw-dev": "yarn tw --watch",
@@ -14,10 +12,7 @@
     "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "devDependencies": {
-    "@eslint/js": "^9.29.0",
     "concurrently": "^9.1.2",
-    "eslint": "^9.29.0",
-    "globals": "^16.2.0",
     "nodemon": "^3.1.10"
   },
   "dependencies": {
