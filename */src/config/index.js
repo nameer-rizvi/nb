@@ -1,5 +1,4 @@
 require("dotenv").config();
-const routes = require("./routes");
 const workers = require("./workers");
 
 const config = {

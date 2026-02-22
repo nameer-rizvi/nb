@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 const dottpath = require("dottpath");
 const Bowser = require("bowser");
 const simpul = require("simpul");
