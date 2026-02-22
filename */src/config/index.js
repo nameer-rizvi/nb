@@ -17,7 +17,6 @@ const config = {
   emailService: process.env.EMAIL_SERVICE,
   jwtIss: "nb_jwt_" + process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
-  nodePort: +process.env.PORT || 3000,
   route: routes.find,
   routes: routes.configs,
   routesDisallowed: routes.disallow,
@@ -30,10 +29,6 @@ const config = {
   workerJobs: workers.jobs,
 };
 
-if (!config.nodeEnv) {
-  throw new ReferenceError("NODE_ENV is undefined.");
-}
-
 if (!config.jwtSecret) {
   throw new ReferenceError("JWT_SECRET is undefined.");
 }
@@ -41,5 +36,3 @@ if (!config.jwtSecret) {
 config.urlLocalhost += ":" + config.nodePort;
 
 module.exports = config;
-
-// https://www.npmjs.com/package/dotenv

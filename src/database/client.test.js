@@ -3,20 +3,22 @@ const client = require("./client");
 const collection = require("./collection.json").test;
 
 async function databaseClientTest() {
-  // TEST 1 --> .add()
+  // TEST #1 --> client.add()
 
   util.log.database('client test started ("1")');
+
+  await client.size();
 
   const test1 = await client.add(
     { collection, value: 1 },
     { collection, value: 2 },
   );
 
+  await client.size();
+
   const result1A = test1[0].value === 1;
 
   const result1B = test1[1].value === 2;
-
-  await client.size();
 
   if (result1A === true && result1B === true) {
     util.log.database('client test completed ("1")');
@@ -24,7 +26,7 @@ async function databaseClientTest() {
     util.log.database('client test failed ("1")', "warn");
   }
 
-  // TEST 2 --> .get()
+  // TEST #2 --> client.get()
 
   util.log.database('client test started ("2")');
 
@@ -34,15 +36,13 @@ async function databaseClientTest() {
 
   const result2B = test2[1].length >= test1.length;
 
-  await client.size();
-
   if (result2A === true && result2B === true) {
     util.log.database('client test completed ("2")');
   } else {
     util.log.database('client test failed ("2")', "warn");
   }
 
-  // TEST 3 --> .mod()
+  // TEST #3 --> client.mod()
 
   util.log.database('client test started ("3")');
 
@@ -59,25 +59,25 @@ async function databaseClientTest() {
 
   const result3B = test3[1].value === edit2;
 
-  await client.size();
-
   if (result3A === true && result3B === true) {
     util.log.database('client test completed ("3")');
   } else {
     util.log.database('client test failed ("3")', "warn");
   }
 
-  // TEST 4 --> .cut()
+  // TEST #4 --> client.cut()
 
   util.log.database('client test started ("4")');
 
+  await client.size();
+
   const test4 = await client.cut({ id: test1[0].id }, { collection });
+
+  await client.size();
 
   const result4A = test4[0].id === test1[0].id;
 
   const result4B = test4[1].collection === collection;
-
-  await client.size();
 
   if (result4A === true && result4B === true) {
     util.log.database('client test completed ("4")');
@@ -85,7 +85,7 @@ async function databaseClientTest() {
     util.log.database('client test failed ("4")', "warn");
   }
 
-  // TEST 5 --> nanoid size stress (must set NANOID_SIZE=1 in command line)
+  // TEST #5 --> nanoid size stress (must set NANOID_SIZE=1 in command line)
 
   if (process.env.NANOID_SIZE === "1") {
     let count = 0;

@@ -9,7 +9,9 @@
     "test": "echo \"Error: no test specified\"; exit 0",
     "test-db": "node src/database/client.test.js",
     "redis": "redis-server",
-    "script": "node src/script/index.js"
+    "script": "node src/script/index.js",
+    "server": "node src/server/index.js",
+    "server-dev": "NODE_ENV=development nodemon src/server/index.js"
   },
   "keywords": [
     "boilerplate",
@@ -31,10 +33,12 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.0",
-    "globals": "^17.3.0"
+    "globals": "^17.3.0",
+    "nodemon": "^3.1.14"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "nanoid": "^5.1.6",
     "redis": "^5.11.0",
     "simpul": "^1.2.7"

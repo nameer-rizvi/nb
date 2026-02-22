@@ -2,8 +2,6 @@
   "scripts": {
     "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
     "tw-dev": "yarn tw --watch",
-    "server": "node src/server/index.js",
-    "server-dev": "NODE_ENV=development nodemon src/server/index.js",
     "worker": "node src/worker/index.js",
     "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
     "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
@@ -11,27 +9,21 @@
     "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2",
-    "nodemon": "^3.1.10"
+    "concurrently": "^9.1.2"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",
-    "apicache": "^1.6.3",
     "bowser": "^2.11.0",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "cron": "^4.3.1",
     "cross-fetch": "^4.1.0",
-    "dotenv": "^16.5.0",
     "dottpath": "^0.2.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "nanoid": "3",
     "nodemailer": "^7.0.3",
-    "redis": "^5.5.6",
     "sanitized": "^1.2.6",
-    "simpul": "^1.2.6",
     "simpul-validate": "^0.2.8",
     "tailwindcss": "^4.1.10"
   }

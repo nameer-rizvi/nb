@@ -8,7 +8,7 @@ async function databaseCollectionErrorCut(...records) {
     return client.cut(...records);
   } else {
     util.log.database('cut error ("ALL")');
-    return client.cut({ collection: collection.error });
+    return client.cut({ collection });
   }
 }
 

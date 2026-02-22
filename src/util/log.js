@@ -1,27 +1,27 @@
 const config = require("../config");
 
-function decorator(title, defaultType = "log") {
-  return function method(message, type = defaultType) {
+function createLogger(title, defaultType = "log") {
+  return function logger(message, type = defaultType) {
     const datetime = new Date().toLocaleString().replace(",", "");
     console[type](`${datetime} - ${title} ${message}.`);
   };
 }
 
 const log = Object.freeze({
-  // cronjob: decorator("⏰ Cronjob"),
-  database: decorator("🗄  Database"),
-  env: decorator("🌐 Environment"),
-  // fetch: decorator("🐶 Fetch"),
-  // job: decorator("👷🏽‍♂️ Job"),
-  // mailer: decorator("📧 Mailer"),
-  // request: decorator("🛰️ "),
-  script: decorator("▶️  Script"),
-  // server: decorator("📡 Server"),
-  // util: decorator("🔧 Util"),
-  // warning: decorator("⚠️  Warning:", "warn"),
+  database: createLogger("🗄  Database"),
+  env: createLogger("🌐 Environment"),
+  request: createLogger("🛰️ "),
+  script: createLogger("▶️  Script"),
+  server: createLogger("📡 Server"),
+  // cronjob: createLogger("⏰ Cronjob"),
+  // fetch: createLogger("🐶 Fetch"),
+  // job: createLogger("👷🏽‍♂️ Job"),
+  // mailer: createLogger("📧 Mailer"),
+  // util: createLogger("🔧 Util"),
+  // warning: createLogger("⚠️  Warning:", "warn"),
 });
 
-log.env(`in ${config.nodeEnv}`); // Error will throw if node environment is not defined.
+log.env(`in ${config.nodeEnv}`);
 
 module.exports = log;
 
