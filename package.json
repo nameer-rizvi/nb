@@ -37,7 +37,9 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
+    "bowser": "^2.14.1",
     "dotenv": "^17.3.1",
+    "dottpath": "^0.2.1",
     "express": "^5.2.1",
     "nanoid": "^5.1.6",
     "redis": "^5.11.0",

@@ -208,6 +208,11 @@ body-parser@^2.2.1:
     raw-body "^3.0.1"
     type-is "^2.0.1"
 
+bowser@^2.14.1:
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.14.1.tgz#4ea39bf31e305184522d7ad7bfd91389e4f0cb79"
+  integrity sha512-tzPjzCxygAKWFOJP011oxFHs57HzIhOEracIgAePE4pqB3LikALKnSzUyU4MGs9/iCEUuHlAJTjTc5M+u7YEGg==
+
 brace-expansion@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-5.0.2.tgz#b6c16d0791087af6c2bc463f52a8142046c06b6f"
@@ -365,6 +370,13 @@ dotenv@^17.3.1:
   version "17.3.1"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-17.3.1.tgz#2706f5b0165e45a1503348187b8468f87fe6aae2"
   integrity sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==
+
+dottpath@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/dottpath/-/dottpath-0.2.1.tgz#0a61761f1cc9ed1005727dd95bf3df1e70ef4841"
+  integrity sha512-Exdp9tby12Wnt4om4F44cxOS98PbP7g5FpZTJ7Jzg++8MwaqA61+RMT5p+Gxwzx5K9Wn8Wf9X48H5yZcWDE6lw==
+  dependencies:
+    simpul "^1.2.7"
 
 dunder-proto@^1.0.1:
   version "1.0.1"

@@ -13,7 +13,7 @@ async function script() {
         util.log.script(`completed ("${name}")`);
       } catch (error) {
         util.log.script(`errored ("${name}"): ${error}`, "error");
-        await database.collection.error.add(error);
+        await database.controller.error.add(error);
       } finally {
         util.log.script(`finished ("${name}")`);
       }

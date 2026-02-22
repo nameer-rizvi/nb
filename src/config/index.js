@@ -1,4 +1,5 @@
 require("dotenv").config({ quiet: true });
+const routes = require("./routes");
 
 const config = {
   nanoidSize: +process.env.NANOID_SIZE || 3,
@@ -11,6 +12,9 @@ const config = {
   redisConnectTimeout: +process.env.REDIS_CONNECT_TIMEOUT || 10_000,
   redisKey: "nb:db",
   redisUrl: process.env.REDIS_URL,
+  route: routes.find,
+  routes: routes.configs,
+  routesDisallowed: routes.disallow,
   script: (process.env.SCRIPT || "").split(",").filter(Boolean),
 };
 

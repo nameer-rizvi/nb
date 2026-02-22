@@ -2,7 +2,7 @@ const util = require("../util");
 const client = require("./client");
 const collection = require("./collection.json").error;
 
-async function databaseCollectionErrorCut(...records) {
+async function databaseControllerErrorCut(...records) {
   if (records.length) {
     util.log.database(`cut error ("${records.length}")`);
     return client.cut(...records);
@@ -12,4 +12,4 @@ async function databaseCollectionErrorCut(...records) {
   }
 }
 
-module.exports = databaseCollectionErrorCut;
+module.exports = databaseControllerErrorCut;

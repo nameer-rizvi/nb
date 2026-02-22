@@ -1,10 +1,9 @@
-/* eslint no-unused-vars: 0 */
+const dottpath = require("dottpath");
 const Bowser = require("bowser");
 const simpul = require("simpul");
 const database = require("../../database");
 const util = require("../../util");
 const page = require("./page");
-const dottpath = require("dottpath");
 
 async function handler(error, req, res, next) {
   const payload = {};
@@ -23,8 +22,6 @@ async function handler(error, req, res, next) {
 
   payload.ids = [];
 
-  pushIds(payload.ids, { ...req.session }, "req.session");
-
   pushIds(payload.ids, { ...res.locals }, "res.locals");
 
   const ua = Bowser.parse(req.headers["user-agent"] || " ");
@@ -37,7 +34,7 @@ async function handler(error, req, res, next) {
 
   res.locals.error = simpul.trim(`${payload.message} ${source}`); // This gets logged in the logger middleware.
 
-  await database.error.add(payload);
+  await database.controller.error.add(payload);
 
   if (util.isRoute.webpage(req)) {
     const message = payload.status < 500 ? payload.message : undefined; // Don't expose internal errors to client.

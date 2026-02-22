@@ -1,10 +1,10 @@
 const collection = require("./collection.json").error;
 const util = require("../util");
 const config = require("../config");
-const errorCut = require("./collection.error.cut");
+const databaseControllerErrorCut = require("./controller.error.cut");
 const client = require("./client");
 
-async function databaseCollectionErrorAdd(...errors) {
+async function databaseControllerErrorAdd(...errors) {
   const records = [];
 
   for (let error of errors) {
@@ -32,11 +32,11 @@ async function databaseCollectionErrorAdd(...errors) {
     util.log.database(`invalid error ("${error}")`, "warn");
   }
 
-  if (!config.nodeEnvInProduction) await errorCut();
+  if (!config.nodeEnvInProduction) await databaseControllerErrorCut();
 
   util.log.database(`add error ("${records.length}")`);
 
   return client.add(...records);
 }
 
-module.exports = databaseCollectionErrorAdd;
+module.exports = databaseControllerErrorAdd;
