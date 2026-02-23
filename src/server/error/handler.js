@@ -33,7 +33,7 @@ async function handler(error, req, res, next) {
 
   const source = payload.stack.split("\n")[1] || "";
 
-  res.locals.error = simpul.trim(`${payload.message} ${source}`); // This gets logged in the logger middleware.
+  res.locals.error = simpul.trim(`${payload.message} ${source}`);
 
   await database.controller.error.add(payload);
 
@@ -45,16 +45,16 @@ async function handler(error, req, res, next) {
   }
 }
 
-function pushIds(ids, payload, prekey) {
-  for (const dotkey of dottpath.map(payload)) {
-    const key = dotkey.split(".").pop();
+function pushIds(ids, payload, base) {
+  for (const path of dottpath.map(payload)) {
+    const key = path.split(".").pop();
     if (
       key === "id" ||
       key === "uid" ||
       key.endsWith("Id") ||
       key.endsWith("_id")
     ) {
-      ids.push(`${prekey}.${dotkey}=${dottpath.extract(payload, dotkey)}`);
+      ids.push(`${base}.${path}=${dottpath.extract(payload, path)}`);
     }
   }
 }
