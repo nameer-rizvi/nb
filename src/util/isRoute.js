@@ -21,7 +21,7 @@ function mPut(r) {
 // Paths
 
 function pApi(r) {
-  return uPath(r).startsWith("/api") && !cRedirect(r);
+  return uPath(r).indexOf("/api") === 0 && !cRedirect(r);
 }
 
 function pPublic(r) {
@@ -29,7 +29,7 @@ function pPublic(r) {
 }
 
 function pStatic(r) {
-  return uPath(r).startsWith("/static") && !cRedirect(r);
+  return uPath(r).indexOf("/static") === 0 && !cRedirect(r);
 }
 
 // Configs
@@ -37,7 +37,7 @@ function pStatic(r) {
 function cDisallowed(r) {
   const p = uPath(r);
   for (const disallowed of config.routesDisallowed)
-    if (p.startsWith(disallowed)) return true;
+    if (p.indexOf(disallowed) === 0) return true;
   return false;
 }
 
