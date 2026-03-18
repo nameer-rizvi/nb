@@ -9,10 +9,12 @@ function element(tagName, props = {}) {
     ? simpul.trim(_children)
     : "";
 
+  delete attrs.mode;
+
   if (simpul.isArray(tagName)) {
-    return tagName.map((config) => element(...config)).join("");
-  } else if (!simpul.isStringValid(tagName)) {
-    throw new TypeError("Element tag name is not a valid string.");
+    return tagName.map((args) => element(...args)).join("");
+  } else if (!simpul.isStringNonEmpty(tagName)) {
+    throw new TypeError("Element tagName must be a non-empty string.");
   } else if (render === false) {
     return "";
   } else if (tagName === "style") {
@@ -85,14 +87,14 @@ function attributes(attrs = {}) {
 }
 
 function transformKey(k = "") {
-  return simpul.changecase.snakeCase(k).replace(/_/g, "-");
+  return simpul.changecase.paramCase(k);
 }
 
 function transformValue(v = "") {
   if (simpul.isHTTP(v)) {
     return v;
   } else if (simpul.isObject(v)) {
-    let pairs = [];
+    const pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
     return pairs.join(",");

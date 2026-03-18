@@ -1,10 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
-const theme = {
-  ...defaultTheme,
-  color: colors,
-};
+const theme = { ...defaultTheme, color: colors };
 
 theme.color.light = {
   background: theme.color.slate["50"],
