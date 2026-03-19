@@ -1,13 +1,7 @@
-require("dotenv").config();
 const workers = require("./workers");
 
 const config = {
   apiKey: process.env.API_KEY,
-  appAuthor: "",
-  appCategories: [],
-  appDescription: "",
-  appLang: "en-US",
-  appName: "nb",
   appNameShort: "nb",
   appVersion: "1",
   dictionary: require("./dictionary"),

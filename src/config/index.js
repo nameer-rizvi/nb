@@ -2,6 +2,11 @@ require("dotenv").config({ quiet: true });
 const routes = require("./routes");
 
 const config = {
+  appAuthor: "",
+  appCategories: [],
+  appDescription: "",
+  appLang: "en-US",
+  appName: "nb",
   nanoidSize: +process.env.NANOID_SIZE || 3,
   nodeEnv: process.env.NODE_ENV,
   nodeEnvInDevelopment: process.env.NODE_ENV === "development",
