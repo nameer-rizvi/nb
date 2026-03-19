@@ -1,10 +1,11 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
+// Note: theme colors from tailwind css are in OKLCH format and they aren't supported by email clients.
 const theme = { ...defaultTheme, color: colors };
 
 theme.color.light = {
-  background: theme.color.slate["50"],
+  background: "#f3f4f6", // theme.color.slate["50"],
   foreground: theme.color.white,
   font: theme.color.slate["900"],
   font2: theme.color.slate["700"],

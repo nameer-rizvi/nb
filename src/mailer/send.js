@@ -6,7 +6,7 @@ const transporter = require("./transporter");
 
 async function send(email = {}) {
   try {
-    if (!simpul.isStringValid(email.to) || !email.html?.length) return;
+    if (!simpul.isStringNonEmpty(email.to) || !email.html?.length) return;
 
     if (!simpul.isArray(email.html)) email.html = [email.html];
 

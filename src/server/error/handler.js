@@ -38,7 +38,6 @@ async function handler(error, req, res, next) {
   await database.controller.error.add(payload);
 
   if (util.isRoute.webpage(req)) {
-    console.log(1);
     const message = payload.status < 500 ? payload.message : undefined; // Don't expose internal errors to client.
     res.status(payload.status).send(page(payload.status, message));
   } else {

@@ -1,7 +1,7 @@
 const ui = {
   component: require("./component"),
   document: {
-    // email: require("./document.email"),
+    email: require("./document.email"),
     html: require("./document.html"),
     // xml: require("./document.xml"),
   },
