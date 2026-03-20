@@ -14,6 +14,7 @@ const log = Object.freeze({
   request: createLogger("🛰️ "),
   script: createLogger("▶️  Script"),
   server: createLogger("📡 Server"),
+  // todo
   // cronjob: createLogger("⏰ Cronjob"),
   // fetch: createLogger("🐶 Fetch"),
   // job: createLogger("👷🏽‍♂️ Job"),

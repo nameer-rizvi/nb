@@ -39,9 +39,12 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.2.1",
     "bowser": "^2.14.1",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "dottpath": "^0.2.2",
     "express": "^5.2.1",
+    "helmet": "^8.1.0",
     "nanoid": "^5.1.7",
     "nodemailer": "^8.0.3",
     "redis": "^5.11.0",
