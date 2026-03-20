@@ -13,7 +13,7 @@ const middlewares = {
     require("./compression"),
   ],
   // public: [require("./status"), require("./locals")],
-  // static: [require("./sw")],
+  static: [require("./sw")],
 };
 
 module.exports = middlewares;

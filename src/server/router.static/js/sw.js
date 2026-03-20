@@ -133,7 +133,7 @@ function isURL(urlA, urlB) {
 }
 
 function handleError(error) {
-  console.error(`👷🏾 Service worker ${error.toString().toLowerCase()}`);
+  console.error(`👷🏾 Service worker ${String(error).toLowerCase()}`);
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers

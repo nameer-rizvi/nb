@@ -11,7 +11,10 @@
     "redis": "redis-server",
     "script": "node src/script/index.js",
     "server": "node src/server/index.js",
-    "server-dev": "NODE_ENV=development nodemon src/server/index.js"
+    "server-dev": "NODE_ENV=development nodemon src/server/index.js",
+    "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
+    "tw-dev": "yarn tw --watch",
+    "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\""
   },
   "keywords": [
     "boilerplate",
@@ -32,12 +35,13 @@
   "private": true,
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "concurrently": "^9.2.1",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "nodemon": "^3.1.14"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.2.1",
+    "@tailwindcss/cli": "^4.2.2",
     "bowser": "^2.14.1",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
@@ -49,6 +53,6 @@
     "nodemailer": "^8.0.3",
     "redis": "^5.11.0",
     "simpul": "^1.2.9",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.2"
   }
 }

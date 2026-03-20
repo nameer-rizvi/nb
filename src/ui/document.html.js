@@ -66,34 +66,39 @@ function html(options = {}) {
       })
     : "";
 
+  const icon48 = element("link", {
+    rel: "icon",
+    type: "image/x-icon",
+    href: "/static/img/favicon.ico",
+  });
+
+  const icon32 = element("link", {
+    rel: "icon",
+    type: "image/png",
+    sizes: "32x32",
+    href: "/static/img/favicon-32x32.png",
+  });
+
+  const icon16 = element("link", {
+    rel: "icon",
+    type: "image/png",
+    sizes: "16x16",
+    href: "/static/img/favicon-16x16.png",
+  });
+
+  const iconApple = element("link", {
+    rel: "apple-touch-icon",
+    type: "image/png",
+    sizes: "180x180",
+    href: "/static/img/apple-touch-icon.png",
+  });
+
+  const stylesheet = element("link", {
+    rel: "stylesheet",
+    href: "/static/css/tw.css",
+  });
+
   // TODO
-  // const icon48 = element("link", {
-  //   rel: "icon",
-  //   type: "image/x-icon",
-  //   href: "/static/img/favicon.ico",
-  // });
-  // const icon32 = element("link", {
-  //   rel: "icon",
-  //   type: "image/png",
-  //   sizes: "32x32",
-  //   href: "/static/img/favicon-32x32.png",
-  // });
-  // const icon16 = element("link", {
-  //   rel: "icon",
-  //   type: "image/png",
-  //   sizes: "16x16",
-  //   href: "/static/img/favicon-16x16.png",
-  // });
-  // const iconApple = element("link", {
-  //   rel: "apple-touch-icon",
-  //   type: "image/png",
-  //   sizes: "180x180",
-  //   href: "/static/img/apple-touch-icon.png",
-  // });
-  // const stylesheet = element("link", {
-  //   rel: "stylesheet",
-  //   href: "/static/css/tw.css",
-  // });
   // const manifestQuery = options.manifest
   //   ? "?" + new URLSearchParams(options.manifest)
   //   : "";
@@ -119,11 +124,11 @@ function html(options = {}) {
       robots,
       themeColorLight,
       themeColorDark,
-      // icon48,
-      // icon32,
-      // icon16,
-      // iconApple,
-      // stylesheet,
+      icon48,
+      icon32,
+      icon16,
+      iconApple,
+      stylesheet,
       // manifest,
       canonical,
       ...(options.head || []),
@@ -144,14 +149,13 @@ function html(options = {}) {
     }
   }
 
-  // TODO
-  // if (options.sw !== false) {
-  //   const sw = element("script", {
-  //     defer: true,
-  //     src: "/static/js/sw-register.js",
-  //   });
-  //   scripts.push(sw);
-  // }
+  if (options.sw !== false) {
+    const sw = element("script", {
+      defer: true,
+      src: "/static/js/sw-register.js",
+    });
+    scripts.push(sw);
+  }
 
   const jsNote = scripts.length
     ? element("noscript", {

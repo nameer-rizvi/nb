@@ -1,24 +1,6 @@
 {
-  "scripts": {
-    "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
-    "tw-dev": "yarn tw --watch",
-    "worker": "node src/worker/index.js",
-    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
-    "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
-    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
-    "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2"
-  },
-  "dependencies": {
-    "compression": "^1.8.0",
-    "cors": "^2.8.5",
-    "cron": "^4.3.1",
-    "cross-fetch": "^4.1.0",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "sanitized": "^1.2.6",
-    "simpul-validate": "^0.2.8"
-  }
+  "worker": "node src/worker/index.js",
+  "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
+  "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
+  "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
 }

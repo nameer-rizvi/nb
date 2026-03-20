@@ -15,7 +15,7 @@ async function handler(error, req, res, next) {
 
   payload.path = req.path || "";
 
-  payload.message = error.message || error.toString() || "";
+  payload.message = error.message || String(error) || "";
 
   payload.stack = error.stack || "";
 

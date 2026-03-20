@@ -26,7 +26,7 @@ function element(tagName, props = {}) {
     return `<script${attributes(attrs)}>${JSON.stringify(json)}</script>`;
   } else if (tagName === "script" && js) {
     if (!attrs.type) attrs.type = "text/javascript";
-    return `<script${attributes(attrs)}>(${js.toString()})()</script>`;
+    return `<script${attributes(attrs)}>(${String(js)})()</script>`;
   } else if (tags.graph.includes(tagName)) {
     if (tagName === "svg") attrs.xmlns = "http://www.w3.org/2000/svg";
     return `<${tagName}${attributes(attrs)}>${children}</${tagName}>`;
@@ -99,7 +99,7 @@ function transformValue(v = "") {
       pairs.push(`${transformKey(key)}=${value}`);
     return pairs.join(",");
   } else {
-    return v.toString().replace(/[&<>"']/g, function handle(char) {
+    return String(v).replace(/[&<>"']/g, function handle(char) {
       return {
         "&": "&amp;",
         "<": "&lt;",
