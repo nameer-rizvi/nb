@@ -1,10 +1,10 @@
 const middlewares = {
-  // api: [
-  //   require("./locals"),
-  //   require("./authorization"),
-  //   require("./parsers"),
-  //   require("./validation"),
-  // ],
+  api: [
+    require("./locals"),
+    require("./authorization"),
+    require("./parsers"),
+    require("./validation"),
+  ],
   app: [
     require("./logger"),
     require("./redirect"),

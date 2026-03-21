@@ -1,4 +1,4 @@
-// Not-in-use.
+// Proof-of-concept, not-in-use.
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const database = require("../../database");
@@ -16,7 +16,7 @@ const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: simpul.isEnv.live,
+    secure: simpul.isEnvLive,
     sameSite: true,
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2, // ms * s * m * h * d * w = 2 weeks.

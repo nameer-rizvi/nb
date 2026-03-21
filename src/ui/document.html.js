@@ -157,11 +157,12 @@ function html(options = {}) {
     scripts.push(sw);
   }
 
-  const jsNote = scripts.length
-    ? element("noscript", {
-        children: "You need to enable JavaScript to run this app.",
-      })
-    : "";
+  const jsNote =
+    scripts.length || options.sw !== false
+      ? element("noscript", {
+          children: "You need to enable JavaScript to run this app.",
+        })
+      : "";
 
   const body = element("body", {
     children: [jsNote, options.body, ...scripts],

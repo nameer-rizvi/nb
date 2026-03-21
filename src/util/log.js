@@ -14,11 +14,11 @@ const log = Object.freeze({
   request: createLogger("🛰️ "),
   script: createLogger("▶️  Script"),
   server: createLogger("📡 Server"),
+  util: createLogger("🔧 Util"),
   // todo
   // cronjob: createLogger("⏰ Cronjob"),
   // fetch: createLogger("🐶 Fetch"),
   // job: createLogger("👷🏽‍♂️ Job"),
-  // util: createLogger("🔧 Util"),
   // warning: createLogger("⚠️  Warning:", "warn"),
 });
 

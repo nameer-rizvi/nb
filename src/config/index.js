@@ -2,14 +2,18 @@ require("dotenv").config({ quiet: true });
 const routes = require("./routes");
 
 const config = {
+  apiKey: process.env.API_KEY,
   appAuthor: "",
   appCategories: [],
   appDescription: "",
   appLang: "en-US",
   appName: "nb",
+  dictionary: require("./dictionary"),
   emailAddress: process.env.EMAIL_ADDRESS,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailService: process.env.EMAIL_SERVICE,
+  jwtIss: "nb-" + process.env.NODE_ENV,
+  jwtSecret: process.env.JWT_SECRET,
   nanoidSize: +process.env.NANOID_SIZE || 3,
   nodeEnv: process.env.NODE_ENV,
   nodeEnvInDevelopment: process.env.NODE_ENV === "development",

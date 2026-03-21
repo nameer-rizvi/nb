@@ -1,12 +1,11 @@
 const configs = [
+  // api routes
+  {
+    method: "post",
+    pathname: "/api/error",
+    requiredKeys: ["error"],
+  },
   // todo
-  // // api routes
-  // {
-  //   method: "post",
-  //   pathname: "/api/error",
-  //   requiredKeys: ["error"],
-  //   strategies: [...],
-  // },
   // // public routes
   // {
   //   method: "get",
