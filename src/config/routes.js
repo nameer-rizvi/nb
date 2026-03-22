@@ -11,11 +11,11 @@ const configs = [
     pathname: "/favicon.ico",
     redirect: "/static/img/favicon.ico",
   },
-  // {
-  //   method: "get",
-  //   pathname: "/manifest.json",
-  //   cacheMaxAge: 60 * 60 * 24 * 7,
-  // },
+  {
+    method: "get",
+    pathname: "/manifest.json",
+    cacheMaxAge: 60 * 60 * 24 * 7,
+  },
   {
     method: "get",
     pathname: "/robots.txt",

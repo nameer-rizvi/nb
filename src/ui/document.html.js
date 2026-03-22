@@ -98,16 +98,17 @@ function html(options = {}) {
     href: "/static/css/tw.css",
   });
 
-  // TODO
-  // const manifestQuery = options.manifest
-  //   ? "?" + new URLSearchParams(options.manifest)
-  //   : "";
-  // const manifest =
-  //   options.manifest !== false &&
-  //   element("link", {
-  //     rel: "manifest",
-  //     href: `/manifest.json${manifestQuery}`,
-  //   });
+  const manifestQuery = options.manifest
+    ? "?" + new URLSearchParams(options.manifest)
+    : "";
+
+  const manifest =
+    options.manifest !== false
+      ? element("link", {
+          rel: "manifest",
+          href: `/manifest.json${manifestQuery}`,
+        })
+      : "";
 
   const canonical = options.canonical
     ? element("link", { rel: "canonical", href: options.canonical })
@@ -129,7 +130,7 @@ function html(options = {}) {
       icon16,
       iconApple,
       stylesheet,
-      // manifest,
+      manifest,
       canonical,
       ...(options.head || []),
     ],

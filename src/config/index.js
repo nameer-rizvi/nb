@@ -8,6 +8,8 @@ const config = {
   appDescription: "",
   appLang: "en-US",
   appName: "nb",
+  appNameShort: "nb",
+  appVersion: "1",
   dictionary: require("./dictionary"),
   emailAddress: process.env.EMAIL_ADDRESS,
   emailPassword: process.env.EMAIL_PASSWORD,

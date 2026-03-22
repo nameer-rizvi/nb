@@ -10,6 +10,7 @@ function createLogger(title, defaultType = "log") {
 const log = Object.freeze({
   database: createLogger("🗄  Database"),
   env: createLogger("🌐 Environment"),
+  fetch: createLogger("🐶 Fetch"),
   mailer: createLogger("📧 Mailer"),
   request: createLogger("🛰️ "),
   script: createLogger("▶️  Script"),
@@ -17,7 +18,6 @@ const log = Object.freeze({
   util: createLogger("🔧 Util"),
   // todo
   // cronjob: createLogger("⏰ Cronjob"),
-  // fetch: createLogger("🐶 Fetch"),
   // job: createLogger("👷🏽‍♂️ Job"),
   // warning: createLogger("⚠️  Warning:", "warn"),
 });
