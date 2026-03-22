@@ -12,10 +12,6 @@ const config = {
   workerJobs: workers.jobs,
 };
 
-if (!config.jwtSecret) {
-  throw new ReferenceError("JWT_SECRET is undefined.");
-}
-
 config.urlLocalhost += ":" + config.nodePort;
 
 module.exports = config;

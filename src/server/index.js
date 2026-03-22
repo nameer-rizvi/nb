@@ -3,7 +3,7 @@ const config = require("../config");
 const middlewares = require("./middlewares");
 const routerStatic = require("./router.static");
 const routerApi = require("./router.api");
-// const routerPublic = require("./router.public"); // todo
+const routerPublic = require("./router.public"); // todo
 const errorHandler = require("./error");
 const util = require("../util");
 
@@ -13,7 +13,7 @@ server.set("trust proxy", config.nodeEnvInProduction); // Trust reverse proxy in
 
 if (middlewares.app.length) server.use(middlewares.app); // Application middlewares.
 
-server.use(routerStatic, routerApi); // Route handlers.
+server.use(routerStatic, routerApi, routerPublic); // Route handlers.
 
 server.use(errorHandler); // Error handler.
 

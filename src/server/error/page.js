@@ -17,10 +17,15 @@ function page(status = 400, message = "Something went wrong") {
 
   const container = ui.component.div_3([header, paragraph]);
 
-  // TODO
   const statusText = ui.component.p(" ", {
     id: "status",
-    style: { marginTop: "1rem", fontSize: "small" },
+    style: {
+      position: "fixed",
+      bottom: "0.5rem",
+      right: "1rem",
+      fontSize: "small",
+      fontFamily: ui.theme.fontFamily.mono,
+    },
   });
 
   const body = ui.component.main_2([container, statusText]);
@@ -30,7 +35,7 @@ function page(status = 400, message = "Something went wrong") {
     description,
     keywords,
     body,
-    script: { src: "/static/js/status-message.js" }, // TODO
+    script: { src: "/static/js/status-message.js" },
     index: false,
     follow: false,
   });

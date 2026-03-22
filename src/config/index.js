@@ -34,6 +34,10 @@ if (!config.nodeEnv) {
   throw new TypeError("Missing required environment variable: NODE_ENV");
 }
 
+if (!config.jwtSecret) {
+  throw new TypeError("Missing required environment variable: JWT_SECRET");
+}
+
 module.exports = config;
 
 // https://www.npmjs.com/package/dotenv

@@ -12,7 +12,7 @@ const middlewares = {
     require("./helmet"),
     require("./compression"),
   ],
-  // public: [require("./status"), require("./locals")],
+  public: [require("./status"), require("./locals")],
   static: [require("./sw")],
 };
 

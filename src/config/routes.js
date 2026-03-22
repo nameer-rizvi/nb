@@ -5,14 +5,12 @@ const configs = [
     pathname: "/api/error",
     requiredKeys: ["error"],
   },
-  // todo
-  // // public routes
-  // {
-  //   method: "get",
-  //   pathname: "/favicon.ico",
-  //   redirect: "/static/img/favicon.ico",
-  //   cacheMaxAge: 60 * 60 * 24 * 7,
-  // },
+  // public routes
+  {
+    method: "get",
+    pathname: "/favicon.ico",
+    redirect: "/static/img/favicon.ico",
+  },
   // {
   //   method: "get",
   //   pathname: "/manifest.json",
