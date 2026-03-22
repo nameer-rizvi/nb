@@ -3,7 +3,7 @@ const config = require("../config");
 const middlewares = require("./middlewares");
 const routerStatic = require("./router.static");
 const routerApi = require("./router.api");
-const routerPublic = require("./router.public"); // todo
+const routerPublic = require("./router.public");
 const errorHandler = require("./error");
 const util = require("../util");
 
