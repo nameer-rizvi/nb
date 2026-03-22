@@ -16,11 +16,11 @@ const configs = [
   //   pathname: "/manifest.json",
   //   cacheMaxAge: 60 * 60 * 24 * 7,
   // },
-  // {
-  //   method: "get",
-  //   pathname: "/robots.txt",
-  //   cacheMaxAge: 60 * 60 * 24 * 7,
-  // },
+  {
+    method: "get",
+    pathname: "/robots.txt",
+    cacheMaxAge: 60 * 60 * 24 * 7,
+  },
   // {
   //   method: "get",
   //   pathname: "/sitemap.xml",
@@ -43,7 +43,7 @@ function find(method, pathname) {
   }
 }
 
-const disallow = ["/api", "/static"];
+const disallow = ["/api"];
 
 module.exports = { configs, find, disallow };
 

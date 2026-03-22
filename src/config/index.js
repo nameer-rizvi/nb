@@ -28,6 +28,9 @@ const config = {
   routes: routes.configs,
   routesDisallowed: routes.disallow,
   script: (process.env.SCRIPT || "").split(",").filter(Boolean),
+  timezone: process.env.TZ,
+  urlLocalhost: "http://127.0.0.1",
+  urlWebsite: process.env.WEBSITE,
 };
 
 if (!config.nodeEnv) {
@@ -36,6 +39,10 @@ if (!config.nodeEnv) {
 
 if (!config.jwtSecret) {
   throw new TypeError("Missing required environment variable: JWT_SECRET");
+}
+
+if (config.urlLocalhost) {
+  config.urlLocalhost += ":" + config.nodePort;
 }
 
 module.exports = config;
