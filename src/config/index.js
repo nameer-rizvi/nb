@@ -1,5 +1,6 @@
 require("dotenv").config({ quiet: true });
 const routes = require("./routes");
+const workers = require("./workers");
 
 const config = {
   apiKey: process.env.API_KEY,
@@ -33,6 +34,10 @@ const config = {
   timezone: process.env.TZ,
   urlLocalhost: "http://127.0.0.1",
   urlWebsite: process.env.WEBSITE,
+  worker: workers.find,
+  workerCronjobs: workers.cronjobs,
+  workerJobs: workers.jobs,
+  workers: workers.configs,
 };
 
 if (!config.nodeEnv) {

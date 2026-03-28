@@ -8,18 +8,17 @@ function createLogger(title, defaultType = "log") {
 }
 
 const log = Object.freeze({
+  cronjob: createLogger("⏰ Cronjob"),
   database: createLogger("🗄  Database"),
   env: createLogger("🌐 Environment"),
   fetch: createLogger("🐶 Fetch"),
+  job: createLogger("👷🏽‍♂️ Job"),
   mailer: createLogger("📧 Mailer"),
   request: createLogger("🛰️ "),
   script: createLogger("▶️  Script"),
   server: createLogger("📡 Server"),
   util: createLogger("🔧 Util"),
-  // todo
-  // cronjob: createLogger("⏰ Cronjob"),
-  // job: createLogger("👷🏽‍♂️ Job"),
-  // warning: createLogger("⚠️  Warning:", "warn"),
+  warning: createLogger("⚠️  Warning:", "warn"),
 });
 
 log.env(`in ${config.nodeEnv}`);

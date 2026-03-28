@@ -486,6 +486,11 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.24.tgz#4ae334fc62c0e915ca8ed8e35dcc6d4eeb29215f"
   integrity sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==
 
+"@types/luxon@~3.7.0":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.7.1.tgz#ef51b960ff86801e4e2de80c68813a96e529d531"
+  integrity sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg==
+
 "@types/pluralize@^0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.33.tgz#8ad9018368c584d268667dd9acd5b3b806e8c82a"
@@ -783,6 +788,14 @@ cors@^2.8.6:
   dependencies:
     object-assign "^4"
     vary "^1"
+
+cron@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/cron/-/cron-4.4.0.tgz#1488444a23ea7134e2b7686c17711abdffcebba8"
+  integrity sha512-fkdfq+b+AHI4cKdhZlppHveI/mgz2qpiYxcm+t5E5TsxX7QrLS1VE0+7GENEk9z0EeGPcpSciGv6ez24duWhwQ==
+  dependencies:
+    "@types/luxon" "~3.7.0"
+    luxon "~3.7.0"
 
 cross-fetch@^4.1.0:
   version "4.1.0"
@@ -1616,6 +1629,11 @@ lru-cache@^11.2.6:
   version "11.2.7"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.2.7.tgz#9127402617f34cd6767b96daee98c28e74458d35"
   integrity sha512-aY/R+aEsRelme17KGQa/1ZSIpLpNYYrhcrepKTZgE+W3WM16YMCaPwOHLHsmopZHELU0Ojin1lPVxKR0MihncA==
+
+luxon@~3.7.0:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.7.2.tgz#d697e48f478553cca187a0f8436aff468e3ba0ba"
+  integrity sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==
 
 magic-string@^0.30.21:
   version "0.30.21"

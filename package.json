@@ -14,7 +14,9 @@
     "server-dev": "NODE_ENV=development nodemon src/server/index.js",
     "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
     "tw-dev": "yarn tw --watch",
-    "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\""
+    "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
+    "worker": "node src/worker/index.js",
+    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js"
   },
   "keywords": [
     "boilerplate",
@@ -45,6 +47,7 @@
     "bowser": "^2.14.1",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
+    "cron": "^4.4.0",
     "cross-fetch": "^4.1.0",
     "dotenv": "^17.3.1",
     "dottpath": "^0.2.2",

@@ -2,7 +2,7 @@ const util = require("../util");
 const database = require("../database");
 
 const index = {
-  generateSitemapUrls: require("./generateSitemapUrls"),
+  // generateSitemapUrls: require("./generateSitemapUrls"),
 };
 
 async function job(...jobs) {
@@ -14,7 +14,7 @@ async function job(...jobs) {
         util.log.job(`completed ("${name}")`);
       } catch (error) {
         util.log.job(`errored ("${name}"): ${error}`, "error");
-        await database.error.add(error);
+        await database.controller.error.add(error);
       } finally {
         util.log.job(`finished ("${name}")`);
       }

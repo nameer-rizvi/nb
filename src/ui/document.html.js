@@ -98,9 +98,7 @@ function html(options = {}) {
     href: "/static/css/tw.css",
   });
 
-  const manifestQuery = options.manifest
-    ? "?" + new URLSearchParams(options.manifest)
-    : "";
+  const manifestQuery = "?" + new URLSearchParams(options.manifest || {});
 
   const manifest =
     options.manifest !== false
