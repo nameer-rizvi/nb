@@ -16,7 +16,9 @@
     "tw-dev": "yarn tw --watch",
     "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
     "worker": "node src/worker/index.js",
-    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js"
+    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
+    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
+    "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
   "keywords": [
     "boilerplate",

@@ -41,6 +41,7 @@ async function generateSitemapUrls() {
   if (count.pages >= MAXIMUM_URLS) {
     const warning = `Sitemap url generator is at capacity ("${MAXIMUM_URLS.toLocaleString()}")`;
     util.log.warning(warning);
+    // TODO: dynamically nest sitemap pages (e.g. index pages of index pages of urls) based on url count.
   }
 }
 
