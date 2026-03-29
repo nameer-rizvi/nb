@@ -15,7 +15,7 @@ async function cronjob(...cronjobs) {
         }).start();
       } catch (error) {
         util.log.cronjob(`errored ("${name}"): ${error}`, "error");
-        await database.error.add(error);
+        await database.controller.error.add(error);
       }
     } else {
       util.log.cronjob(`is undefined ("${name}")`, "warn");

@@ -27,7 +27,7 @@ async function registerServiceWorker() {
       }
     }
   } catch (error) {
-    console.error(`👷🏾 Service worker ${error.toString().toLowerCase()}`);
+    console.error(`👷🏾 Service worker ${String(error).toLowerCase()}`);
   }
 }
 

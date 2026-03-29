@@ -2,21 +2,21 @@ const redis = require("redis");
 const config = require("../config");
 const util = require("../util");
 
-const client = redis.createClient({
+const databaseClientRedis = redis.createClient({
   url: config.redisUrl,
   connectTimeout: config.redisConnectTimeout,
   socket: { reconnectStrategy },
 });
 
-client.on("connect", function onClientConnect() {
+databaseClientRedis.on("connect", function onClientConnect() {
   util.log.database("redis client connected");
 });
 
-client.on("disconnect", function onClientDisconnect() {
+databaseClientRedis.on("disconnect", function onClientDisconnect() {
   util.log.database("redis client disconnected");
 });
 
-client.on("error", function onClientError(err) {
+databaseClientRedis.on("error", function onClientError(err) {
   let message = `redis client error ("${err}")`;
   if (err.code === "ECONNREFUSED") message += ": server not running";
   util.log.database(message, "error");
@@ -30,6 +30,6 @@ function reconnectStrategy(retries) {
   }
 }
 
-module.exports = client;
+module.exports = databaseClientRedis;
 
-// https://redis.io/docs/latest/develop/connect/clients/nodejs/
+// https://redis.io/docs/latest/develop/clients/nodejs/

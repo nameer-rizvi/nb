@@ -1,9 +1,12 @@
 const database = {
-  client: require("./_client"),
-  collection: require("./_collection"),
-  error: {
-    add: require("./error.add"),
-    cut: require("./error.cut"),
+  client: require("./client"),
+  collection: require("./collection.json"),
+  controller: {
+    error: {
+      add: require("./controller.error.add"),
+      cut: require("./controller.error.cut"),
+      get: require("./controller.error.get"),
+    },
   },
 };
 

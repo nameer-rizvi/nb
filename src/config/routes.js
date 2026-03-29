@@ -10,7 +10,6 @@ const configs = [
     method: "get",
     pathname: "/favicon.ico",
     redirect: "/static/img/favicon.ico",
-    cacheMaxAge: 60 * 60 * 24 * 7,
   },
   {
     method: "get",
@@ -44,7 +43,7 @@ function find(method, pathname) {
   }
 }
 
-const disallow = ["/api", "/static"];
+const disallow = ["/api"];
 
 module.exports = { configs, find, disallow };
 

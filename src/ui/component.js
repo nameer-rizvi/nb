@@ -15,6 +15,11 @@ function main_1(children, attrs = {}) {
   return main(children, attrs);
 }
 
+function main_2(children, attrs = {}) {
+  attrs.class = ["flex-col", "items-center", "justify-center", attrs.class];
+  return main_1(children, attrs);
+}
+
 /*
  * <div />
  */
@@ -79,4 +84,15 @@ function p(children, attrs = {}) {
   return element("p", { ...attrs, children });
 }
 
-module.exports = { main, main_1, div, div_1, div_2, div_3, h1, h1_1, p };
+module.exports = {
+  main,
+  main_1,
+  main_2,
+  div,
+  div_1,
+  div_2,
+  div_3,
+  h1,
+  h1_1,
+  p,
+};

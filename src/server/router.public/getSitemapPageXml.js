@@ -6,20 +6,24 @@ async function getSitemapPageXml(req, res, next) {
   try {
     const page = +req.params.page;
 
-    if (!simpul.isNumber(page)) throw new TypeError("Page is not a number.");
+    if (!simpul.isNumber(page)) {
+      throw new TypeError("Page param must be a valid number.");
+    }
 
-    const sitemap = await database.client.get({
+    const collection = await database.client.get({
       collection: database.collection.sitemap,
     });
 
-    if (!sitemap[0]?.pages?.[page - 1]) {
+    const sitemap = collection?.[0] || {};
+
+    if (!(sitemap.count?.pages > 0) || !sitemap.pages[page - 1]) {
       res.sendStatus(404);
       return;
     }
 
     const xml = { type: "urlset", list: [] };
 
-    for (const url of sitemap[0].pages[page - 1]) {
+    for (const url of sitemap.pages[page - 1]) {
       xml.list.push({ ...url, loc: res.locals.url.origin + url.loc });
     }
 

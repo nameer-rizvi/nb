@@ -9,7 +9,7 @@ function validationMiddleware(req, res, next) {
     res.locals.values = parsePayload({ ...req.query, ...req.body }); // req.params is only accessible in the route handler.
 
     if (res.locals.ignoreValidation === true) {
-      sanitized(res.locals.values);
+      res.locals.values = sanitized(res.locals.values);
     } else {
       validate(res.locals.values, res.locals.requiredKeys);
     }
@@ -22,7 +22,7 @@ function validationMiddleware(req, res, next) {
   } catch (error) {
     const isUndefined = new RegExp(/Definition with key\b.*\bdoes not exist/);
 
-    if (!isUndefined.test(error.toString())) error.status = 400;
+    if (!isUndefined.test(String(error))) error.status = 400;
 
     next(error);
   }

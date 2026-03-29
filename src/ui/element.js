@@ -9,10 +9,12 @@ function element(tagName, props = {}) {
     ? simpul.trim(_children)
     : "";
 
+  delete attrs.mode;
+
   if (simpul.isArray(tagName)) {
-    return tagName.map((config) => element(...config)).join("");
-  } else if (!simpul.isStringValid(tagName)) {
-    throw new TypeError("Element tag name is not a valid string.");
+    return tagName.map((args) => element(...args)).join("");
+  } else if (!simpul.isStringNonEmpty(tagName)) {
+    throw new TypeError("Element tagName must be a non-empty string.");
   } else if (render === false) {
     return "";
   } else if (tagName === "style") {
@@ -24,7 +26,7 @@ function element(tagName, props = {}) {
     return `<script${attributes(attrs)}>${JSON.stringify(json)}</script>`;
   } else if (tagName === "script" && js) {
     if (!attrs.type) attrs.type = "text/javascript";
-    return `<script${attributes(attrs)}>(${js.toString()})()</script>`;
+    return `<script${attributes(attrs)}>(${String(js)})()</script>`;
   } else if (tags.graph.includes(tagName)) {
     if (tagName === "svg") attrs.xmlns = "http://www.w3.org/2000/svg";
     return `<${tagName}${attributes(attrs)}>${children}</${tagName}>`;
@@ -85,19 +87,19 @@ function attributes(attrs = {}) {
 }
 
 function transformKey(k = "") {
-  return simpul.changecase.snakeCase(k).replace(/_/g, "-");
+  return simpul.changecase.paramCase(k);
 }
 
 function transformValue(v = "") {
   if (simpul.isHTTP(v)) {
     return v;
   } else if (simpul.isObject(v)) {
-    let pairs = [];
+    const pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
     return pairs.join(",");
   } else {
-    return v.toString().replace(/[&<>"']/g, function handle(char) {
+    return String(v).replace(/[&<>"']/g, function handle(char) {
       return {
         "&": "&amp;",
         "<": "&lt;",

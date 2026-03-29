@@ -8,66 +8,63 @@ function html(options = {}) {
    * <head />
    */
 
-  // title
+  // values
 
-  const t = options.title
-    ? options.title
-    : options.title2
-    ? [options.title2, config.appName].join(" - ")
-    : config.appName;
+  const title =
+    options.title ||
+    (options.title2 && [options.title2, config.appName].join(" - ")) ||
+    config.appName;
 
-  // description
+  const description = options.description || config.appDescription;
 
-  const d = options.description
-    ? options.description
-    : t === config.appName
-    ? config.appDescription
-    : "";
+  const keywords = options.keywords || options.categories;
 
-  // keywords
+  const author = options.author || config.appAuthor;
 
-  const k = options.keywords || options.categories || [];
+  const index = options.index === false ? "noindex" : "index";
 
-  // author
+  const follow = options.follow === false ? "nofollow" : "follow";
 
-  const a = options.author
-    ? options.author
-    : t === config.appName
-    ? config.appAuthor
-    : "";
+  // elements
 
-  const charset = element("meta", { charset: "UTF-8" });
+  const charset = element("meta", { charset: "utf-8" });
 
   const viewport = element("meta", {
     name: "viewport",
     content: { width: "device-width", initialScale: "1.0" },
   });
 
-  const title = t && element("title", { children: t });
+  const documentTitle = title ? element("title", { children: title }) : "";
 
-  const description = d && element("meta", { name: "description", content: d });
+  const metaDescription = description
+    ? element("meta", { name: "description", content: description })
+    : "";
 
-  const keywords =
-    k.length && element("meta", { name: "keywords", content: k });
+  const metaKeywords = keywords?.length
+    ? element("meta", { name: "keywords", content: keywords })
+    : "";
 
-  const author = a && element("meta", { name: "author", content: a });
+  const metaAuthor = author
+    ? element("meta", { name: "author", content: author })
+    : "";
 
-  const robots = element("meta", {
-    name: "robots",
-    content: options.robots ? ["index", "follow"] : ["noindex", "nofollow"],
-  });
+  const robots = element("meta", { name: "robots", content: [index, follow] });
 
-  const themeColorLight = element("meta", {
-    name: "theme-color",
-    media: "(prefers-color-scheme: light)",
-    content: theme.color.light.themeColor,
-  });
+  const themeColorLight = theme?.color?.light?.themeColor
+    ? element("meta", {
+        name: "theme-color",
+        media: "(prefers-color-scheme: light)",
+        content: theme.color.light.themeColor,
+      })
+    : "";
 
-  const themeColorDark = element("meta", {
-    name: "theme-color",
-    media: "(prefers-color-scheme: dark)",
-    content: theme.color.dark.themeColor,
-  });
+  const themeColorDark = theme?.color?.dark?.themeColor
+    ? element("meta", {
+        name: "theme-color",
+        media: "(prefers-color-scheme: dark)",
+        content: theme.color.dark.themeColor,
+      })
+    : "";
 
   const icon48 = element("link", {
     rel: "icon",
@@ -101,29 +98,28 @@ function html(options = {}) {
     href: "/static/css/tw.css",
   });
 
-  const manifestQuery = options.manifest
-    ? "?" + new URLSearchParams(options.manifest)
-    : "";
+  const manifestQuery = "?" + new URLSearchParams(options.manifest || {});
 
   const manifest =
-    options.manifest !== false &&
-    element("link", {
-      rel: "manifest",
-      href: `/manifest.json${manifestQuery}`,
-    });
+    options.manifest !== false
+      ? element("link", {
+          rel: "manifest",
+          href: `/manifest.json${manifestQuery}`,
+        })
+      : "";
 
-  const canonical =
-    options.canonical &&
-    element("link", { rel: "canonical", href: options.canonical });
+  const canonical = options.canonical
+    ? element("link", { rel: "canonical", href: options.canonical })
+    : "";
 
   const head = element("head", {
     children: [
       charset,
       viewport,
-      title,
-      description,
-      keywords,
-      author,
+      documentTitle,
+      metaDescription,
+      metaKeywords,
+      metaAuthor,
       robots,
       themeColorLight,
       themeColorDark,
@@ -142,27 +138,30 @@ function html(options = {}) {
    * <body />
    */
 
-  const jsNote = element("noscript", {
-    children: "You need to enable JavaScript to run this app.",
-  });
-
   const scripts = [];
 
   if (simpul.isObject(options.script)) {
     scripts.push(element("script", options.script));
   } else if (simpul.isArray(options.script)) {
     for (const script of options.script) {
-      if (simpul.isObject(script)) {
-        scripts.push(element("script", script));
-      }
+      if (simpul.isObject(script)) scripts.push(element("script", script));
     }
   }
 
   if (options.sw !== false) {
-    scripts.push(
-      element("script", { defer: true, src: "/static/js/sw-register.js" }),
-    );
+    const sw = element("script", {
+      defer: true,
+      src: "/static/js/sw-register.js",
+    });
+    scripts.push(sw);
   }
+
+  const jsNote =
+    scripts.length || options.sw !== false
+      ? element("noscript", {
+          children: "You need to enable JavaScript to run this app.",
+        })
+      : "";
 
   const body = element("body", {
     children: [jsNote, options.body, ...scripts],
@@ -178,9 +177,7 @@ function html(options = {}) {
     children: [head, body],
   });
 
-  const docType = element("!DOCTYPE", {
-    html: true,
-  });
+  const docType = element("!DOCTYPE", { html: true });
 
   return [docType, html].join("");
 }

@@ -1,10 +1,10 @@
 /* eslint no-unused-vars: 0 */
+const dottpath = require("dottpath");
 const Bowser = require("bowser");
 const simpul = require("simpul");
 const database = require("../../database");
 const util = require("../../util");
 const page = require("./page");
-const dottpath = require("dottpath");
 
 async function handler(error, req, res, next) {
   const payload = {};
@@ -15,15 +15,13 @@ async function handler(error, req, res, next) {
 
   payload.path = req.path || "";
 
-  payload.message = error.message || error.toString() || "";
+  payload.message = error.message || String(error) || "";
 
   payload.stack = error.stack || "";
 
   payload.ip = req.ip || "";
 
   payload.ids = [];
-
-  pushIds(payload.ids, { ...req.session }, "req.session");
 
   pushIds(payload.ids, { ...res.locals }, "res.locals");
 
@@ -35,9 +33,9 @@ async function handler(error, req, res, next) {
 
   const source = payload.stack.split("\n")[1] || "";
 
-  res.locals.error = simpul.trim(`${payload.message} ${source}`); // This gets logged in the logger middleware.
+  res.locals.error = simpul.trim(`${payload.message} ${source}`);
 
-  await database.error.add(payload);
+  await database.controller.error.add(payload);
 
   if (util.isRoute.webpage(req)) {
     const message = payload.status < 500 ? payload.message : undefined; // Don't expose internal errors to client.
@@ -47,16 +45,16 @@ async function handler(error, req, res, next) {
   }
 }
 
-function pushIds(ids, payload, prekey) {
-  for (const dotkey of dottpath.map(payload)) {
-    const key = dotkey.split(".").pop();
+function pushIds(ids, payload, base) {
+  for (const path of dottpath.map(payload)) {
+    const key = path.split(".").pop();
     if (
       key === "id" ||
       key === "uid" ||
       key.endsWith("Id") ||
       key.endsWith("_id")
     ) {
-      ids.push(`${prekey}.${dotkey}=${dottpath.extract(payload, dotkey)}`);
+      ids.push(`${base}.${path}=${dottpath.extract(payload, path)}`);
     }
   }
 }

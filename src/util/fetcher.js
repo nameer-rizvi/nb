@@ -1,7 +1,7 @@
-require("cross-fetch/polyfill");
+require("undici").install(); // polyfill
 const simpul = require("simpul");
-const delay = require("./delay");
 const log = require("./log");
+const delay = require("./delay");
 const rateLimitMap = new Map();
 
 async function fetcher(url, option = {}) {
@@ -20,7 +20,8 @@ async function fetcher(url, option = {}) {
 
   if (query) url.search = new URLSearchParams(query);
 
-  const contentType = req.headers?.["Content-Type"];
+  const contentType =
+    req.headers?.["Content-Type"] || req.headers?.["content-type"];
 
   if (contentType === "application/x-www-form-urlencoded") {
     req.body = new URLSearchParams(data || {});
@@ -38,7 +39,7 @@ async function fetcher(url, option = {}) {
 
       const timeSinceLastRequest = Date.now() - lastRequestTime;
 
-      const requestInterval = rateLimit[1] / rateLimit[0];
+      const requestInterval = rateLimit[1] / rateLimit[0]; // windowMs / maxRequests
 
       if (timeSinceLastRequest < requestInterval) {
         await delay(requestInterval - timeSinceLastRequest);
@@ -68,31 +69,36 @@ async function fetcher(url, option = {}) {
       if (res.ok) {
         response.data = await res[parser]();
 
+        response.error = null;
+
         if (attempt === 1) {
           log.fetch(`response received ("${url.hostname}")`);
         } else {
           log.fetch(`response received ("${url.hostname}#${attempt}")`);
         }
 
-        response.error = null;
-
         break; // Break out of the retry loop.
       } else {
         const errorText = await res.text();
 
-        const errorJson = simpul.parsejson(errorText) || {};
+        const errorJson = simpul.parseJson(errorText) || {};
 
         let error =
           parseError(errorJson) ||
           errorJson.errors?.map(parseError).join("; ") ||
           errorText;
 
-        if (!error || error.includes("<html") || error.includes("<!DOCTYPE")) {
-          error = res.statusText || res.status?.toString();
+        if (
+          !error ||
+          error.includes("<html") ||
+          error.includes("<!DOCTYPE") ||
+          error === "{}"
+        ) {
+          error = res.statusText || String(res.status);
         }
 
         if (simpul.isString(error)) {
-          error = simpul.cleanstring(error);
+          error = simpul.cleanString(error);
         }
 
         throw new Error(error);
@@ -100,7 +106,7 @@ async function fetcher(url, option = {}) {
     } catch (error) {
       log.fetch(error, "error");
 
-      response.error = error.toString();
+      response.error = String(error);
 
       attempt++;
     } finally {
@@ -108,7 +114,7 @@ async function fetcher(url, option = {}) {
     }
   }
 
-  if (response.error && throwError) throw new Error(response.error);
+  if (response.error && throwError === true) throw new Error(response.error);
 
   return response;
 }

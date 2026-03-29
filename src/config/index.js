@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 const routes = require("./routes");
 const workers = require("./workers");
 
@@ -15,7 +15,7 @@ const config = {
   emailAddress: process.env.EMAIL_ADDRESS,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailService: process.env.EMAIL_SERVICE,
-  jwtIss: "nb_jwt_" + process.env.NODE_ENV,
+  jwtIss: "nb-" + process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
   nanoidSize: +process.env.NANOID_SIZE || 3,
   nodeEnv: process.env.NODE_ENV,
@@ -24,29 +24,33 @@ const config = {
   nodeEnvInProduction: process.env.NODE_ENV === "production",
   nodePort: +process.env.PORT || 3000,
   redisConnectRetries: +process.env.REDIS_CONNECT_RETRIES || 5,
-  redisConnectTimeout: +process.env.REDIS_CONNECT_TIMEOUT || 10000,
+  redisConnectTimeout: +process.env.REDIS_CONNECT_TIMEOUT || 10_000,
   redisKey: "nb:db",
   redisUrl: process.env.REDIS_URL,
   route: routes.find,
   routes: routes.configs,
   routesDisallowed: routes.disallow,
+  script: (process.env.SCRIPT || "").split(",").filter(Boolean),
+  timezone: process.env.TZ,
   urlLocalhost: "http://127.0.0.1",
   urlWebsite: process.env.WEBSITE,
   worker: workers.find,
-  workers: workers.configs,
   workerCronjobs: workers.cronjobs,
   workerJobs: workers.jobs,
+  workers: workers.configs,
 };
 
 if (!config.nodeEnv) {
-  throw new ReferenceError("NODE_ENV is undefined.");
+  throw new TypeError("Missing required environment variable: NODE_ENV");
 }
 
 if (!config.jwtSecret) {
-  throw new ReferenceError("JWT_SECRET is undefined.");
+  throw new TypeError("Missing required environment variable: JWT_SECRET");
 }
 
-config.urlLocalhost += ":" + config.nodePort;
+if (config.urlLocalhost) {
+  config.urlLocalhost += ":" + config.nodePort;
+}
 
 module.exports = config;
 

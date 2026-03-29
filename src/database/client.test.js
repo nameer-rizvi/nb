@@ -1,29 +1,32 @@
 const util = require("../util");
-const client = require("./_client");
+const client = require("./client");
+const collection = require("./collection.json").test;
 
-async function databaseTest() {
-  const collection = "test";
-
-  // --> .add()
+async function databaseClientTest() {
+  // TEST #1 --> client.add()
 
   util.log.database('client test started ("1")');
+
+  await client.size();
 
   const test1 = await client.add(
     { collection, value: 1 },
     { collection, value: 2 },
   );
 
-  const resultA = test1[0].value === 1;
+  await client.size();
 
-  const resultB = test1[1].value === 2;
+  const result1A = test1[0].value === 1;
 
-  if (resultA === true && resultB === true) {
+  const result1B = test1[1].value === 2;
+
+  if (result1A === true && result1B === true) {
     util.log.database('client test completed ("1")');
   } else {
     util.log.database('client test failed ("1")', "warn");
   }
 
-  // --> .get()
+  // TEST #2 --> client.get()
 
   util.log.database('client test started ("2")');
 
@@ -39,7 +42,7 @@ async function databaseTest() {
     util.log.database('client test failed ("2")', "warn");
   }
 
-  // --> .mod()
+  // TEST #3 --> client.mod()
 
   util.log.database('client test started ("3")');
 
@@ -62,11 +65,15 @@ async function databaseTest() {
     util.log.database('client test failed ("3")', "warn");
   }
 
-  // --> .cut()
+  // TEST #4 --> client.cut()
 
   util.log.database('client test started ("4")');
 
+  await client.size();
+
   const test4 = await client.cut({ id: test1[0].id }, { collection });
+
+  await client.size();
 
   const result4A = test4[0].id === test1[0].id;
 
@@ -78,7 +85,26 @@ async function databaseTest() {
     util.log.database('client test failed ("4")', "warn");
   }
 
+  // TEST #5 --> nanoid size stress (must set NANOID_SIZE=1 in command line)
+
+  if (process.env.NANOID_SIZE === "1") {
+    let count = 0;
+
+    try {
+      while (true) {
+        await client.add({ collection });
+        count++;
+      }
+    } catch {
+      util.log.database(`client test nanoid size ("${count}")`);
+    }
+
+    await client.cut({ collection });
+
+    await client.size();
+  }
+
   process.exit();
 }
 
-databaseTest();
+databaseClientTest();

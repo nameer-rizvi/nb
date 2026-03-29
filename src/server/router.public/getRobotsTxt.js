@@ -5,11 +5,25 @@ function getRobotsTxt(req, res) {
 
   settings.push("User-agent: *");
 
-  settings.push(...config.routesDisallowed.map((path) => `Disallow: ${path}/`));
+  if (config.routesDisallowed?.length) {
+    const routesDisallowed = config.routesDisallowed.map((path) => {
+      return `Disallow: ${path}/`;
+    });
+
+    settings.push(...routesDisallowed);
+  }
+
+  if (config.routesAllowed?.length) {
+    const routesAllowed = config.routesAllowed.map((path) => {
+      return `Allow: ${path}/`;
+    });
+
+    settings.push(...routesAllowed);
+  }
 
   settings.push(""); // line break
 
-  const url = config.urlWebsite || config.urlLocalhost;
+  const url = config.urlWebsite || config.urlLocalhost || "";
 
   settings.push(`Sitemap: ${url}/sitemap.xml`);
 

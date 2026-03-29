@@ -1,68 +1,70 @@
 {
   "name": "nb",
   "version": "1.0.0",
-  "description": "Node.js boilerplate - an opinionated project structure with batteries included.",
+  "description": "Node.js boilerplate – An opinionated, batteries-included project structure for building Express servers and background workers.",
   "main": "src/index.js",
-  "scripts": {
-    "update": "yarn && node package.update.js",
-    "lint": "npx eslint; exit 0",
-    "test": "echo \"Error: no test specified\"; exit 0",
-    "test-db": "node src/database/_client.test.js",
-    "redis": "redis-server",
-    "script": "node src/script/index.js",
-    "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css",
-    "tw-dev": "yarn tw --watch",
-    "server": "node src/server/index.js",
-    "server-dev": "NODE_ENV=development nodemon src/server/index.js",
-    "worker": "node src/worker/index.js",
-    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
-    "dev": "concurrently \"yarn tw-dev\" \"yarn server-dev\"",
-    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
-    "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
-  },
+  "author": "Nameer Rizvi (https://github.com/nameer-rizvi)",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "boilerplate",
+    "nodejs",
+    "server",
+    "worker"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nameer-rizvi/nb.git"
   },
-  "keywords": [
-    "boilerplate",
-    "server",
-    "worker",
-    "nodejs"
-  ],
-  "author": "Nameer Rizvi (https://github.com/nameer-rizvi)",
-  "license": "MIT",
-  "private": true,
+  "homepage": "https://github.com/nameer-rizvi/nb#readme",
   "bugs": {
     "url": "https://github.com/nameer-rizvi/nb/issues"
   },
-  "homepage": "https://github.com/nameer-rizvi/nb#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "update": "yarn && node package.update.js",
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\"; exit 0",
+    "test-db": "node src/database/client.test.js",
+    "redis": "redis-server",
+    "script": "node src/script/index.js",
+    "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css --minify",
+    "tw-dev": "yarn tw --watch",
+    "server": "node src/server/index.js",
+    "server-dev": "NODE_ENV=development nodemon src/server/index.js",
+    "dev": "concurrently --names tw,server \"yarn tw-dev\" \"yarn server-dev\"",
+    "worker": "node src/worker/index.js",
+    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
+    "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
+    "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
+  },
   "devDependencies": {
-    "@eslint/js": "^9.29.0",
-    "concurrently": "^9.1.2",
-    "eslint": "^9.29.0",
-    "globals": "^16.2.0",
-    "nodemon": "^3.1.10"
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/cli": "^4.2.2",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "nodemon": "^3.1.14",
+    "tailwindcss": "^4.2.2"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.10",
-    "apicache": "^1.6.3",
-    "bowser": "^2.11.0",
-    "compression": "^1.8.0",
-    "cors": "^2.8.5",
-    "cron": "^4.3.1",
-    "cross-fetch": "^4.1.0",
-    "dotenv": "^16.5.0",
-    "dottpath": "^0.2.0",
-    "express": "^5.1.0",
+    "bowser": "^2.14.1",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
+    "cron": "^4.4.0",
+    "dotenv": "^17.3.1",
+    "dottpath": "^0.2.2",
+    "express": "^5.2.1",
     "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "nanoid": "3",
-    "nodemailer": "^7.0.3",
-    "redis": "^5.5.6",
-    "sanitized": "^1.2.6",
-    "simpul": "^1.2.6",
-    "simpul-validate": "^0.2.8",
-    "tailwindcss": "^4.1.10"
+    "jsonwebtoken": "^9.0.3",
+    "nanoid": "^5.1.7",
+    "nodemailer": "^8.0.3",
+    "redis": "^5.11.0",
+    "sanitized": "^1.2.7",
+    "simpul": "^1.2.9",
+    "simpul-validate": "^0.3.0",
+    "undici": "^7.24.6"
   }
 }

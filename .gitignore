@@ -1,5 +1,6 @@
 # FOLDERS
 node_modules
+tmp
 
 # HIDDEN FILES
 .DS_Store

@@ -1,7 +1,7 @@
 const middlewares = {
   api: [
     require("./locals"),
-    require("./authenticate"),
+    require("./authorization"),
     require("./parsers"),
     require("./validation"),
   ],

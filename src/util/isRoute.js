@@ -21,38 +21,41 @@ function mPut(r) {
 // Paths
 
 function pApi(r) {
-  return uPath(r).startsWith("/api") && !cRedirect(r);
+  return uPath(r).indexOf("/api") === 0 && !cRedirect(r);
 }
 
 function pPublic(r) {
-  return Boolean(uPath(r).length) && !pApi(r) && !pStatic(r) && !cRedirect(r);
+  return uPath(r).length > 0 && !pApi(r) && !pStatic(r) && !cRedirect(r);
 }
 
 function pStatic(r) {
-  return uPath(r).startsWith("/static") && !cRedirect(r);
+  return uPath(r).indexOf("/static") === 0 && !cRedirect(r);
 }
 
 // Configs
 
 function cDisallowed(r) {
   const p = uPath(r);
-  return config.routesDisallowed.some((disallowed) => p.startsWith(disallowed));
+  for (const disallowed of config.routesDisallowed)
+    if (p.indexOf(disallowed) === 0) return true;
+  return false;
 }
 
 function cDynamic(r) {
-  return uPath(r).includes(":") || Boolean(r?.params?.length); // ":" can be used as a param name even after "/" like "/page-:number"
+  return uPath(r).indexOf(":") !== -1 || r?.params?.length > 0; // ":" can be used as a param name even after "/" like "/page-:number"
 }
 
 function cRedirect(r) {
-  return Boolean(r?.redirect?.length);
+  return r?.redirect?.length > 0;
 }
 
 // Special Cases
 
 function sExtension(r, extension) {
   const end = uPath(r).split("/").pop();
-  const ext = end.includes(".") && end.split(".").pop();
-  return extension ? extension === ext : Boolean(ext);
+  if (end.indexOf(".") === -1) return false;
+  const ext = end.split(".").pop();
+  return extension ? extension === ext : ext.length > 0;
 }
 
 function sWebpage(r) {

@@ -2,12 +2,12 @@ const simpul = require("simpul");
 const util = require("../../util");
 const config = require("../../config");
 
-// Develop and use strategies to authenticate requests.
-function authenticateMiddleware(req, res, next) {
+// Develop and use strategies to authorize requests.
+function authorizationMiddleware(req, res, next) {
   try {
     const [scheme, token] = (req.headers.authorization || "").split(" ");
 
-    if (scheme === "Bearer" && token !== "undefined") {
+    if (scheme === "Bearer" && token != null && token !== "undefined") {
       res.locals.token = util.jwt.verify(token);
     } else if (scheme === "Basic") {
       const decoded = simpul.base64.decode(token).split(":");
@@ -16,7 +16,7 @@ function authenticateMiddleware(req, res, next) {
     }
 
     res.locals.apiKey =
-      req.get("x-api-key") || req.headers.apikey || req.query.apiKey;
+      req.get("x-api-key") || req.get("apikey") || req.query.apiKey;
 
     for (const strategy of res.locals.strategies || []) {
       if (strategy === "jwt" && !res.locals.token) {
@@ -33,6 +33,6 @@ function authenticateMiddleware(req, res, next) {
   }
 }
 
-module.exports = authenticateMiddleware;
+module.exports = authorizationMiddleware;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization

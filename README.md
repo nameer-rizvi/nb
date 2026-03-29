@@ -1,157 +1,90 @@
 # nb
 
-**Node.js Boilerplate** – An opinionated project structure with batteries included.
+**Node.js Boilerplate** – An opinionated, batteries-included project structure for building Express servers and background workers.
 
-## Yarn Scripts
+## Features
 
-### Update Dependencies
+- **Express 5** server with compression, CORS, Helmet security headers, and JWT auth
+- **Tailwind CSS 4** with a CLI build step and watch mode
+- **Redis** client integration
+- **Worker** system with cron job support
+- **PM2** ecosystem config for production process management
+- **ESLint** for linting, **nodemon** for hot reloading in development
 
-Update all dependencies in `package.json` that are specified with a version range (e.g., `^` or `~`).
+---
 
-```console
-yarn update
+## Getting Started
+
+```bash
+git clone https://github.com/nameer-rizvi/nb.git
+cd nb
+yarn
 ```
 
-### Lint Source Code
+Copy `.env.example` to `.env` and fill in your environment variables before running the server.
 
-Run ESLint on the `/src` directory to check for syntax warnings and errors.
+---
 
-```console
-yarn lint
-```
+## Scripts
 
-### Run Tests
+### Development
 
-Execute the test suite. Customize this command to match your project's testing framework and configuration (e.g., Jest, Mocha).
+| Command           | Description                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+| `yarn dev`        | Run the Tailwind watcher and Express server concurrently in development mode |
+| `yarn server-dev` | Run the Express server in development mode (nodemon)                         |
+| `yarn tw-dev`     | Run the Tailwind CSS watcher                                                 |
+| `yarn worker-dev` | Run workers in development mode (nodemon)                                    |
 
-```console
-yarn test
-```
+### Production
 
-### Test Database Client
+| Command       | Description                                                                   |
+| ------------- | ----------------------------------------------------------------------------- |
+| `yarn server` | Start the Express server                                                      |
+| `yarn worker` | Run workers defined in `/src/worker/index.js`                                 |
+| `yarn tw`     | Compile the Tailwind CSS stylesheet to `/src/server/router.static/css/tw.css` |
 
-Run tests for the database client class, verifying the functionality of all database-related methods.
+### Workers & Scripts
 
-```console
-yarn test-db
-```
+Run specific workers by passing names as environment variables:
 
-### Start Redis Server
-
-Start the Redis server. Ensure Redis is installed and configured on your system.
-
-```console
-yarn redis
-```
-
-### Run Custom Scripts
-
-Execute custom scripts by specifying the script names as a comma-separated environment variable.
-
-```console
-SCRIPT=<script-names> yarn script
-```
-
-### Build Stylesheet
-
-Compile the Tailwind CSS stylesheet and output it to `/server/router.static/css`. This command generates the CSS file based on the project's Tailwind configuration.
-
-```console
-yarn tw
-```
-
-### Run Tailwind CSS Server
-
-Run the Tailwind CSS server in watch mode to automatically compile changes to the stylesheet in `/server/router.static/css` as you edit styles.
-
-```console
-yarn tw-dev
-```
-
-### Start Express Server
-
-Start the Express server.
-
-```console
-yarn server
-```
-
-### Run Express Server in Development Mode
-
-Start the Express server in `development` mode with `nodemon` watching for file changes.
-
-```console
-yarn server-dev
-```
-
-### Run Workers
-
-Run workers defined in `/server/workers.js` or specified as comma-separated environment variables.
-
-```console
+```bash
 CRONJOB=<cronjob-names> JOB=<job-names> yarn worker
 ```
 
-### Run Workers in Development Mode
+Run custom scripts by specifying their names:
 
-Run workers defined in `/server/workers.js` or specified as comma-separated environment variables in `development` mode with `nodemon` watching for file changes.
-
-```console
-yarn worker-dev
+```bash
+SCRIPT=<script-names> yarn script
 ```
 
-### PM2 Scripts
+### Utilities
 
-Start or restart 'forever' processes defined in ecosystem.config.js.
-
-- Start processes:
-
-```console
-yarn pm2-start
-```
-
-- Restart processes:
-
-```console
-yarn pm2-restart
-```
-
-## Helpful Links
-
-### Redis
-
-- [Official Documentation](https://redis.io/docs/latest/)
-
-- [Installation Guide](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
-
-- [Installing in an AWS EC2 instance.](https://stackoverflow.com/a/78246670)
-
-- [Node.js and Redis](https://redis.io/learn/develop/node)
-
-- ["Error: ECONNREFUSED"](https://stackoverflow.com/questions/8754304/redis-connection-to-127-0-0-16379-failed-connect-econnrefused)
-
-### Nginx & Certbot
-
-- [Nginx Documentation](https://nginx.org/en/docs/)
-
-- [Certbot Setup for Nginx on Linux](https://certbot.eff.org/instructions?ws=nginx&os=pip)
-
-- [Install Nginx on Amazon Linux 2023](https://awswithatiq.com/how-to-install-nginx-in-amazon-linux-2023/)
+| Command        | Description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| `yarn update`  | Update all `^`/`~` versioned dependencies in `package.json` |
+| `yarn lint`    | Run ESLint on the project                                   |
+| `yarn test`    | Run the test suite                                          |
+| `yarn test-db` | Run database client tests                                   |
+| `yarn redis`   | Start the Redis server                                      |
 
 ### PM2
 
-- [PM2 Installation Guide](https://pm2.io/docs/runtime/guide/installation/)
+Install and start all processes defined in `ecosystem.config.js`:
 
-- [Ecosystem Configuration](https://pm2.keymetrics.io/docs/usage/application-declaration/)
+```bash
+yarn pm2-start
+```
 
-- [Log Rotation Setup](https://github.com/keymetrics/pm2-logrotate)
+Restart processes and pick up environment variable changes:
 
-## Configuration Example
+```bash
+yarn pm2-restart
+```
 
-Example configuration for PM2:
+**Example `ecosystem.config.js`:**
 
 ```js
-// ecosystem.config.js
 const ecosystemConfig = {
   apps: [
     {
@@ -168,3 +101,33 @@ const ecosystemConfig = {
 
 module.exports = ecosystemConfig;
 ```
+
+---
+
+## References
+
+### Redis
+
+- [Documentation](https://redis.io/docs/latest/)
+- [Installation](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
+- [Installing on AWS EC2](https://stackoverflow.com/a/78246670)
+- [Node.js + Redis](https://redis.io/learn/develop/node)
+- [Fix: `ECONNREFUSED` error](https://stackoverflow.com/questions/8754304/redis-connection-to-127-0-0-16379-failed-connect-econnrefused)
+
+### Nginx & Certbot
+
+- [Nginx Documentation](https://nginx.org/en/docs/)
+- [Certbot Setup for Nginx](https://certbot.eff.org/instructions?ws=nginx&os=pip)
+- [Install Nginx on Amazon Linux 2023](https://awswithatiq.com/how-to-install-nginx-in-amazon-linux-2023/)
+
+### PM2
+
+- [Installation](https://pm2.io/docs/runtime/guide/installation/)
+- [Ecosystem Config](https://pm2.keymetrics.io/docs/usage/application-declaration/)
+- [Log Rotation](https://github.com/keymetrics/pm2-logrotate)
+
+---
+
+## License
+
+MIT
