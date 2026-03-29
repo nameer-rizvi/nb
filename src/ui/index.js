@@ -3,7 +3,7 @@ const ui = {
   document: {
     email: require("./document.email"),
     html: require("./document.html"),
-    // xml: require("./document.xml"),
+    xml: require("./document.xml"),
   },
   element: require("./element"),
   theme: require("./theme"),

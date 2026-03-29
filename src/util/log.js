@@ -17,6 +17,7 @@ const log = Object.freeze({
   request: createLogger("🛰️ "),
   script: createLogger("▶️  Script"),
   server: createLogger("📡 Server"),
+  ui: createLogger("🖼️  UI"),
   util: createLogger("🔧 Util"),
   warning: createLogger("⚠️  Warning:", "warn"),
 });

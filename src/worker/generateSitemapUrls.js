@@ -37,6 +37,11 @@ async function generateSitemapUrls() {
   await database.client.cut({ collection });
 
   await database.client.add({ collection, count, pages });
+
+  if (count.pages >= MAXIMUM_URLS) {
+    const warning = `Sitemap url generator is at capacity ("${MAXIMUM_URLS.toLocaleString()}")`;
+    util.log.warning(warning);
+  }
 }
 
 module.exports = generateSitemapUrls;
