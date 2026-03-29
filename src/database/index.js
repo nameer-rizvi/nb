@@ -5,6 +5,7 @@ const database = {
     error: {
       add: require("./controller.error.add"),
       cut: require("./controller.error.cut"),
+      get: require("./controller.error.get"),
     },
   },
 };

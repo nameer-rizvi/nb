@@ -21,6 +21,15 @@ const configs = [
     pathname: "/robots.txt",
     cacheMaxAge: 60 * 60 * 24 * 7,
   },
+  // todo delete
+  {
+    method: "get",
+    pathname: "/error/id-:id",
+    getUrls: async (db) => {
+      const errors = await db.controller.error.get();
+      return errors.map((e) => `/error/id-${e.id}`);
+    },
+  },
   // {
   //   method: "get",
   //   pathname: "/sitemap.xml",

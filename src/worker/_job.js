@@ -2,7 +2,7 @@ const util = require("../util");
 const database = require("../database");
 
 const index = {
-  // generateSitemapUrls: require("./generateSitemapUrls"),
+  generateSitemapUrls: require("./generateSitemapUrls"),
 };
 
 async function job(...jobs) {
