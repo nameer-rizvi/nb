@@ -1,4 +1,4 @@
-require("cross-fetch/polyfill");
+require("undici").install(); // polyfill
 const simpul = require("simpul");
 const log = require("./log");
 const delay = require("./delay");
