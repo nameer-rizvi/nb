@@ -1,8 +1,8 @@
 const sanitized = require("sanitized");
 const config = require("../../config");
-const validate = require("simpul-validate")(config.dictionary);
+const validate = require("@nameer/validate")(config.dictionary);
 const util = require("../../util");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 
 function validationMiddleware(req, res, next) {
   try {
@@ -31,8 +31,8 @@ function validationMiddleware(req, res, next) {
 function parsePayload(payload) {
   for (const [key, value] of Object.entries(payload)) {
     const definition = config.dictionary.find((i) => i.key === key);
-    if (definition?.type === "array" && simpul.isObject(value)) {
-      const isKeysIndexes = Object.keys(value).every(simpul.isNumber);
+    if (definition?.type === "array" && utils.isObject(value)) {
+      const isKeysIndexes = Object.keys(value).every(utils.isNumber);
       if (isKeysIndexes) payload[key] = Object.values(value);
     }
   }
@@ -41,4 +41,4 @@ function parsePayload(payload) {
 
 module.exports = validationMiddleware;
 
-// https://github.com/nameer-rizvi/simpul-validate/tree/main/src
+// https://github.com/nameer-rizvi/validate/tree/main/src

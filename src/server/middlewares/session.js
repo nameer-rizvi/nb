@@ -3,7 +3,7 @@ const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const database = require("../../database");
 const config = require("../../config");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 
 const sessionMiddleware = session({
   store: new RedisStore({
@@ -16,7 +16,7 @@ const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: simpul.isEnvLive,
+    secure: utils.isEnvLive,
     sameSite: true,
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7 * 2, // ms * s * m * h * d * w = 2 weeks.

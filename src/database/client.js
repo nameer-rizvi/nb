@@ -1,7 +1,7 @@
 const config = require("../config");
 const nanoid = require("nanoid");
 const redis = require("./client.redis");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const util = require("../util");
 
 class DatabaseClient {
@@ -10,7 +10,7 @@ class DatabaseClient {
     this.storeKey = `${config.redisKey}:store`;
     this.collectionKey = `${config.redisKey}:collection`;
     this.storeSizeMax = Math.pow(nanoid.urlAlphabet.length, config.nanoidSize);
-    this.ids = [];
+    this.ids = new Set();
   }
 
   async size() {
@@ -19,11 +19,11 @@ class DatabaseClient {
     const memorySplit = memory.split("\n");
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
     const bytes = parseFloat(memoryUsed.split(":")[1]);
-    const kb = simpul.math.num(bytes / 1000);
-    const mb = simpul.math.num(bytes / 1_000_000);
+    const kb = utils.math.num(bytes / 1000);
+    const mb = utils.math.num(bytes / 1_000_000);
     const storeSize = await this.connection.hLen(this.storeKey);
     const storeSizeMax = this.storeSizeMax;
-    const storeSizeUsed = simpul.math.percent(storeSize, storeSizeMax);
+    const storeSizeUsed = utils.math.percent(storeSize, storeSizeMax);
     const collectionKeys = await this.connection.keys(this.collectionKey + "*");
     const collections = collectionKeys.length;
     util.log.database(`size ("${mb}mb,${storeSizeUsed}%")`);
@@ -69,8 +69,8 @@ class DatabaseClient {
   }
 
   async #addRecord(pipeline, record, createdAt) {
-    if (simpul.isObject(record)) {
-      if (!simpul.isStringNonEmpty(record.collection))
+    if (utils.isObject(record)) {
+      if (!utils.isStringNonEmpty(record.collection))
         throw new TypeError("Record.collection must be a non-empty string.");
       delete record.id;
       const id = await this.#generateUniqueId();
@@ -83,7 +83,7 @@ class DatabaseClient {
   }
 
   async #getRecord(pipeline, query) {
-    if (simpul.isObject(query)) {
+    if (utils.isObject(query)) {
       if (query.id) {
         util.log.database(`get record ("${query.id}")`);
         return await this.#getById(query.id);
@@ -95,7 +95,7 @@ class DatabaseClient {
   }
 
   async #modRecord(pipeline, record, updatedAt) {
-    if (simpul.isObject(record)) {
+    if (utils.isObject(record)) {
       if (record.id) {
         const rec = await this.#getById(record.id);
         if (rec) {
@@ -117,12 +117,13 @@ class DatabaseClient {
   }
 
   async #cutRecord(pipeline, query) {
-    if (simpul.isObject(query)) {
+    if (utils.isObject(query)) {
       if (query.id) {
         const rec = await this.#getById(query.id);
         if (rec) {
           pipeline.hDel(this.storeKey, rec.id);
           pipeline.lRem(`${this.collectionKey}:${rec.collection}`, 1, rec.id);
+          this.ids.delete(rec.id);
         }
         util.log.database(`cut record ("${query.id}")`);
         return { id: query.id };
@@ -131,6 +132,7 @@ class DatabaseClient {
         for (const rec of recs) {
           pipeline.hDel(this.storeKey, rec.id);
           pipeline.lRem(`${this.collectionKey}:${rec.collection}`, 1, rec.id);
+          this.ids.delete(rec.id);
         }
         util.log.database(`cut records ("${query.collection}")`);
         return { collection: query.collection };
@@ -139,12 +141,12 @@ class DatabaseClient {
   }
 
   async #generateUniqueId() {
-    while (this.ids.length < this.storeSizeMax) {
+    while (this.ids.size < this.storeSizeMax) {
       let id = nanoid.nanoid(config.nanoidSize);
-      while (this.ids.findIndex((i) => i === id) !== -1) {
+      while (this.ids.has(id)) {
         id = nanoid.nanoid(config.nanoidSize);
       }
-      this.ids.push(id);
+      this.ids.add(id);
       const exists = await this.connection.hExists(this.storeKey, id);
       if (!exists) return id;
     }
@@ -152,20 +154,20 @@ class DatabaseClient {
   }
 
   async #getById(id) {
-    if (simpul.isString(id)) {
+    if (utils.isString(id)) {
       const record = await this.connection.hGet(this.storeKey, id);
-      return simpul.parseJson(record);
+      return utils.parseJson(record);
     }
   }
 
   async #getByCollection(collection) {
-    if (simpul.isString(collection)) {
+    if (utils.isString(collection)) {
       const jsons = [];
       const collectionKey = `${this.collectionKey}:${collection}`;
       const ids = await this.connection.lRange(collectionKey, 0, -1);
       if (!ids.length) return jsons;
       const records = await this.connection.hmGet(this.storeKey, ids);
-      for (const record of records) jsons.push(simpul.parseJson(record));
+      for (const record of records) jsons.push(utils.parseJson(record));
       return jsons;
     }
   }

@@ -1,4 +1,4 @@
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const ui = require("../ui");
 const util = require("../util");
 const config = require("../config");
@@ -6,11 +6,11 @@ const transporter = require("./transporter");
 
 async function send(email = {}) {
   try {
-    if (!simpul.isStringNonEmpty(email.to) || !email.html?.length) return;
+    if (!utils.isStringNonEmpty(email.to) || !email.html?.length) return;
 
-    if (!simpul.isArray(email.html)) email.html = [email.html];
+    if (!utils.isArray(email.html)) email.html = [email.html];
 
-    email.html = ui.document.email(email.html.filter(simpul.isString).join("")); // ui components are minified by default.
+    email.html = ui.document.email(email.html.filter(utils.isString).join("")); // ui components are minified by default.
 
     util.log.mailer(`sending email ("${email.to}")..`);
 

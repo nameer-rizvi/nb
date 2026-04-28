@@ -131,3 +131,5 @@ module.exports = ecosystemConfig;
 ## License
 
 MIT
+
+<!-- TODO: env variables that are required -->

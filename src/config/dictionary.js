@@ -8,4 +8,4 @@ const dictionary = [
 
 module.exports = dictionary;
 
-// https://github.com/nameer-rizvi/simpul-validate/tree/main/src
+// https://github.com/nameer-rizvi/validate/tree/main/src

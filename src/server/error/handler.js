@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: 0 */
 const dottpath = require("dottpath");
 const Bowser = require("bowser");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const database = require("../../database");
 const util = require("../../util");
 const page = require("./page");
@@ -27,13 +27,13 @@ async function handler(error, req, res, next) {
 
   const ua = Bowser.parse(req.headers["user-agent"] || " ");
 
-  Object.assign(payload, simpul.flatten(ua));
+  Object.assign(payload, utils.flatten(ua));
 
   if (payload.message === "[object Object]") payload.message = "";
 
   const source = payload.stack.split("\n")[1] || "";
 
-  res.locals.error = simpul.trim(`${payload.message} ${source}`);
+  res.locals.error = utils.trim(`${payload.message} ${source}`);
 
   await database.controller.error.add(payload);
 

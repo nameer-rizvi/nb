@@ -1,19 +1,19 @@
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 
 function element(tagName, props = {}) {
   const { children: _children, render, json, js, ...attrs } = props;
 
-  const children = simpul.isArray(_children)
-    ? simpul.trim(_children.filter(simpul.isString).join(""))
-    : simpul.isString(_children)
-    ? simpul.trim(_children)
+  const children = utils.isArray(_children)
+    ? utils.trim(_children.filter(utils.isString).join(""))
+    : utils.isString(_children)
+    ? utils.trim(_children)
     : "";
 
   delete attrs.mode;
 
-  if (simpul.isArray(tagName)) {
+  if (utils.isArray(tagName)) {
     return tagName.map((args) => element(...args)).join("");
-  } else if (!simpul.isStringNonEmpty(tagName)) {
+  } else if (!utils.isStringNonEmpty(tagName)) {
     throw new TypeError("Element tagName must be a non-empty string.");
   } else if (render === false) {
     return "";
@@ -43,7 +43,7 @@ function element(tagName, props = {}) {
 function stylesheet(css = {}) {
   const sheet = [];
   for (const [selector, rules] of Object.entries(css)) {
-    if (simpul.isObject(rules)) {
+    if (utils.isObject(rules)) {
       sheet.push(`${selector}{${processCss(rules)}}`);
     } else {
       sheet.push(`${transformKey(selector)}:${rules};`);
@@ -55,7 +55,7 @@ function stylesheet(css = {}) {
 function processCss(rules) {
   const cssRules = [];
   for (const [key, value] of Object.entries(rules)) {
-    if (simpul.isObject(value)) {
+    if (utils.isObject(value)) {
       cssRules.push(`${key}{${processCss(value)}}`);
     } else {
       cssRules.push(`${transformKey(key)}:${value};`);
@@ -70,11 +70,11 @@ function attributes(attrs = {}) {
     if (value === true) {
       arr.push(transformKey(key));
     } else if (key.startsWith("on") && key.length > 2) {
-      arr.push(`${simpul.changecase.camelCase(key)}="${value}()"`);
-    } else if (key === "class" && simpul.isArray(value)) {
-      const v = value.flat().filter(simpul.isString).join(" ");
+      arr.push(`${utils.changecase.camelCase(key)}="${value}()"`);
+    } else if (key === "class" && utils.isArray(value)) {
+      const v = value.flat().filter(utils.isString).join(" ");
       arr.push(`${transformKey(key)}="${transformValue(v)}"`);
-    } else if (key === "style" && simpul.isObject(value)) {
+    } else if (key === "style" && utils.isObject(value)) {
       let pairs = [];
       for (let [k, v] of Object.entries(value))
         pairs.push(`${transformKey(k)}:${transformValue(v)};`);
@@ -87,13 +87,13 @@ function attributes(attrs = {}) {
 }
 
 function transformKey(k = "") {
-  return simpul.changecase.paramCase(k);
+  return utils.changecase.paramCase(k);
 }
 
 function transformValue(v = "") {
-  if (simpul.isHTTP(v)) {
+  if (utils.isHTTP(v)) {
     return v;
-  } else if (simpul.isObject(v)) {
+  } else if (utils.isObject(v)) {
     const pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
@@ -112,7 +112,7 @@ function transformValue(v = "") {
 }
 
 function getJsonType(json) {
-  if (simpul.isArray(json) ? json.some(isSchema) : isSchema(json)) {
+  if (utils.isArray(json) ? json.some(isSchema) : isSchema(json)) {
     return "application/ld+json";
   } else {
     return "application/json";

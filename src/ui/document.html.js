@@ -1,7 +1,7 @@
 const config = require("../config");
 const element = require("./element");
 const theme = require("./theme");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 
 function html(options = {}) {
   /*
@@ -140,11 +140,11 @@ function html(options = {}) {
 
   const scripts = [];
 
-  if (simpul.isObject(options.script)) {
+  if (utils.isObject(options.script)) {
     scripts.push(element("script", options.script));
-  } else if (simpul.isArray(options.script)) {
+  } else if (utils.isArray(options.script)) {
     for (const script of options.script) {
-      if (simpul.isObject(script)) scripts.push(element("script", script));
+      if (utils.isObject(script)) scripts.push(element("script", script));
     }
   }
 

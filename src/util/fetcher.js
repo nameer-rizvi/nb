@@ -1,5 +1,5 @@
 require("undici").install(); // polyfill
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const log = require("./log");
 const delay = require("./delay");
 const rateLimitMap = new Map();
@@ -25,7 +25,7 @@ async function fetcher(url, option = {}) {
 
   if (contentType === "application/x-www-form-urlencoded") {
     req.body = new URLSearchParams(data || {});
-  } else if (simpul.isJSON(data)) {
+  } else if (utils.isJSON(data)) {
     req.body = JSON.stringify(data);
   }
 
@@ -81,7 +81,7 @@ async function fetcher(url, option = {}) {
       } else {
         const errorText = await res.text();
 
-        const errorJson = simpul.parseJson(errorText) || {};
+        const errorJson = utils.parseJson(errorText) || {};
 
         let error =
           parseError(errorJson) ||
@@ -97,8 +97,8 @@ async function fetcher(url, option = {}) {
           error = res.statusText || String(res.status);
         }
 
-        if (simpul.isString(error)) {
-          error = simpul.cleanString(error);
+        if (utils.isString(error)) {
+          error = utils.cleanString(error);
         }
 
         throw new Error(error);
@@ -120,9 +120,9 @@ async function fetcher(url, option = {}) {
 }
 
 function parseError(error = {}) {
-  if (simpul.isString(error)) {
+  if (utils.isString(error)) {
     return error;
-  } else if (simpul.isObject(error)) {
+  } else if (utils.isObject(error)) {
     const errors = [];
     for (const key of [
       "error",

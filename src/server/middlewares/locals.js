@@ -1,5 +1,5 @@
 const config = require("../../config");
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 
 // Pass route config in res.locals for access by proceeding middlewares and route handlers.
 function localsMiddleware(req, res, next) {
@@ -12,7 +12,7 @@ function localsMiddleware(req, res, next) {
   if (res.locals.userAgentCode === true) {
     const userAgentAttributes = req.ip + req.headers["user-agent"];
 
-    res.locals.userAgentCode = simpul.base64.encode(userAgentAttributes);
+    res.locals.userAgentCode = utils.base64.encode(userAgentAttributes);
   }
 
   if (res.locals.cacheMaxAge) {

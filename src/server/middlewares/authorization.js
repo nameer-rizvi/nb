@@ -1,4 +1,4 @@
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const util = require("../../util");
 const config = require("../../config");
 
@@ -10,7 +10,7 @@ function authorizationMiddleware(req, res, next) {
     if (scheme === "Bearer" && token != null && token !== "undefined") {
       res.locals.token = util.jwt.verify(token);
     } else if (scheme === "Basic") {
-      const decoded = simpul.base64.decode(token).split(":");
+      const decoded = utils.base64.decode(token).split(":");
       res.locals.username = decoded[0];
       res.locals.password = decoded[1];
     }

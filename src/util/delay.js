@@ -1,8 +1,8 @@
-const simpul = require("simpul");
+const utils = require("@nameer/utils");
 const log = require("./log");
 
 function delay(ms, callback) {
-  return simpul.delay(ms, function onDelay() {
+  return utils.delay(ms, function onDelay() {
     log.util(`delayed ("${ms.toLocaleString()}ms")`);
     if (callback) callback();
   });
