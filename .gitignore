@@ -6,7 +6,7 @@ tmp
 .DS_Store
 
 # ENV FILES
-.env*
+
 ecosystem.config.js
 
 # DATA FILES
