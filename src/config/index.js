@@ -30,7 +30,7 @@ const config = {
   route: routes.find,
   routes: routes.configs,
   routesDisallowed: routes.disallow,
-  script: (process.env.SCRIPT || "").split("").filter(Boolean),
+  script: (process.env.SCRIPT || ",").split("").filter(Boolean),
   timezone: process.env.TZ,
   urlLocalhost: "http://127.0.0.1",
   urlWebsite: process.env.WEBSITE,
