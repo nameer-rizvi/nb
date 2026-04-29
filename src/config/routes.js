@@ -1,3 +1,7 @@
+const cache = {
+  week1: 60 * 60 * 24 * 7,
+};
+
 const configs = [
   // api routes
   {
@@ -14,32 +18,34 @@ const configs = [
   {
     method: "get",
     pathname: "/manifest.json",
-    cacheMaxAge: 60 * 60 * 24 * 7,
+    cacheMaxAge: cache.week1,
   },
   {
     method: "get",
     pathname: "/robots.txt",
-    cacheMaxAge: 60 * 60 * 24 * 7,
+    cacheMaxAge: cache.week1,
   },
   {
     method: "get",
     pathname: "/sitemap.xml",
-    cacheMaxAge: 60 * 60 * 24 * 7,
+    cacheMaxAge: cache.week1,
   },
   {
     method: "get",
     pathname: "/sitemap-:page.xml",
-    cacheMaxAge: 60 * 60 * 24 * 7,
+    cacheMaxAge: cache.week1,
   },
-];
+].map((config) => ({
+  ...config,
+  pathnameR: new RegExp(`^${config.pathname.replace(/:([^/]+)/g, "([^/]+)")}$`),
+}));
 
 function find(method, pathname) {
   const methodL = method.toLowerCase();
   const pathnameL = pathname.toLowerCase();
   for (const config of configs) {
     if (config.method !== methodL) continue;
-    const pathnameR = config.pathname.replace(/:([^/]+)/g, "([^/]+)");
-    if (new RegExp(`^${pathnameR}$`).test(pathnameL)) return config;
+    if (config.pathnameR.test(pathnameL)) return config;
   }
 }
 
