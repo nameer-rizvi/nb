@@ -1,8 +1,8 @@
 {
   "name": "nb",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Node.js boilerplate – An opinionated, batteries-included project structure for building Express servers and background workers.",
-  "main": "src/index.js",
+  "main": "src/server/index.js",
   "author": "Nameer Rizvi (https://github.com/nameer-rizvi)",
   "license": "MIT",
   "private": true,

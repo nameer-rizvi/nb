@@ -1,3 +1,11 @@
+# DATA FILES
+*.rdb
+json*.txt
+
+# ENV FILES
+.env*
+ecosystem.config.js
+
 # FOLDERS
 node_modules
 tmp
@@ -5,10 +13,5 @@ tmp
 # HIDDEN FILES
 .DS_Store
 
-# ENV FILES
-.env*
-ecosystem.config.js
-
-# DATA FILES
-*.rdb
-json*.txt
+# LOG FILES
+*.log

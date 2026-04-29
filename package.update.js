@@ -1,58 +1,77 @@
-const pkg = require("./package.json");
+const packageJson = require("./package.json");
 const readline = require("readline");
 const { execFileSync } = require("child_process");
 
-const RANGE_PREFIXES = ["^", "~"];
+// --- Constants ---
 
-const devPkgs = Object.entries(pkg.devDependencies || {})
-  .filter((i) => RANGE_PREFIXES.includes(i[1].charAt(0)))
-  .map((i) => i[0]);
+const RANGE_PREFIXES = new Set(["^", "~"]);
 
-const prodPkgs = Object.entries(pkg.dependencies || {})
-  .filter((i) => RANGE_PREFIXES.includes(i[1].charAt(0)))
-  .map((i) => i[0]);
-
-const removePkgs = [...new Set([...devPkgs, ...prodPkgs])];
-
-const userAgent = process.env.npm_config_user_agent || "";
-
-const manager = (userAgent.split(" ")[0]?.split("/")[0] || "npm").toLowerCase();
-
-const { remove, add } = {
+const MANAGER_COMMANDS = {
   npm: { remove: "uninstall", add: "install" },
   yarn: { remove: "remove", add: "add" },
   pnpm: { remove: "remove", add: "add" },
-}[manager];
+};
 
-const steps = [];
+// --- Main ---
 
-if (removePkgs.length) steps.push([remove, ...removePkgs]);
+const devDeps = getPackagesWithRanges(packageJson.devDependencies);
 
-if (devPkgs.length) steps.push([add, "-D", ...devPkgs]);
+const prodDeps = getPackagesWithRanges(packageJson.dependencies);
 
-if (prodPkgs.length) steps.push([add, ...prodPkgs]);
+const allDeps = [...new Set([...devDeps, ...prodDeps])];
 
-if (!steps.length) {
-  console.info("⚪ Package updates not detected.");
-  return;
+if (!allDeps.length) {
+  console.info("⚪ Package has no dependencies to update.");
+} else {
+  const userAgent = process.env.npm_config_user_agent ?? "";
+
+  const manager = userAgent.split(" ")[0]?.split("/")[0]?.toLowerCase();
+
+  const commands = MANAGER_COMMANDS[manager];
+
+  if (!commands) {
+    console.error(`🔴 Unsupported package manager: "${manager}"`);
+    process.exit(1);
+  }
+
+  const { remove, add } = commands;
+
+  const devFlag = manager === "yarn" ? ["--dev"] : ["-D"];
+
+  const steps = [
+    remove ? [remove, ...allDeps] : null,
+    devDeps.length ? [add, ...devFlag, ...devDeps] : null,
+    prodDeps.length ? [add, ...prodDeps] : null,
+  ].filter(Boolean);
+
+  process.stdout.write("🟠 Package updates in-progress...");
+
+  try {
+    for (const args of steps) {
+      execFileSync(manager, args, {
+        stdio: ["ignore", "pipe", "pipe"],
+        encoding: "utf8",
+        maxBuffer: 10 * 1024 * 1024,
+        env: process.env,
+        shell: true,
+      });
+    }
+    clearStatusLine();
+    console.info("🟢 Package updates success.");
+  } catch (err) {
+    clearStatusLine();
+    console.error(`🔴 Package updates failed ("${err}").`);
+    if (err?.stdout) console.error(String(err.stdout).trim());
+    if (err?.stderr) console.error(String(err.stderr).trim());
+  }
 }
 
-try {
-  process.stdout.write("🟠 Package updates in-progress...");
-  for (const args of steps) {
-    execFileSync(manager, args, {
-      stdio: ["ignore", "pipe", "pipe"],
-      encoding: "utf8",
-      maxBuffer: 10 * 1024 * 1024,
-    });
-  }
-  clearStatusLine();
-  console.info("🟢 Package updates success.");
-} catch (err) {
-  clearStatusLine();
-  console.error(`🔴 Package updates failed ("${err}").`);
-  if (err?.stdout) console.error(String(err.stdout).trim());
-  if (err?.stderr) console.error(String(err.stderr).trim());
+// --- Helpers ---
+
+function getPackagesWithRanges(deps = {}) {
+  return Object.entries(deps)
+    .filter(([, version]) => RANGE_PREFIXES.has(version.charAt(0)))
+    .map(([name]) => name);
 }
 
 function clearStatusLine() {
