@@ -10,3 +10,7 @@ const ui = {
 };
 
 module.exports = ui;
+
+console.log({
+  res: ui.document.html("thing"),
+});

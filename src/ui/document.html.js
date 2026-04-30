@@ -3,7 +3,7 @@ const element = require("./element");
 const theme = require("./theme");
 const utils = require("@nameer/utils");
 
-function html(options = {}) {
+function htmlDocument(options = {}) {
   /*
    * <head />
    */
@@ -12,7 +12,7 @@ function html(options = {}) {
 
   const title =
     options.title ||
-    (options.title2 && [options.title2, config.appName].join(" - ")) ||
+    (options.title2 && `${options.title2} - ${config.appName}`) ||
     config.appName;
 
   const description = options.description || config.appDescription;
@@ -50,7 +50,7 @@ function html(options = {}) {
 
   const robots = element("meta", { name: "robots", content: [index, follow] });
 
-  const themeColorLight = theme?.color?.light?.themeColor
+  const themeColorLight = theme.color.light.themeColor
     ? element("meta", {
         name: "theme-color",
         media: "(prefers-color-scheme: light)",
@@ -58,7 +58,7 @@ function html(options = {}) {
       })
     : "";
 
-  const themeColorDark = theme?.color?.dark?.themeColor
+  const themeColorDark = theme.color.dark.themeColor
     ? element("meta", {
         name: "theme-color",
         media: "(prefers-color-scheme: dark)",
@@ -98,7 +98,9 @@ function html(options = {}) {
     href: "/static/css/tw.css",
   });
 
-  const manifestQuery = "?" + new URLSearchParams(options.manifest || {});
+  const manifestParams = new URLSearchParams(options.manifest || {}).toString();
+
+  const manifestQuery = manifestParams ? `?${manifestParams}` : "";
 
   const manifest =
     options.manifest !== false
@@ -156,12 +158,11 @@ function html(options = {}) {
     scripts.push(sw);
   }
 
-  const jsNote =
-    scripts.length || options.sw !== false
-      ? element("noscript", {
-          children: "You need to enable JavaScript to run this app.",
-        })
-      : "";
+  const jsNote = scripts.length
+    ? element("noscript", {
+        children: "You need to enable JavaScript to run this app.",
+      })
+    : "";
 
   const body = element("body", {
     children: [jsNote, options.body, ...scripts],
@@ -171,7 +172,7 @@ function html(options = {}) {
    * <html />
    */
 
-  const html = element("html", {
+  const htmlElement = element("html", {
     lang: config.appLang,
     dir: "ltr",
     children: [head, body],
@@ -179,10 +180,10 @@ function html(options = {}) {
 
   const docType = element("!DOCTYPE", { html: true });
 
-  return [docType, html].join("");
+  return [docType, htmlElement].join("");
 }
 
-module.exports = html;
+module.exports = htmlDocument;
 
 // https://developers.google.com/search/docs
 // https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
