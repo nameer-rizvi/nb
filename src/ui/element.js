@@ -106,7 +106,6 @@ function transformValue(v = "") {
   if (utils.isHttp(v)) {
     return v;
   } else if (utils.isObject(v)) {
-    console.log(6);
     const pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
