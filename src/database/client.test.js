@@ -104,7 +104,7 @@ async function databaseClientTest() {
     await client.size();
   }
 
-  process.exit();
+  process.exit(0);
 }
 
 databaseClientTest();
