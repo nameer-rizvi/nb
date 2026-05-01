@@ -28,10 +28,7 @@ async function getSitemapXml(req, res, next) {
 
     const xml = { type: "sitemap", list: [] };
 
-    let counter = 0;
-
-    while (counter < sitemap.count.pages) {
-      counter++;
+    for (let counter = 1; counter <= sitemap.count.pages; counter++) {
       xml.list.push({ loc: res.locals.url.origin + `/sitemap-${counter}.xml` });
     }
 
