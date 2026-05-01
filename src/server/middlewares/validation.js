@@ -20,7 +20,7 @@ function validationMiddleware(req, res, next) {
 
     next();
   } catch (error) {
-    const isUndefined = new RegExp(/Definition with key\b.*\bdoes not exist/);
+    const isUndefined = /Definition with key\b.*\bdoes not exist/;
 
     if (!isUndefined.test(String(error))) error.status = 400;
 

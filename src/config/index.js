@@ -15,7 +15,7 @@ const config = {
   emailAddress: process.env.EMAIL_ADDRESS,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailService: process.env.EMAIL_SERVICE,
-  jwtIss: "nb-" + process.env.NODE_ENV,
+  jwtIss: `nb-${process.env.NODE_ENV}`,
   jwtSecret: process.env.JWT_SECRET,
   nanoidSize: +process.env.NANOID_SIZE || 3,
   nodeEnv: process.env.NODE_ENV,
@@ -30,7 +30,7 @@ const config = {
   route: routes.find,
   routes: routes.configs,
   routesDisallowed: routes.disallow,
-  script: (process.env.SCRIPT || ",").split("").filter(Boolean),
+  script: (process.env.SCRIPT || "").split(",").filter(Boolean),
   timezone: process.env.TZ,
   urlLocalhost: "http://127.0.0.1",
   urlWebsite: process.env.WEBSITE,
@@ -52,6 +52,6 @@ if (config.urlLocalhost) {
   config.urlLocalhost += ":" + config.nodePort;
 }
 
-module.exports = config;
+module.exports = Object.freeze(config);
 
 // https://www.npmjs.com/package/dotenv

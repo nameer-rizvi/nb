@@ -56,8 +56,14 @@ function div_2(children, attrs = {}) {
 }
 
 function div_3(children, attrs = {}) {
-  attrs.class = ["flex", "w-full", "flex-row", "items-center"];
-  attrs.class.push("justify-center", attrs.class);
+  attrs.class = [
+    "flex",
+    "w-full",
+    "flex-row",
+    "items-center",
+    "justify-center",
+    attrs.class,
+  ];
   return div(children, attrs);
 }
 

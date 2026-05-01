@@ -18,7 +18,7 @@
 ```bash
 git clone https://github.com/nameer-rizvi/nb.git
 cd nb
-yarn
+yarn && yarn server-dev
 ```
 
 Copy `.env.example` to `.env` and fill in your environment variables before running the server.

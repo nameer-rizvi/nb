@@ -6,19 +6,15 @@ function getRobotsTxt(req, res) {
   settings.push("User-agent: *");
 
   if (config.routesDisallowed?.length) {
-    const routesDisallowed = config.routesDisallowed.map((path) => {
-      return `Disallow: ${path}/`;
-    });
-
-    settings.push(...routesDisallowed);
+    for (const path of config.routesDisallowed) {
+      settings.push(`Disallow: ${path}/`);
+    }
   }
 
   if (config.routesAllowed?.length) {
-    const routesAllowed = config.routesAllowed.map((path) => {
-      return `Allow: ${path}/`;
-    });
-
-    settings.push(...routesAllowed);
+    for (const path of config.routesAllowed) {
+      settings.push(`Allow: ${path}/`);
+    }
   }
 
   settings.push(""); // line break

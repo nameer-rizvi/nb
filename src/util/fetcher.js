@@ -1,10 +1,9 @@
-require("undici").install(); // polyfill
 const utils = require("@nameer/utils");
 const log = require("./log");
 const delay = require("./delay");
 const rateLimitMap = new Map();
 
-async function fetcher(url, option = {}) {
+async function fetcher(urlString, option = {}) {
   const {
     query,
     data,
@@ -16,7 +15,7 @@ async function fetcher(url, option = {}) {
     ...req
   } = option;
 
-  url = new URL(url);
+  const url = new URL(urlString);
 
   if (query) url.search = new URLSearchParams(query);
 
@@ -25,7 +24,7 @@ async function fetcher(url, option = {}) {
 
   if (contentType === "application/x-www-form-urlencoded") {
     req.body = new URLSearchParams(data || {});
-  } else if (utils.isJSON(data)) {
+  } else if (utils.isJson(data)) {
     req.body = JSON.stringify(data);
   }
 
@@ -35,32 +34,40 @@ async function fetcher(url, option = {}) {
 
   while (attempt <= retry) {
     if (rateLimit.length === 2) {
+      const [maxRequests, windowMs] = rateLimit;
+
+      const requestInterval = windowMs / maxRequests;
+
+      const now = Date.now();
+
+      for (const [hostname, lastRequestTime] of rateLimitMap) {
+        if (now - lastRequestTime >= requestInterval) {
+          rateLimitMap.delete(hostname);
+        }
+      }
+
       const lastRequestTime = rateLimitMap.get(url.hostname) || 0;
 
-      const timeSinceLastRequest = Date.now() - lastRequestTime;
-
-      const requestInterval = rateLimit[1] / rateLimit[0]; // windowMs / maxRequests
+      const timeSinceLastRequest = now - lastRequestTime;
 
       if (timeSinceLastRequest < requestInterval) {
         await delay(requestInterval - timeSinceLastRequest);
       }
 
-      rateLimitMap.set(url.hostname, Date.now());
+      rateLimitMap.set(url.hostname, now);
     }
 
     const controller = new AbortController();
 
-    const timeout = setTimeout(function onTimeout() {
-      log.fetch(`request aborted ("${url.hostname}")`, "warn");
+    const tag = attempt === 1 ? url.hostname : `${url.hostname}#${attempt}`;
+
+    const timeout = setTimeout(() => {
+      log.fetch(`request aborted ("${tag}")`, "warn");
       controller.abort();
     }, timeoutLimit);
 
     try {
-      if (attempt === 1) {
-        log.fetch(`request sent ("${url.hostname}")`);
-      } else {
-        log.fetch(`request sent ("${url.hostname}#${attempt}")`);
-      }
+      log.fetch(`request sent ("${tag}")`);
 
       const res = await fetch(url, { signal: controller.signal, ...req });
 
@@ -71,38 +78,34 @@ async function fetcher(url, option = {}) {
 
         response.error = null;
 
-        if (attempt === 1) {
-          log.fetch(`response received ("${url.hostname}")`);
-        } else {
-          log.fetch(`response received ("${url.hostname}#${attempt}")`);
-        }
+        log.fetch(`response received ("${tag}")`);
 
         break; // Break out of the retry loop.
-      } else {
-        const errorText = await res.text();
-
-        const errorJson = utils.parseJson(errorText) || {};
-
-        let error =
-          parseError(errorJson) ||
-          errorJson.errors?.map(parseError).join("; ") ||
-          errorText;
-
-        if (
-          !error ||
-          error.includes("<html") ||
-          error.includes("<!DOCTYPE") ||
-          error === "{}"
-        ) {
-          error = res.statusText || String(res.status);
-        }
-
-        if (utils.isString(error)) {
-          error = utils.cleanString(error);
-        }
-
-        throw new Error(error);
       }
+
+      const errorText = await res.text();
+
+      const errorJson = utils.parseJson(errorText) || {};
+
+      let error =
+        parseError(errorJson) ||
+        errorJson.errors?.map(parseError).join("; ") ||
+        errorText;
+
+      if (
+        !error ||
+        error.includes("<html") ||
+        error.includes("<!DOCTYPE") ||
+        error === "{}"
+      ) {
+        error = res.statusText || String(res.status);
+      }
+
+      if (utils.isString(error)) {
+        error = utils.cleanString(error);
+      }
+
+      throw new Error(error);
     } catch (error) {
       log.fetch(error, "error");
 
