@@ -21,7 +21,7 @@ function mPut(r) {
 // Paths
 
 function pApi(r) {
-  return uPath(r).indexOf("/api") === 0 && !cRedirect(r);
+  return uPath(r).startsWith("/api") && !cRedirect(r);
 }
 
 function pPublic(r) {
@@ -29,7 +29,7 @@ function pPublic(r) {
 }
 
 function pStatic(r) {
-  return uPath(r).indexOf("/static") === 0 && !cRedirect(r);
+  return uPath(r).startsWith("/static") && !cRedirect(r);
 }
 
 // Configs
@@ -37,12 +37,12 @@ function pStatic(r) {
 function cDisallowed(r) {
   const p = uPath(r);
   for (const disallowed of config.routesDisallowed)
-    if (p.indexOf(disallowed) === 0) return true;
+    if (p.startsWith(disallowed)) return true;
   return false;
 }
 
 function cDynamic(r) {
-  return uPath(r).indexOf(":") !== -1 || r?.params?.length > 0; // ":" can be used as a param name even after "/" like "/page-:number"
+  return uPath(r).includes(":") || r?.params?.length > 0; // ":" can be used as a param name even after "/" like "/page-:number"
 }
 
 function cRedirect(r) {
@@ -51,19 +51,16 @@ function cRedirect(r) {
 
 // Special Cases
 
-function sExtension(r, extension) {
+function sExtension(r) {
   const end = uPath(r).split("/").pop();
-  if (end.indexOf(".") === -1) return false;
-  const ext = end.split(".").pop();
-  return extension ? extension === ext : ext.length > 0;
+  if (!end.includes(".")) return false;
+  return end.split(".").pop();
 }
 
 function sWebpage(r) {
+  const ext = sExtension(r);
   return (
-    mGet(r) &&
-    !cDisallowed(r) &&
-    !cRedirect(r) &&
-    (!sExtension(r) || sExtension(r, "html"))
+    mGet(r) && !cDisallowed(r) && !cRedirect(r) && (!ext || ext === "html")
   );
 }
 

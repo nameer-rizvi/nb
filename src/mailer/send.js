@@ -1,12 +1,15 @@
 const utils = require("@nameer/utils");
-const ui = require("../ui");
 const util = require("../util");
+const ui = require("../ui");
 const config = require("../config");
 const transporter = require("./transporter");
 
 async function send(email = {}) {
   try {
-    if (!utils.isStringNonEmpty(email.to) || !email.html?.length) return;
+    if (!utils.isStringNonEmpty(email.to) || !email.html?.length) {
+      util.log.mailer(`invalid email ("${email.to}")`, "warn");
+      return;
+    }
 
     if (!utils.isArray(email.html)) email.html = [email.html];
 

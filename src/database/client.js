@@ -18,7 +18,7 @@ class DatabaseClient {
     const memory = await this.connection.info("memory");
     const memorySplit = memory.split("\n");
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
-    const bytes = parseFloat(memoryUsed.split(":")[1]);
+    const bytes = parseFloat(memoryUsed?.split(":")[1] ?? 0);
     const kb = utils.math.num(bytes / 1000);
     const mb = utils.math.num(bytes / 1_000_000);
     const storeSize = await this.connection.hLen(this.storeKey);
@@ -143,9 +143,7 @@ class DatabaseClient {
   async #generateUniqueId() {
     while (this.ids.size < this.storeSizeMax) {
       let id = nanoid.nanoid(config.nanoidSize);
-      while (this.ids.has(id)) {
-        id = nanoid.nanoid(config.nanoidSize);
-      }
+      while (this.ids.has(id)) id = nanoid.nanoid(config.nanoidSize);
       this.ids.add(id);
       const exists = await this.connection.hExists(this.storeKey, id);
       if (!exists) return id;

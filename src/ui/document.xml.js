@@ -1,8 +1,8 @@
 const element = require("./element");
 const util = require("../util");
 
-function xml(...configs) {
-  const xml = element("?xml", {
+function xmlDocument(...configs) {
+  const xmlElement = element("?xml", {
     version: "1.0",
     encoding: "UTF-8",
   });
@@ -23,11 +23,9 @@ function xml(...configs) {
     }
   }
 
-  if (sections.length) {
-    return [xml, ...sections].join("\n");
-  } else {
-    return "";
-  }
+  if (!sections.length) return "";
+
+  return [xmlElement, ...sections].join("\n");
 }
 
 function getXmlList(name, items) {
@@ -42,4 +40,4 @@ function getXmlList(name, items) {
   return list;
 }
 
-module.exports = xml;
+module.exports = xmlDocument;

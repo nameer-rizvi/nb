@@ -99,6 +99,8 @@ async function databaseClientTest() {
       util.log.database(`client test nanoid size ("${count}")`);
     }
 
+    await client.size();
+
     await client.cut({ collection });
 
     await client.size();

@@ -16,7 +16,7 @@ function authorizationMiddleware(req, res, next) {
     }
 
     res.locals.apiKey =
-      req.get("x-api-key") || req.get("apikey") || req.query.apiKey;
+      req.get("x-api-key") || req.get("apikey") || req.query.apiKey; // req.get is case insensitive.
 
     for (const strategy of res.locals.strategies || []) {
       if (strategy === "jwt" && !res.locals.token) {

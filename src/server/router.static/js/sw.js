@@ -69,8 +69,10 @@ async function fetcher(event) {
         return cachedResponse;
       }
       const networkResponse = await fetch(event.request);
-      const cache = await caches.open(cacheName);
-      await cache.put(event.request, networkResponse.clone());
+      if (networkResponse.ok) {
+        const cache = await caches.open(cacheName);
+        await cache.put(event.request, networkResponse.clone());
+      }
       console.info("👷🏾 Service worker handled fetch request with network.");
       return networkResponse;
     }

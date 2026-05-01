@@ -2,12 +2,12 @@ const config = require("../config");
 const log = require("./log");
 const jsonwebtoken = require("jsonwebtoken");
 
-exports.iss = config.jwtIss || config.appName || config.website;
+exports.iss = config.jwtIss;
 
 exports.sign = function signJWT(data = {}, expiresIn = 30) {
-  data.iss = exports.iss;
+  const payload = { ...data, iss: exports.iss };
 
-  const token = jsonwebtoken.sign(data, config.jwtSecret, { expiresIn });
+  const token = jsonwebtoken.sign(payload, config.jwtSecret, { expiresIn });
 
   log.util(`jwt signed ("${exports.iss}")`);
 
@@ -15,13 +15,15 @@ exports.sign = function signJWT(data = {}, expiresIn = 30) {
 };
 
 exports.verify = function verifyJWT(token) {
-  const data = jsonwebtoken.verify(token, config.jwtSecret);
+  const payload = jsonwebtoken.verify(token, config.jwtSecret);
 
-  if (!data || data.iss !== exports.iss) throw new Error("Invalid token.");
+  if (!payload || payload.iss !== exports.iss) {
+    throw new Error("Invalid token.");
+  }
 
   log.util(`jwt verified ("${exports.iss}")`);
 
-  return data;
+  return payload;
 };
 
 // https://jwt.io/
