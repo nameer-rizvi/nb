@@ -1,8 +1,8 @@
 const sanitized = require("sanitized");
 const config = require("../../config");
-const validate = require("@nameer/validate")(config.dictionary);
+const validateN = require("@nameer/validate")(config.dictionary);
 const util = require("../../util");
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 
 function validationMiddleware(req, res, next) {
   try {
@@ -11,7 +11,7 @@ function validationMiddleware(req, res, next) {
     if (res.locals.ignoreValidation === true) {
       res.locals.values = sanitized(res.locals.values);
     } else {
-      validate(res.locals.values, res.locals.requiredKeys);
+      validateN(res.locals.values, res.locals.requiredKeys);
     }
 
     if (res.locals.values.token) {
@@ -31,8 +31,8 @@ function validationMiddleware(req, res, next) {
 function parsePayload(payload) {
   for (const [key, value] of Object.entries(payload)) {
     const definition = config.dictionary.find((i) => i.key === key);
-    if (definition?.type === "array" && utils.isObject(value)) {
-      const isKeysIndexes = Object.keys(value).every(utils.isNumber);
+    if (definition?.type === "array" && utilN.isObject(value)) {
+      const isKeysIndexes = Object.keys(value).every(utilN.isNumber);
       if (isKeysIndexes) payload[key] = Object.values(value);
     }
   }

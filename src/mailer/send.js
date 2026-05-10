@@ -1,4 +1,4 @@
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 const util = require("../util");
 const ui = require("../ui");
 const config = require("../config");
@@ -6,14 +6,14 @@ const transporter = require("./transporter");
 
 async function send(email = {}) {
   try {
-    if (!utils.isStringNonEmpty(email.to) || !email.html?.length) {
+    if (!utilN.isStringNonEmpty(email.to) || !email.html?.length) {
       util.log.mailer(`invalid email ("${email.to}")`, "warn");
       return;
     }
 
-    if (!utils.isArray(email.html)) email.html = [email.html];
+    if (!utilN.isArray(email.html)) email.html = [email.html];
 
-    email.html = ui.document.email(email.html.filter(utils.isString).join("")); // ui components are minified by default.
+    email.html = ui.document.email(email.html.filter(utilN.isString).join("")); // ui components are minified by default.
 
     util.log.mailer(`sending email ("${email.to}")..`);
 

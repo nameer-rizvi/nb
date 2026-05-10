@@ -1,4 +1,4 @@
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 
 const tags = {
   graph: ["svg", "path", "circle", "rect", "line", "g"],
@@ -21,15 +21,15 @@ const tags = {
 
 function element(tagName, props = {}) {
   const { children: _children, render, json, js, ...attrs } = props;
-  const children = utils.isArray(_children)
-    ? utils.trim(_children.filter(utils.isString).join(""))
-    : utils.isString(_children)
-    ? utils.trim(_children)
+  const children = utilN.isArray(_children)
+    ? utilN.trim(_children.filter(utilN.isString).join(""))
+    : utilN.isString(_children)
+    ? utilN.trim(_children)
     : "";
   delete attrs.mode;
-  if (utils.isArray(tagName)) {
+  if (utilN.isArray(tagName)) {
     return tagName.map((args) => element(...args)).join("");
-  } else if (!utils.isStringNonEmpty(tagName)) {
+  } else if (!utilN.isStringNonEmpty(tagName)) {
     throw new TypeError("Element tagName must be a non-empty string.");
   } else if (render === false) {
     return "";
@@ -59,7 +59,7 @@ function element(tagName, props = {}) {
 function processCss(rules, delimiter = "") {
   const cssRules = [];
   for (const [key, value] of Object.entries(rules)) {
-    if (utils.isObject(value)) {
+    if (utilN.isObject(value)) {
       cssRules.push(`${key}{${processCss(value)}}`);
     } else {
       cssRules.push(`${transformKey(key)}:${value};`);
@@ -74,11 +74,11 @@ function attributes(attrs = {}) {
     if (value === true) {
       arr.push(transformKey(key));
     } else if (key.startsWith("on") && key.length > 2) {
-      arr.push(`${utils.changecase.camelCase(key)}="${value}()"`);
-    } else if (key === "class" && utils.isArray(value)) {
-      const v = value.flat(Infinity).filter(utils.isString).join(" ");
+      arr.push(`${utilN.changecase.camelCase(key)}="${value}()"`);
+    } else if (key === "class" && utilN.isArray(value)) {
+      const v = value.flat(Infinity).filter(utilN.isString).join(" ");
       arr.push(`${transformKey(key)}="${transformValue(v)}"`);
-    } else if (key === "style" && utils.isObject(value)) {
+    } else if (key === "style" && utilN.isObject(value)) {
       let pairs = [];
       for (const [k, v] of Object.entries(value))
         pairs.push(`${transformKey(k)}:${transformValue(v)};`);
@@ -91,7 +91,7 @@ function attributes(attrs = {}) {
 }
 
 function transformKey(k = "") {
-  return utils.changecase.kebabCase(k);
+  return utilN.changecase.kebabCase(k);
 }
 
 const ESCAPE_MAP = {
@@ -103,9 +103,9 @@ const ESCAPE_MAP = {
 };
 
 function transformValue(v = "") {
-  if (utils.isHttp(v)) {
+  if (utilN.isHttp(v)) {
     return v;
-  } else if (utils.isObject(v)) {
+  } else if (utilN.isObject(v)) {
     const pairs = [];
     for (const [key, value] of Object.entries(v))
       pairs.push(`${transformKey(key)}=${value}`);
@@ -116,7 +116,7 @@ function transformValue(v = "") {
 }
 
 function getJsonType(json) {
-  if (utils.isArray(json) ? json.some(isSchema) : isSchema(json)) {
+  if (utilN.isArray(json) ? json.some(isSchema) : isSchema(json)) {
     return "application/ld+json";
   } else {
     return "application/json";

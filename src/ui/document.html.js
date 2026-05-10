@@ -1,7 +1,7 @@
 const config = require("../config");
 const element = require("./element");
 const theme = require("./theme");
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 
 function htmlDocument(options = {}) {
   /*
@@ -142,11 +142,11 @@ function htmlDocument(options = {}) {
 
   const scripts = [];
 
-  if (utils.isObject(options.script)) {
+  if (utilN.isObject(options.script)) {
     scripts.push(element("script", options.script));
-  } else if (utils.isArray(options.script)) {
+  } else if (utilN.isArray(options.script)) {
     for (const script of options.script) {
-      if (utils.isObject(script)) scripts.push(element("script", script));
+      if (utilN.isObject(script)) scripts.push(element("script", script));
     }
   }
 

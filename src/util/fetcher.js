@@ -1,4 +1,4 @@
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 const log = require("./log");
 const delay = require("./delay");
 const rateLimitMap = new Map();
@@ -24,7 +24,7 @@ async function fetcher(urlString, option = {}) {
 
   if (contentType === "application/x-www-form-urlencoded") {
     req.body = new URLSearchParams(data || {});
-  } else if (utils.isJson(data)) {
+  } else if (utilN.isJson(data)) {
     req.body = JSON.stringify(data);
   }
 
@@ -85,7 +85,7 @@ async function fetcher(urlString, option = {}) {
 
       const errorText = await res.text();
 
-      const errorJson = utils.parseJson(errorText) || {};
+      const errorJson = utilN.parseJson(errorText) || {};
 
       let error =
         parseError(errorJson) ||
@@ -101,8 +101,8 @@ async function fetcher(urlString, option = {}) {
         error = res.statusText || String(res.status);
       }
 
-      if (utils.isString(error)) {
-        error = utils.cleanString(error);
+      if (utilN.isString(error)) {
+        error = utilN.cleanString(error);
       }
 
       throw new Error(error);
@@ -123,9 +123,9 @@ async function fetcher(urlString, option = {}) {
 }
 
 function parseError(error = {}) {
-  if (utils.isString(error)) {
+  if (utilN.isString(error)) {
     return error;
-  } else if (utils.isObject(error)) {
+  } else if (utilN.isObject(error)) {
     const errors = [];
     for (const key of [
       "error",

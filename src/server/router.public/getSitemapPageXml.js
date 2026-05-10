@@ -1,4 +1,4 @@
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 const database = require("../../database");
 const ui = require("../../ui");
 
@@ -6,7 +6,7 @@ async function getSitemapPageXml(req, res, next) {
   try {
     const page = +req.params.page;
 
-    if (!utils.isNumber(page)) {
+    if (!utilN.isNumber(page)) {
       throw new TypeError("Page param must be a valid number.");
     }
 

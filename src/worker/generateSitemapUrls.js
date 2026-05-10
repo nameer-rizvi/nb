@@ -1,6 +1,6 @@
 const config = require("../config");
 const util = require("../util");
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 const database = require("../database");
 
 const MAXIMUM_URLS = 50000; // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines
@@ -18,7 +18,7 @@ async function generateSitemapUrls() {
   // Push dynamic webpage urls second.
   for (const route of config.routes) {
     if (util.isRoute.webpage(route) && util.isRoute.dynamic(route)) {
-      if (!utils.isFunction(route.getUrls)) {
+      if (!utilN.isFunction(route.getUrls)) {
         const warning = `missing getUrls resolver for route ("${route.pathname}")`;
         util.log.job(warning);
         continue;
@@ -28,7 +28,7 @@ async function generateSitemapUrls() {
     }
   }
 
-  const pages = utils.batchify(urls, MAXIMUM_URLS);
+  const pages = utilN.batchify(urls, MAXIMUM_URLS);
 
   const count = { urls: urls.length, pages: pages.length };
 

@@ -1,7 +1,7 @@
 const config = require("../config");
 const nanoid = require("nanoid");
 const redis = require("./client.redis");
-const utils = require("@nameer/utils");
+const utilN = require("@nameer/utils");
 const util = require("../util");
 
 class DatabaseClient {
@@ -19,11 +19,11 @@ class DatabaseClient {
     const memorySplit = memory.split("\n");
     const memoryUsed = memorySplit.find((i) => i.startsWith("used_memory:"));
     const bytes = parseFloat(memoryUsed?.split(":")[1] ?? 0);
-    const kb = utils.math.num(bytes / 1000);
-    const mb = utils.math.num(bytes / 1_000_000);
+    const kb = utilN.math.num(bytes / 1000);
+    const mb = utilN.math.num(bytes / 1_000_000);
     const storeSize = await this.connection.hLen(this.storeKey);
     const storeSizeMax = this.storeSizeMax;
-    const storeSizeUsed = utils.math.percent(storeSize, storeSizeMax);
+    const storeSizeUsed = utilN.math.percent(storeSize, storeSizeMax);
     const collectionKeys = await this.connection.keys(this.collectionKey + "*");
     const collections = collectionKeys.length;
     util.log.database(`size ("${mb}mb,${storeSizeUsed}%")`);
@@ -69,8 +69,8 @@ class DatabaseClient {
   }
 
   async #addRecord(pipeline, record, createdAt) {
-    if (utils.isObject(record)) {
-      if (!utils.isStringNonEmpty(record.collection))
+    if (utilN.isObject(record)) {
+      if (!utilN.isStringNonEmpty(record.collection))
         throw new TypeError("Record.collection must be a non-empty string.");
       delete record.id;
       const id = await this.#generateUniqueId();
@@ -83,7 +83,7 @@ class DatabaseClient {
   }
 
   async #getRecord(pipeline, query) {
-    if (utils.isObject(query)) {
+    if (utilN.isObject(query)) {
       if (query.id) {
         util.log.database(`get record ("${query.id}")`);
         return await this.#getById(query.id);
@@ -95,7 +95,7 @@ class DatabaseClient {
   }
 
   async #modRecord(pipeline, record, updatedAt) {
-    if (utils.isObject(record)) {
+    if (utilN.isObject(record)) {
       if (record.id) {
         const rec = await this.#getById(record.id);
         if (rec) {
@@ -117,7 +117,7 @@ class DatabaseClient {
   }
 
   async #cutRecord(pipeline, query) {
-    if (utils.isObject(query)) {
+    if (utilN.isObject(query)) {
       if (query.id) {
         const rec = await this.#getById(query.id);
         if (rec) {
@@ -152,20 +152,20 @@ class DatabaseClient {
   }
 
   async #getById(id) {
-    if (utils.isString(id)) {
+    if (utilN.isString(id)) {
       const record = await this.connection.hGet(this.storeKey, id);
-      return utils.parseJson(record);
+      return utilN.parseJson(record);
     }
   }
 
   async #getByCollection(collection) {
-    if (utils.isString(collection)) {
+    if (utilN.isString(collection)) {
       const jsons = [];
       const collectionKey = `${this.collectionKey}:${collection}`;
       const ids = await this.connection.lRange(collectionKey, 0, -1);
       if (!ids.length) return jsons;
       const records = await this.connection.hmGet(this.storeKey, ids);
-      for (const record of records) jsons.push(utils.parseJson(record));
+      for (const record of records) jsons.push(utilN.parseJson(record));
       return jsons;
     }
   }
