@@ -32,7 +32,7 @@ function parsePayload(payload) {
   for (const [key, value] of Object.entries(payload)) {
     const definition = config.dictionary.find((i) => i.key === key);
     if (definition?.type === "array" && utilN.isObject(value)) {
-      const isKeysIndexes = Object.keys(value).every(utilN.isNumber);
+      const isKeysIndexes = Object.keys(value).every(utilN.isNumberString);
       if (isKeysIndexes) payload[key] = Object.values(value);
     }
   }
