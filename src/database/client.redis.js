@@ -19,12 +19,9 @@ databaseClientRedis.on("reconnecting", function onClientReconnecting() {
   util.log.database("redis client reconnecting..");
 });
 
-databaseClientRedis.on(
-  "sharded-channel-moved",
-  function onClientShardedChannelMoved() {
-    util.log.database("redis client moved");
-  },
-);
+databaseClientRedis.on("sharded-channel-moved", function onClientSharded() {
+  util.log.database("redis client moved");
+});
 
 databaseClientRedis.on("end", function onClientEnd() {
   util.log.database("redis client disconnected");
