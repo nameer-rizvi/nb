@@ -1,3 +1,4 @@
+const config = require("../config");
 const utilN = require("@nameer/utils");
 const log = require("./log");
 const delay = require("./delay");
@@ -15,7 +16,7 @@ async function fetcher(urlString, option = {}) {
     ...req
   } = option;
 
-  const url = new URL(urlString);
+  const url = new URL(urlString, config.urlLocalhost || config.urlWebsite);
 
   if (query) url.search = new URLSearchParams(query);
 
