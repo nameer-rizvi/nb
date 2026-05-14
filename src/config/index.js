@@ -3,7 +3,7 @@ const routes = require("./routes");
 const workers = require("./workers");
 
 const config = {
-  apiKey: process.env.API_KEY,
+  apiKey: process.env.API_KEY, // Api key generator command: echo "APP_NAME_$(openssl rand -hex 32)"
   appAuthor: "",
   appCategories: [],
   appDescription: "",
