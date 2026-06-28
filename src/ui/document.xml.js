@@ -19,7 +19,7 @@ function xmlDocument(...configs) {
       const xmlList = getXmlList("url", config.list);
       sections.push(element("urlset", { xmlns, children: xmlList }));
     } else {
-      util.log.ui(`xml config type not supported ("${config.type}")`);
+      util.log.ui(`xml config type not supported ("${config.type}")`, "warn");
     }
   }
 
