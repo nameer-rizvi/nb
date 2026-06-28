@@ -1,10 +1,11 @@
 const config = require("../config");
 const log = require("./log");
 const jsonwebtoken = require("jsonwebtoken");
+const defaultExpiration = config.fetchTimeout / 1_000; // milliseconds -> seconds
 
 exports.iss = config.jwtIss || config.website;
 
-exports.sign = function signJwt(data = {}, expiresIn = 30) {
+exports.sign = function signJwt(data = {}, expiresIn = defaultExpiration) {
   const payload = { ...data, iss: exports.iss };
   const token = jsonwebtoken.sign(payload, config.jwtSecret, { expiresIn });
   log.util(`jwt signed ("${exports.iss}")`);
