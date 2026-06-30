@@ -7,13 +7,13 @@ function getRobotsTxt(req, res) {
 
   if (config.routesDisallowed?.length) {
     for (const path of config.routesDisallowed) {
-      settings.push(`Disallow: ${path}/`);
+      settings.push(`Disallow: ${path}`);
     }
   }
 
   if (config.routesAllowed?.length) {
     for (const path of config.routesAllowed) {
-      settings.push(`Allow: ${path}/`);
+      settings.push(`Allow: ${path}`);
     }
   }
 
