@@ -9,13 +9,11 @@ const util = require("../util");
 
 const server = express();
 
-server.set("trust proxy", config.nodeEnvInProduction); // Trust reverse proxy in production.
+server.set("trust proxy", config.nodeEnvInProduction ? 1 : false); // Trust one reverse proxy hop in production.
 
 if (middlewares.app.length) server.use(middlewares.app); // Application middlewares.
 
-server.use(routerStatic, routerApi, routerPublic); // Route handlers.
-
-server.use(errorHandler); // Error handler.
+server.use(routerStatic, routerApi, routerPublic, errorHandler); // Route and error handlers.
 
 server.listen(config.nodePort, function listener() {
   util.log.server(`listening on port ${config.nodePort}`);

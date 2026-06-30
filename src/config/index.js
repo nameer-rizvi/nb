@@ -3,7 +3,7 @@ const routes = require("./routes");
 const workers = require("./workers");
 
 const config = {
-  apiKey: process.env.API_KEY, // Api key generator command: echo "APP_NAME_$(openssl rand -hex 32)"
+  apiKey: process.env.API_KEY, // Api key generator command: echo "nb_$(openssl rand -hex 32)"
   appAuthor: "",
   appCategories: [],
   appDescription: "",
@@ -15,6 +15,7 @@ const config = {
   emailAddress: process.env.EMAIL_ADDRESS,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailService: process.env.EMAIL_SERVICE,
+  fetchTimeout: 30_000,
   jwtIss: `nb-${process.env.NODE_ENV}`,
   jwtSecret: process.env.JWT_SECRET,
   nanoidSize: +process.env.NANOID_SIZE || 3,

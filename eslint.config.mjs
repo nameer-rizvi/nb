@@ -16,7 +16,7 @@ export default defineConfig([
   },
   // Browser JS files
   {
-    files: ["src/server/router.static/js/*.js"],
+    files: ["src/server/router.static/js/**/*.js"],
     ignores: ["src/server/router.static/js/sw.js"],
     plugins: { js },
     extends: ["js/recommended"],

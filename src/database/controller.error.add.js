@@ -14,15 +14,14 @@ async function databaseControllerErrorAdd(...errors) {
       continue;
     }
 
-    if (utilN.isObject(error) && error.message) {
+    if ((utilN.isError(error) || utilN.isObject(error)) && error.message) {
       error = Object.getOwnPropertyNames(error).reduce((reducer, key) => {
         return { ...reducer, [key]: error[key] };
       }, {});
 
       if (utilN.isString(error.stack)) {
         error.stack = error.stack.split("\n").map((i) => i.trim());
-        error.stack = error.stack.filter(Boolean);
-        if (error.stack[0]?.includes("Error")) error.stack.shift();
+        error.stack = error.stack.filter((i) => i.startsWith("at"));
       }
 
       records.push({ collection, ...error });

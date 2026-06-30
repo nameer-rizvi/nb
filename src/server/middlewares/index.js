@@ -7,12 +7,13 @@ const middlewares = {
   ],
   app: [
     require("./logger"),
-    require("./redirect"),
+    require("./status"),
     require("./cors"),
     require("./helmet"),
     require("./compression"),
+    require("./redirect"),
   ],
-  public: [require("./status"), require("./locals")],
+  public: [require("./locals")],
   static: [require("./sw")],
 };
 

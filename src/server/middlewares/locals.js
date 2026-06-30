@@ -15,8 +15,14 @@ function localsMiddleware(req, res, next) {
     res.locals.userAgentCode = utilN.base64.encode(userAgentAttributes);
   }
 
-  if (res.locals.cacheMaxAge) {
-    res.set("Cache-Control", `max-age=${res.locals.cacheMaxAge}`); // Age is in seconds, not milliseconds.
+  if (config.nodeEnvInProduction) {
+    if (res.locals.cacheNoStore) {
+      res.set("Cache-Control", "no-store");
+    } else if (res.locals.cacheNoCache) {
+      res.set("Cache-Control", "no-cache");
+    } else if (res.locals.cacheMaxAge > 0) {
+      res.set("Cache-Control", `max-age=${res.locals.cacheMaxAge}`); // Age is in seconds.
+    }
   }
 
   next();

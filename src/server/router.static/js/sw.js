@@ -4,7 +4,9 @@
 
 const cacheName = "v1";
 
-const coreAssets = []; // Core assets required for the app to run offline.
+const coreAssets = ["/static/css/tw.css", "/static/js/sw-register.js"]; // Core assets pre-cached on install.
+
+const maxCacheEntries = 100; // Maximum non-core entries before LRU eviction kicks in.
 
 /**
  * Event Listeners
@@ -28,6 +30,11 @@ self.addEventListener("push", function handlePush(event) {
 
 self.addEventListener("notificationclick", function handleNotClick(event) {
   event.waitUntil(notificationclicker(event).catch(handleError));
+});
+
+self.addEventListener("message", function handleMessage(event) {
+  // Client can send { type: "SKIP_WAITING" } to immediately activate a waiting SW.
+  if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 /**
@@ -58,31 +65,86 @@ async function activator() {
 
 async function fetcher(event) {
   try {
-    if (new URL(event.request.url).pathname.startsWith("/api")) {
-      // Do not cache api requests.
+    const url = new URL(event.request.url);
+    if (url.pathname.startsWith("/api")) {
+      // Network-only: never cache API responses.
       console.info("👷🏾 Service worker handled fetch request with api.");
       return await fetch(event.request);
-    } else {
-      const cachedResponse = await caches.match(event.request);
-      if (cachedResponse) {
-        console.info("👷🏾 Service worker handled fetch request with cache.");
-        return cachedResponse;
-      }
-      const networkResponse = await fetch(event.request);
-      if (networkResponse.ok) {
-        const cache = await caches.open(cacheName);
-        await cache.put(event.request, networkResponse.clone());
-      }
-      console.info("👷🏾 Service worker handled fetch request with network.");
-      return networkResponse;
     }
+    if (url.pathname.startsWith("/static")) {
+      // Cache-first: static assets are content-addressed; serve from cache immediately.
+      return await cacheFirst(event.request);
+    }
+    // Network-first: always try the network for HTML pages so deploys land immediately.
+    return await networkFirst(event.request);
   } catch (error) {
     handleError(error);
-    return new Response("Network Error", {
-      headers: { "Content-Type": "text/plain" },
-      status: 503,
-    });
+    return offlineFallback(event.request);
   }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) {
+    console.info("👷🏾 Service worker handled fetch request with cache.");
+    return cached;
+  }
+  const response = await fetch(request);
+  if (response.ok) {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response.clone());
+    await evict(cache);
+  }
+  console.info("👷🏾 Service worker handled fetch request with network.");
+  return response;
+}
+
+async function networkFirst(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(cacheName);
+      await cache.put(request, response.clone());
+      await evict(cache);
+    }
+    console.info("👷🏾 Service worker handled fetch request with network.");
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) {
+      console.info("👷🏾 Service worker handled fetch request with cache.");
+      return cached;
+    }
+    throw new Error("No network and no cache available.");
+  }
+}
+
+async function evict(cache) {
+  // Remove the oldest entries once the cache exceeds maxCacheEntries.
+  const keys = await cache.keys();
+  if (keys.length > maxCacheEntries) {
+    const stale = keys.slice(0, keys.length - maxCacheEntries);
+    for (const key of stale) {
+      await cache.delete(key);
+      console.info(`👷🏾 Service worker evicted cache entry ("${key.url}").`);
+    }
+  }
+}
+
+function offlineFallback(request) {
+  const isHtml =
+    request.mode === "navigate" ||
+    request.headers.get("Accept")?.includes("text/html");
+  if (isHtml) {
+    return new Response(
+      "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Offline</title></head><body><p>You appear to be offline. Please check your connection and try again.</p></body></html>",
+      { headers: { "Content-Type": "text/html" }, status: 503 },
+    );
+  }
+  return new Response("Network Error", {
+    headers: { "Content-Type": "text/plain" },
+    status: 503,
+  });
 }
 
 async function pusher(event) {
@@ -135,7 +197,7 @@ function isURL(urlA, urlB) {
 }
 
 function handleError(error) {
-  console.error(`👷🏾 Service worker ${String(error).toLowerCase()}`);
+  console.error("👷🏾 Service worker error:", error);
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers

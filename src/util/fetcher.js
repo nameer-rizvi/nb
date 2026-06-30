@@ -1,3 +1,4 @@
+const config = require("../config");
 const utilN = require("@nameer/utils");
 const log = require("./log");
 const delay = require("./delay");
@@ -9,7 +10,7 @@ async function fetcher(urlString, option = {}) {
     data,
     retry = 2,
     rateLimit = [],
-    timeoutLimit = 30000,
+    timeoutLimit = config.fetchTimeout,
     parser = "json",
     throwError = true,
     ...req

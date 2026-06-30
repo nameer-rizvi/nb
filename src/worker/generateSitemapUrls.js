@@ -2,8 +2,7 @@ const config = require("../config");
 const util = require("../util");
 const utilN = require("@nameer/utils");
 const database = require("../database");
-
-const MAXIMUM_URLS = 50000; // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines
+const MAXIMUM_URLS = 50_000; // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#general-guidelines
 
 async function generateSitemapUrls() {
   const urls = [];
@@ -18,13 +17,19 @@ async function generateSitemapUrls() {
   // Push dynamic webpage urls second.
   for (const route of config.routes) {
     if (util.isRoute.webpage(route) && util.isRoute.dynamic(route)) {
-      if (!utilN.isFunction(route.getUrls)) {
-        const warning = `missing getUrls resolver for route ("${route.pathname}")`;
-        util.log.job(warning);
+      if (!utilN.isFunction(route.getSitemapUrls)) {
+        const warning = `missing getSitemapUrls function for route ("${route.pathname}")`;
+        util.log.job(warning, "warn");
         continue;
       }
-      const urlsDynamic = await route.getUrls(database);
-      urls.push(...urlsDynamic.map((loc) => ({ loc, ...route.sitemap })));
+      try {
+        const urlsDynamic = await route.getSitemapUrls(database);
+        urls.push(...urlsDynamic.map((loc) => ({ loc, ...route.sitemap })));
+      } catch (error) {
+        const warning = `getSitemapUrls failed for route ("${route.pathname}"): ${error}`;
+        util.log.job(warning, "warn");
+        continue;
+      }
     }
   }
 
@@ -39,9 +44,9 @@ async function generateSitemapUrls() {
   await database.client.add({ collection, count, pages });
 
   if (count.pages >= MAXIMUM_URLS) {
-    const warning = `Sitemap url generator is at capacity ("${MAXIMUM_URLS.toLocaleString()}")`;
-    util.log.warning(warning);
-    // TODO: dynamically nest sitemap pages (e.g. index pages of index pages of urls) based on url count.
+    const warning = `sitemap url generator is at capacity ("${MAXIMUM_URLS.toLocaleString()}")`;
+    util.log.job(warning, "warn");
+    // TODO: dynamically/recursively nest sitemap pages (e.g. index pages of index pages of urls) based on url count.
   }
 }
 

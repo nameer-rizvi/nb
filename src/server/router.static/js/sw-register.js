@@ -10,24 +10,26 @@ const isLocalhost =
 
 async function registerServiceWorker() {
   try {
-    if (isLocalhost === true) {
+    if (isLocalhost) {
       console.warn("👷🏾 Service worker not supported in local environment.");
-    } else if (window.isSecureContext === false) {
+    } else if (!window.isSecureContext) {
       console.warn("👷🏾 Service worker requires a secure browser context.");
-    } else if ("serviceWorker" in navigator === false) {
+    } else if (!("serviceWorker" in navigator)) {
       console.warn("👷🏾 Service worker is not available in navigator.");
     } else {
       const registration = await register();
-      if (registration?.active) {
+      if (registration?.installing) {
+        console.info("👷🏾 Service worker is installing.");
+      } else if (registration?.waiting) {
+        console.info("👷🏾 Service worker is installed, waiting to activate.");
+      } else if (registration?.active) {
         console.info(`👷🏾 Service worker is ${registration.active.state}.`);
-      } else if (registration) {
-        console.info("👷🏾 Service worker is registered.");
       } else {
         console.warn("👷🏾 Service worker registration failed.");
       }
     }
   } catch (error) {
-    console.error(`👷🏾 Service worker ${String(error).toLowerCase()}`);
+    console.error("👷🏾 Service worker registration error:", error);
   }
 }
 

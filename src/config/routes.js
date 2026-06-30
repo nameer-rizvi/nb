@@ -1,15 +1,11 @@
+const utilN = require("@nameer/utils");
+
 const cache = {
-  week1: 60 * 60 * 24 * 7,
+  week: utilN.date.MS_PER_WEEK / 1000,
 };
 
 const configs = [
-  // api routes
-  {
-    method: "post",
-    pathname: "/api/error",
-    requiredKeys: ["error"],
-  },
-  // public routes
+  // get routes
   {
     method: "get",
     pathname: "/favicon.ico",
@@ -18,22 +14,28 @@ const configs = [
   {
     method: "get",
     pathname: "/manifest.json",
-    cacheMaxAge: cache.week1,
+    cacheMaxAge: cache.week,
   },
   {
     method: "get",
     pathname: "/robots.txt",
-    cacheMaxAge: cache.week1,
+    cacheMaxAge: cache.week,
   },
   {
     method: "get",
     pathname: "/sitemap.xml",
-    cacheMaxAge: cache.week1,
+    cacheMaxAge: cache.week,
   },
   {
     method: "get",
     pathname: "/sitemap-:page.xml",
-    cacheMaxAge: cache.week1,
+    cacheMaxAge: cache.week,
+  },
+  // post routes
+  {
+    method: "post",
+    pathname: "/api/error",
+    requiredKeys: ["error"],
   },
 ].map((config) => ({
   ...config,
