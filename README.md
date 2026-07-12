@@ -9,7 +9,8 @@
 - **Redis** client integration
 - **Worker** system with cron job support
 - **PM2** ecosystem config for production process management
-- **ESLint** for linting, **nodemon** for hot reloading in development
+- **ESLint** for linting
+- **Hot Reloading** in development mode
 
 ---
 
@@ -32,9 +33,9 @@ Copy `.env.example` to `.env` and fill in your environment variables before runn
 | Command           | Description                                                                  |
 | ----------------- | ---------------------------------------------------------------------------- |
 | `yarn dev`        | Run the Tailwind watcher and Express server concurrently in development mode |
-| `yarn server-dev` | Run the Express server in development mode (nodemon)                         |
+| `yarn server-dev` | Run the Express server in development mode                                   |
 | `yarn tw-dev`     | Run the Tailwind CSS watcher                                                 |
-| `yarn worker-dev` | Run workers in development mode (nodemon)                                    |
+| `yarn worker-dev` | Run workers in development mode                                              |
 
 ### Production
 

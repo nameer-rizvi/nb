@@ -33,10 +33,10 @@
     "tw": "npx @tailwindcss/cli -i src/server/router.static/css/index.css -o src/server/router.static/css/tw.css --minify",
     "tw-dev": "yarn tw --watch",
     "server": "node src/server/index.js",
-    "server-dev": "NODE_ENV=development nodemon src/server/index.js",
+    "server-dev": "NODE_ENV=development node --watch --watch-preserve-output src/server/index.js",
     "dev": "concurrently --names tw,server \"yarn tw-dev\" \"yarn server-dev\"",
     "worker": "node src/worker/index.js",
-    "worker-dev": "NODE_ENV=development nodemon src/worker/index.js",
+    "worker-dev": "NODE_ENV=development node --watch --watch-preserve-output src/worker/index.js",
     "pm2-start": "yarn && yarn tw && pm2 start ecosystem.config.js && pm2 logs",
     "pm2-restart": "yarn && yarn tw && pm2 restart ecosystem.config.js --update-env && pm2 logs"
   },
@@ -44,9 +44,8 @@
     "@eslint/js": "^10.0.1",
     "@tailwindcss/cli": "^4.3.2",
     "concurrently": "^10.0.3",
-    "eslint": "^10.6.0",
+    "eslint": "^10.7.0",
     "globals": "^17.7.0",
-    "nodemon": "^3.1.14",
     "tailwindcss": "^4.3.2"
   },
   "dependencies": {
@@ -60,12 +59,12 @@
     "dotenv": "^17.4.2",
     "dottpath": "^0.2.4",
     "express": "^5.2.1",
-    "helmet": "^8.2.0",
+    "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
     "nanoid": "^5.1.16",
-    "nodemailer": "^9.0.1",
-    "redis": "^6.0.1",
+    "nodemailer": "^9.0.3",
+    "redis": "^6.1.0",
     "sanitized": "^1.3.1",
-    "undici": "^8.5.0"
+    "undici": "^8.7.0"
   }
 }
