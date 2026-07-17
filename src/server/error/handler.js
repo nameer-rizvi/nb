@@ -23,7 +23,7 @@ async function handler(error, req, res, next) {
 
   payload.ids = [];
 
-  pushIds(payload.ids, { ...req.ctx }, "req.ctx");
+  if (req.ctx) pushIds(payload.ids, { ...req.ctx }, "req.ctx");
 
   const ua = Bowser.parse(req.headers["user-agent"] || " ");
 
@@ -33,7 +33,7 @@ async function handler(error, req, res, next) {
 
   const source = payload.stack.split("\n")[1] || "";
 
-  req.ctx.error = utilN.trim(`${payload.message} ${source}`);
+  if (req.ctx) req.ctx.error = utilN.trim(`${payload.message} ${source}`);
 
   await database.controller.error.add(payload);
 
