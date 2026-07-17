@@ -36,6 +36,7 @@ const configs = [
     method: "post",
     pathname: "/api/error",
     requiredKeys: ["error"],
+    strategies: ["apiKey"],
   },
 ].map((config) => ({
   ...config,

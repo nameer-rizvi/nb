@@ -6,16 +6,16 @@ const utilN = require("@nameer/utils");
 
 function validationMiddleware(req, res, next) {
   try {
-    res.locals.values = parsePayload({ ...req.query, ...req.body }); // req.params is only accessible in the route handler.
+    req.ctx.values = parsePayload({ ...req.query, ...req.body }); // req.params is only accessible in the route handler.
 
-    if (res.locals.ignoreValidation === true) {
-      res.locals.values = sanitized(res.locals.values);
+    if (req.ctx.ignoreValidation === true) {
+      req.ctx.values = sanitized(req.ctx.values);
     } else {
-      validateN(res.locals.values, res.locals.requiredKeys);
+      validateN(req.ctx.values, req.ctx.requiredKeys);
     }
 
-    if (res.locals.values.token) {
-      res.locals.values.token = util.jwt.verify(res.locals.values.token);
+    if (req.ctx.values.token) {
+      req.ctx.values.token = util.jwt.verify(req.ctx.values.token);
     }
 
     next();

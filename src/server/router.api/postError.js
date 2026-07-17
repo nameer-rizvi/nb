@@ -1,6 +1,6 @@
 function postError(req, res) {
-  if (res.locals.values.error?.message) {
-    throw { ...res.locals.values.error, status: 201 };
+  if (req.ctx.values.error?.message) {
+    throw { ...req.ctx.values.error, status: 201 };
   } else {
     res.sendStatus(403);
   }

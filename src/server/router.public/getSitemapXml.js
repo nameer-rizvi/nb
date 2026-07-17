@@ -18,7 +18,7 @@ async function getSitemapXml(req, res, next) {
       const xml = { type: "urlset", list: [] };
 
       for (const url of sitemap.pages[0]) {
-        xml.list.push({ ...url, loc: res.locals.url.origin + url.loc });
+        xml.list.push({ ...url, loc: req.ctx.url.origin + url.loc });
       }
 
       res.type("application/xml").send(ui.document.xml(xml));
@@ -29,7 +29,7 @@ async function getSitemapXml(req, res, next) {
     const xml = { type: "sitemap", list: [] };
 
     for (let counter = 1; counter <= sitemap.count.pages; counter++) {
-      xml.list.push({ loc: res.locals.url.origin + `/sitemap-${counter}.xml` });
+      xml.list.push({ loc: req.ctx.url.origin + `/sitemap-${counter}.xml` });
     }
 
     res.type("application/xml").send(ui.document.xml(xml));

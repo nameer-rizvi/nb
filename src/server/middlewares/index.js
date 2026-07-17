@@ -1,6 +1,6 @@
 const middlewares = {
   api: [
-    require("./locals"),
+    require("./ctx"),
     require("./authorization"),
     require("./parsers"),
     require("./validation"),
@@ -13,7 +13,7 @@ const middlewares = {
     require("./compression"),
     require("./redirect"),
   ],
-  public: [require("./locals")],
+  public: [require("./ctx")],
   static: [require("./sw")],
 };
 

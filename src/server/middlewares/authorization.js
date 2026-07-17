@@ -8,20 +8,20 @@ function authorizationMiddleware(req, res, next) {
     const [scheme, token] = (req.headers.authorization || "").split(" ");
 
     if (scheme === "Bearer" && token != null && token !== "undefined") {
-      res.locals.token = util.jwt.verify(token);
+      req.ctx.token = util.jwt.verify(token);
     } else if (scheme === "Basic") {
       const decoded = utilN.base64.decode(token).split(":");
-      res.locals.username = decoded[0];
-      res.locals.password = decoded[1];
+      req.ctx.username = decoded[0];
+      req.ctx.password = decoded[1];
     }
 
-    res.locals.apiKey =
+    req.ctx.apiKey =
       req.get("x-api-key") || req.get("apikey") || req.query.apiKey; // req.get is case insensitive.
 
-    for (const strategy of res.locals.strategies || []) {
-      if (strategy === "jwt" && !res.locals.token) {
+    for (const strategy of req.ctx.strategies || []) {
+      if (strategy === "jwt" && !req.ctx.token) {
         throw new Error("Invalid token");
-      } else if (strategy === "apiKey" && res.locals.apiKey !== config.apiKey) {
+      } else if (strategy === "apiKey" && req.ctx.apiKey !== config.apiKey) {
         throw new Error("Invalid api key");
       }
     }

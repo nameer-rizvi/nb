@@ -24,7 +24,7 @@ async function getSitemapPageXml(req, res, next) {
     const xml = { type: "urlset", list: [] };
 
     for (const url of sitemap.pages[page - 1]) {
-      xml.list.push({ ...url, loc: res.locals.url.origin + url.loc });
+      xml.list.push({ ...url, loc: req.ctx.url.origin + url.loc });
     }
 
     res.type("application/xml").send(ui.document.xml(xml));

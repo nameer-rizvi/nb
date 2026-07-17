@@ -25,8 +25,8 @@ function loggerMiddleware(req, res, next) {
 
     const payload = { ...req.params, ...req.query, ...req.body };
 
-    if (res.locals.error) {
-      util.log.request(`${log} ("Error: ${res.locals.error}")`, "error");
+    if (req.ctx?.error) {
+      util.log.request(`${log} ("Error: ${req.ctx.error}")`, "error");
     } else if (Object.keys(payload).length) {
       util.log.request(`${log} (${JSON.stringify(payload)})`);
     } else {

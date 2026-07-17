@@ -7,7 +7,6 @@ function serviceWorkerMiddleware(req, res, next) {
     res.setHeader("Service-Worker-Allowed", "/");
     res.setHeader("Cache-Control", "no-store");
   }
-
   next();
 }
 
